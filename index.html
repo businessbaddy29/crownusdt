@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitHorizon.io - Forex Trading Platform</title>
+    <meta name="description" content="Trade global currencies with BitHorizon.io's advanced tools, real-time data, and expert insights.">
+    <meta name="keywords" content="forex trading, currency trading, financial markets, BitHorizon">
+    <meta property="og:title" content="BitHorizon.io - Forex Trading Platform">
+    <meta property="og:description" content="Master the forex market with advanced tools and expert analysis.">
+    <meta property="og:image" content="https://i.imgur.com/9k0WQYt.png">
+    <meta property="og:url" content="https://www.bithorizon.io">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8B008B;
+            --accent-color: #0066cc;
+            --text-color: #333;
+            --light-text: #555;
+            --background-light: #f0f8ff;
+            --white: #ffffff;
+            --footer-text: #ccc;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--white);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .logo a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .logo a:hover {
+            color: var(--accent-color);
+        }
+        nav {
+            role: "navigation";
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        /* Hero Section */
+        .hero {
+            background-color: var(--white);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--light-text);
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        /* Trading View Widget Section */
+        .trading-section {
+            padding: 40px 0;
+            background-color: var(--white);
+            border-bottom: 2px solid var(--accent-color);
+        }
+        .trading-section .container {
+            max-width: 100%;
+            padding: 0;
+        }
+        .tradingview-widget-container {
+            height: 60vh;
+            max-height: 600px;
+            width: 100%;
+        }
+        .tradingview-widget-copyright {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+        .tradingview-widget-copyright a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        /* Market Overview Section */
+        .market-overview {
+            padding: 80px 0;
+            background-color: var(--background-light);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .feature-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            border-top: 4px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0, 102, 204, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.2);
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        .feature-card p {
+            color: var(--light-text);
+        }
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            padding: 70px 0 20px;
+            border-top: 2px solid var(--accent-color);
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--white);
+            position: relative;
+        }
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 2px;
+            background-color: var(--white);
+        }
+        .footer-column p {
+            margin-bottom: 20px;
+            color: var(--footer-text);
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        .footer-column ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+        .contact-info {
+            list-style: none;
+        }
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .contact-info li i {
+            color: var(--white);
+            margin-right: 10px;
+            margin-top: 5px;
+            font-size: 1.2rem;
+            width: 20px;
+        }
+        .contact-info li a,
+        .contact-info li span {
+            color: var(--white);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--white);
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 5px 15px;
+            }
+            .hero {
+                min-height: 50vh;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .tradingview-widget-container {
+                height: 40vh;
+                max-height: 400px;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index">
+                    <img src="logo.png" alt="">
+                    <span>BitHorizon</span>
+                </a>
+            </div>
+            <nav role="navigation">
+                <ul>
+                    <li><a href="index">Home</a></li>
+                    <li><a href="about">About Us</a></li>
+                    <li><a href="platform">Trading Platform</a></li>
+                    <li><a href="education">Education</a></li>
+                    <li><a href="login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master the Forex Market</h1>
+                <p>Trade global currencies with advanced tools, real-time data, and expert insights</p>
+                <a href="login" class="btn">Get Started Today</a>
+            </div>
+        </div>
+    </section>
+    <!-- Trading View Widget Section -->
+    <section class="trading-section">
+        <div class="container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <div class="tradingview-widget-copyright">
+                    <a href="https://www.tradingview.com/symbols/OANDA-XAUUSD/?exchange=OANDA" rel="noopener nofollow" target="_blank">
+                        <span class="blue-text">XAUUSD chart by TradingView</span>
+                    </a>
+                </div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {
+                    "allow_symbol_change": true,
+                    "calendar": false,
+                    "details": false,
+                    "hide_side_toolbar": true,
+                    "hide_top_toolbar": false,
+                    "hide_legend": false,
+                    "hide_volume": false,
+                    "hotlist": false,
+                    "interval": "1",
+                    "locale": "en",
+                    "save_image": true,
+                    "style": "1",
+                    "symbol": "OANDA:XAUUSD",
+                    "theme": "light",
+                    "timezone": "Etc/UTC",
+                    "backgroundColor": "#ffffff",
+                    "gridColor": "rgba(46, 46, 46, 0.06)",
+                    "watchlist": [],
+                    "withdateranges": false,
+                    "studies": [],
+                    "autosize": true
+                }
+                </script>
+            </div>
+        </div>
+    </section>
+    <!-- Market Overview Section -->
+    <section class="market-overview">
+        <div class="container">
+            <div class="section-title">
+                <h2>Global Forex Market</h2>
+                <p>The foreign exchange market is the largest and most liquid financial market in the world, with trillions of dollars traded daily.</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>24/5 Market Access</h3>
+                    <p>Trade currencies 24 hours a day, 5 days a week across major financial centers worldwide.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Advanced Trading Tools</h3>
+                    <p>Access cutting-edge charting, technical analysis, and risk management tools to enhance your trading.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Expert Market Analysis</h3>
+                    <p>Receive daily market insights, economic calendars, and analysis from our team of forex experts.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Educational Resources</h3>
+                    <p>Learn forex trading strategies, risk management, and market fundamentals through our comprehensive courses.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Competitive Spreads</h3>
+                    <p>Benefit from tight spreads and low commissions on major, minor, and exotic currency pairs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Secure Trading Environment</h3>
+                    <p>Trade with confidence on our secure platform with advanced encryption and regulatory compliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <a href="index">
+                            <img src="logo.png" alt="BitHorizon">
+                            <span>BitHorizon</span>
+                        </a>
+                    </div>
+                    <p>Your trusted partner in forex trading. We provide the tools and resources you need to succeed in the global currency markets.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index">Home</a></li>
+                        <li><a href="about">About Us</a></li>
+                        <li><a href="platform">Trading Platform</a></li>
+                        <li><a href="education">Education</a></li>
+                        <li><a href="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/risk">Risk Disclosure</a></li>
+                        <li><a href="/aml">AML Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:support@bithorizon.io">support@bithorizon.io</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Financial St, New York, NY</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> BitHorizon.io. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Dynamically update the copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
