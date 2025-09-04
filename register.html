@@ -182,13 +182,20 @@
             let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
             if (!demoUsers) {
                 demoUsers = [
-                    { id: 'USER001', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=USER001' },
-                    { id: 'USER002', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=USER002' },
-                    { id: 'USER003', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=USER003' },
-                    { id: 'USER004', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=USER004' },
-                    { id: 'USER005', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=USER005' }
+                    { id: 'CU123456', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456' },
+                    { id: 'CU789012', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU789012' },
+                    { id: 'CU345678', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU345678' },
+                    { id: 'CU901234', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU901234' },
+                    { id: 'CU567890', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU567890' }
                 ];
                 localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
+            }
+            
+            // Function to generate a unique referral code
+            function generateReferralCode() {
+                const prefix = 'CU';
+                const randomDigits = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
+                return prefix + randomDigits;
             }
             
             // Handle form submission
@@ -239,8 +246,11 @@
                     return;
                 }
                 
-                // Generate new user ID
-                const newUserId = 'USER' + String(users.length + 1).padStart(3, '0');
+                // Generate unique referral code
+                let newUserId;
+                do {
+                    newUserId = generateReferralCode();
+                } while (users.some(user => user.id === newUserId));
                 
                 // Create new user
                 const newUser = {
