@@ -455,7 +455,7 @@
         <div class="container header-container">
             <div class="logo">
                 <a href="index">
-                    <img src="https://via.placeholder.com/50" alt="">
+                    <img src="https://via.placeholder.com/50" alt="CrownUsdt Logo">
                     <span>CrownUsdt</span>
                 </a>
             </div>
@@ -473,7 +473,7 @@
                     <li><a href="about">About Us</a></li>
                     <li><a href="platform">Trading Platform</a></li>
                     <li><a href="login">Login</a></li>
-                    
+                    <li><a href="#" id="registerBtn">Register</a></li>
                 </ul>
             </nav>
         </div>
@@ -485,7 +485,7 @@
             <div class="hero-content">
                 <h1>Master the Forex Market</h1>
                 <p>Trade global currencies with advanced tools, real-time data, and expert insights</p>
-                <a href="#" id="registerBtn" class="btn">Get Started Today</a>
+                <a href="#" id="loginHeroBtn" class="btn">Get Started Today</a>
             </div>
         </div>
     </section>
@@ -572,7 +572,7 @@
                 <div class="footer-column">
                     <div class="logo">
                         <a href="index">
-                            <img src="https://via.placeholder.com/50" alt="">
+                            <img src="https://via.placeholder.com/50" alt="CrownUsdt Logo">
                             <span>CrownUsdt</span>
                         </a>
                     </div>
@@ -644,47 +644,7 @@
                 </div>
                 <button type="submit" class="btn" style="width: 100%;">Login</button>
                 <div class="form-text text-center">
-                    Don't have an account? <a href="#" id="showRegister">Register here</a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="success-message" id="registerSuccess">Registration successful! Please check your email.</div>
-            <h2>Create Your Account</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
-                    <div class="error-message" id="fullNameError">Please enter your full name</div>
-                </div>
-                <div class="form-group">
-                    <label for="registerEmail">Email Address</label>
-                    <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email" required>
-                    <div class="error-message" id="registerEmailError">Please enter a valid email address</div>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword">Password</label>
-                    <input type="password" class="form-control" id="registerPassword" placeholder="Create a password" required>
-                    <div class="error-message" id="registerPasswordError">Password must be at least 8 characters</div>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
-                    <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="agreeTerms" required>
-                    <label for="agreeTerms">I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></label>
-                    <div class="error-message" id="termsError">You must agree to the terms</div>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Register</button>
-                <div class="form-text text-center">
-                    Already have an account? <a href="#" id="showLogin">Login here</a>
+                    <a href="#" id="forgotPassword">Forgot your password?</a>
                 </div>
             </form>
         </div>
@@ -713,38 +673,19 @@
 
         // Modal functionality
         const loginModal = document.getElementById('loginModal');
-        const registerModal = document.getElementById('registerModal');
         const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
+        const loginHeroBtn = document.getElementById('loginHeroBtn');
         const closeBtns = document.getElementsByClassName('close');
 
-        // Open login modal
+        // Open login modal from navigation
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             loginModal.style.display = 'block';
-            registerModal.style.display = 'none';
         });
 
-        // Open register modal
-        registerBtn.addEventListener('click', (e) => {
+        // Open login modal from hero button
+        loginHeroBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            registerModal.style.display = 'block';
-            loginModal.style.display = 'none';
-        });
-
-        // Switch to register from login
-        showRegister.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            registerModal.style.display = 'block';
-        });
-
-        // Switch to login from register
-        showLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            registerModal.style.display = 'none';
             loginModal.style.display = 'block';
         });
 
@@ -752,7 +693,6 @@
         for (let i = 0; i < closeBtns.length; i++) {
             closeBtns[i].addEventListener('click', () => {
                 loginModal.style.display = 'none';
-                registerModal.style.display = 'none';
             });
         }
 
@@ -760,9 +700,6 @@
         window.addEventListener('click', (e) => {
             if (e.target == loginModal) {
                 loginModal.style.display = 'none';
-            }
-            if (e.target == registerModal) {
-                registerModal.style.display = 'none';
             }
         });
 
@@ -774,10 +711,6 @@
 
         function validatePassword(password) {
             return password.length >= 6;
-        }
-
-        function validateRegisterPassword(password) {
-            return password.length >= 8;
         }
 
         // Login form submission
@@ -816,65 +749,10 @@
             }
         });
 
-        // Register form submission
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
+        // Forgot password functionality
+        document.getElementById('forgotPassword').addEventListener('click', (e) => {
             e.preventDefault();
-            
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const agreeTerms = document.getElementById('agreeTerms').checked;
-            let isValid = true;
-
-            // Reset error messages
-            document.getElementById('fullNameError').style.display = 'none';
-            document.getElementById('registerEmailError').style.display = 'none';
-            document.getElementById('registerPasswordError').style.display = 'none';
-            document.getElementById('confirmPasswordError').style.display = 'none';
-            document.getElementById('termsError').style.display = 'none';
-
-            // Validate full name
-            if (fullName.trim() === '') {
-                document.getElementById('fullNameError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate email
-            if (!validateEmail(email)) {
-                document.getElementById('registerEmailError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate password
-            if (!validateRegisterPassword(password)) {
-                document.getElementById('registerPasswordError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate password confirmation
-            if (password !== confirmPassword) {
-                document.getElementById('confirmPasswordError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate terms agreement
-            if (!agreeTerms) {
-                document.getElementById('termsError').style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                // Show success message
-                document.getElementById('registerSuccess').style.display = 'block';
-                
-                // Simulate registration process
-                setTimeout(() => {
-                    // Close modal and show login
-                    registerModal.style.display = 'none';
-                    loginModal.style.display = 'block';
-                }, 3000);
-            }
+            alert('Password reset link will be sent to your email address.');
         });
     </script>
 </body>
