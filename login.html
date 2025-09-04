@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrownUsdt - Login / Registration</title>
+    <title>CrownUsdt - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -24,7 +24,7 @@
         }
         .login-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
         }
         .card {
@@ -35,17 +35,6 @@
         }
         .card-body {
             padding: 2rem;
-        }
-        .nav-tabs {
-            margin-bottom: 1.5rem;
-        }
-        .nav-tabs .nav-link {
-            color: #6c757d;
-            font-weight: 500;
-        }
-        .nav-tabs .nav-link.active {
-            color: #0d6efd;
-            font-weight: 600;
         }
         .form-control, .form-select {
             border-radius: 5px;
@@ -68,6 +57,14 @@
         .btn-primary:hover {
             background-color: #0b5ed7;
             border-color: #0a58ca;
+        }
+        .btn-outline-primary {
+            color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
         }
         .logo {
             text-align: center;
@@ -97,25 +94,31 @@
             background-color: #d4edda;
             border-color: #c3e6cb;
         }
-        .referral-link {
-            background-color: #f8f9fa;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            padding: 10px;
-            font-family: monospace;
-            word-break: break-all;
+        .form-check-input {
+            width: 1rem;
+            height: 1rem;
         }
-        .copy-btn {
-            background-color: #0d6efd;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .password-toggle {
+            position: relative;
+        }
+        .password-toggle .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             cursor: pointer;
-            font-size: 0.875rem;
+            color: #6c757d;
         }
-        .copy-btn:hover {
-            background-color: #0b5ed7;
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -125,150 +128,93 @@
             <div class="card-body">
                 <div class="logo">
                     <h3>CrownUsdt</h3>
+                    <p class="text-muted">Login to your account</p>
                 </div>
                 
-                <!-- Navigation tabs -->
-                <ul class="nav nav-tabs" id="authTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Registration</button>
-                    </li>
-                </ul>
+                <div id="loginAlert"></div>
                 
-                <!-- Tab content -->
-                <div class="tab-content" id="authTabContent">
-                    <!-- Login tab -->
-                    <div class="tab-pane fade show active" id="login" role="tabpanel">
-                        <div id="loginAlert"></div>
-                        <form id="loginForm">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username / Email / Phone</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="adminCheck">
-                                <label class="form-check-label" for="adminCheck">Admin Login</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Login</button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <a href="#" id="forgotPassword">Forgot Password?</a>
-                        </div>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username / Email / Phone</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter username, email or phone" required>
                     </div>
                     
-                    <!-- Registration tab -->
-                    <div class="tab-pane fade" id="register" role="tabpanel">
-                        <div id="registerAlert"></div>
-                        <form id="registerForm">
-                            <div class="mb-3">
-                                <label for="regFullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="regFullName" placeholder="Enter full name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="regUsername" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="regUsername" placeholder="Enter username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="regEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="regEmail" placeholder="Enter email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="regPhone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="regPhone" placeholder="Enter phone number" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="regPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="regPassword" placeholder="Enter password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="regConfirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="regConfirmPassword" placeholder="Re-enter password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="regReferral" class="form-label">Referral Link <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="regReferral" placeholder="Enter referral link" required>
-                                <div class="form-text">Registration is not possible without a referral link</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Register</button>
-                        </form>
+                    <div class="mb-3 password-toggle">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
                     </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember Me</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                
+                <div class="register-link">
+                    <p>Don't have an account? <a href="register.html">Register here</a></p>
+                    <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Check if user is already logged in when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            checkExistingLogin();
-            
-            // Load users data from localStorage or create new
+            // Initialize demo users if they don't exist
             let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
             if (!demoUsers) {
                 demoUsers = [
-                    { id: 'USER001', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER001' },
-                    { id: 'USER002', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER002' },
-                    { id: 'USER003', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://crownusdt.com/register?ref=USER003' },
-                    { id: 'USER004', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://crownusdt.com/register?ref=USER004' },
-                    { id: 'USER005', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER005' }
+                    { id: 'CU123456', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456' },
+                    { id: 'CU789012', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU789012' },
+                    { id: 'CU345678', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU345678' },
+                    { id: 'CU901234', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU901234' },
+                    { id: 'CU567890', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU567890' }
                 ];
                 localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
             }
-        });
-        
-        // Check if user is already logged in
-        function checkExistingLogin() {
-            const currentUser = localStorage.getItem('currentUser');
+            
+            // Check if user is already logged in
+            const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
             if (currentUser) {
-                // If user is already logged in, redirect to dashboard
+                // Redirect to dashboard if already logged in
                 window.location.href = 'dashboard.html';
             }
-        }
-        
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
             
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const isAdmin = document.getElementById('adminCheck').checked;
-            const alertDiv = document.getElementById('loginAlert');
+            // Toggle password visibility
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                const passwordInput = document.getElementById('password');
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Toggle eye icon
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
             
-            // Clear alert
-            alertDiv.innerHTML = '';
-            
-            if (!username || !password) {
-                showAlert('loginAlert', 'Please enter username and password', 'danger');
-                return;
-            }
-            
-            // Load users data from localStorage
-            const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
-            
-            if (isAdmin) {
-                // Admin login
-                if (username === 'admin' && password === 'admin123') {
-                    // Save login information in storage
-                    localStorage.setItem('currentUser', JSON.stringify({
-                        id: 'ADMIN',
-                        name: 'Admin',
-                        username: 'admin',
-                        email: 'admin@mlmsoftware.com',
-                        isAdmin: true
-                    }));
-                    
-                    // Redirect to dashboard
-                    window.location.href = 'dashboard.html';
-                } else {
-                    showAlert('loginAlert', 'Incorrect admin username or password', 'danger');
+            // Handle form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+                const alertDiv = document.getElementById('loginAlert');
+                
+                // Clear alert
+                alertDiv.innerHTML = '';
+                
+                if (!username || !password) {
+                    showAlert('loginAlert', 'Please enter username and password', 'danger');
+                    return;
                 }
-            } else {
+                
+                // Load users data from localStorage
+                const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
+                
                 // User login
                 const user = demoUsers.find(u => 
                     u.username === username || 
@@ -277,123 +223,43 @@
                 );
                 
                 if (user && user.password === password) {
-                    // Save login information in storage
-                    localStorage.setItem('currentUser', JSON.stringify({
+                    // Check if user account is active
+                    if (user.status === 'blocked') {
+                        showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
+                        return;
+                    }
+                    
+                    // Save login info in storage
+                    const loggedInUser = {
                         ...user,
                         isAdmin: false
-                    }));
+                    };
+                    
+                    if (rememberMe) {
+                        localStorage.setItem('currentUser', JSON.stringify(loggedInUser));
+                    } else {
+                        sessionStorage.setItem('currentUser', JSON.stringify(loggedInUser));
+                    }
                     
                     // Redirect to dashboard
                     window.location.href = 'dashboard.html';
                 } else {
-                    showAlert('loginAlert', 'Incorrect username or password', 'danger');
+                    showAlert('loginAlert', 'Invalid username or password', 'danger');
                 }
-            }
+            });
+            
+            // Handle forgot password
+            document.getElementById('forgotPassword').addEventListener('click', function(e) {
+                e.preventDefault();
+                showAlert('loginAlert', 'Password reset functionality is not available yet. Please contact support.', 'info');
+            });
         });
         
-        // Registration form submission
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const fullName = document.getElementById('regFullName').value;
-            const username = document.getElementById('regUsername').value;
-            const email = document.getElementById('regEmail').value;
-            const phone = document.getElementById('regPhone').value;
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('regConfirmPassword').value;
-            const referral = document.getElementById('regReferral').value;
-            const alertDiv = document.getElementById('registerAlert');
-            
-            // Clear alert
-            alertDiv.innerHTML = '';
-            
-            // Validation
-            if (!fullName || !username || !email || !phone || !password || !confirmPassword || !referral) {
-                showAlert('registerAlert', 'Please fill all fields', 'danger');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showAlert('registerAlert', 'Passwords do not match', 'danger');
-                return;
-            }
-            
-            // Load users data from localStorage
-            const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
-            
-            // Referral link validation
-            const refUser = demoUsers.find(u => 
-                u.referralLink === referral || 
-                u.id === referral
-            );
-            
-            if (!refUser) {
-                showAlert('registerAlert', 'Invalid referral link', 'danger');
-                return;
-            }
-            
-            // Username and email uniqueness check
-            if (demoUsers.find(u => u.username === username)) {
-                showAlert('registerAlert', 'This username is already in use', 'danger');
-                return;
-            }
-            
-            if (demoUsers.find(u => u.email === email)) {
-                showAlert('registerAlert', 'This email is already in use', 'danger');
-                return;
-            }
-            
-            // Generate new user ID
-            const newUserId = 'USER' + String(demoUsers.length + 1).padStart(3, '0');
-            
-            // Create new user
-            const newUser = {
-                id: newUserId,
-                name: fullName,
-                username: username,
-                email: email,
-                phone: phone,
-                password: password,
-                joinDate: new Date().toISOString().split('T')[0],
-                status: 'inactive',
-                referralLink: 'https://crownusdt.com/register?ref=' + newUserId
-            };
-            
-            // Add to demo users
-            demoUsers.push(newUser);
-            
-            // Save updated users in localStorage
-            localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
-            
-            // Save login information in storage
-            localStorage.setItem('currentUser', JSON.stringify({
-                ...newUser,
-                isAdmin: false
-            }));
-            
-            // Success message
-            showAlert('registerAlert', 'Registration successful! Redirecting to dashboard...', 'success');
-            
-            // Reset form
-            document.getElementById('registerForm').reset();
-            
-            // Redirect to dashboard
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 2000);
-        });
-        
-        // Alert function
+        // Show alert function
         function showAlert(elementId, message, type) {
             const alertDiv = document.getElementById(elementId);
             alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
         }
-        
-        // Forgot password link
-        document.getElementById('forgotPassword').addEventListener('click', function(e) {
-            e.preventDefault();
-            showAlert('loginAlert', 'Password reset link has been sent to your email', 'success');
-        });
     </script>
 </body>
 </html>
