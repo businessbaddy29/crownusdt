@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrownUsdt - डैशबोर्ड</title>
+    <title>CrownUsdt - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* बेसिक स्टाइल */
+        /* Basic styles */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             padding: 0 20px;
         }
         
-        /* लॉगिन स्क्रीन */
+        /* Login screen */
         .login-screen {
             position: fixed;
             top: 0;
@@ -48,7 +48,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
-        /* हेडर स्टाइल */
+        /* Header styles */
         header {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             padding: 15px 0;
@@ -101,7 +101,7 @@
             align-items: center;
         }
         
-        /* हैमबर्गर मेन्यू स्टाइल */
+        /* Hamburger menu */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -127,7 +127,7 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
         
-        /* साइडबार स्टाइल */
+        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 80px;
@@ -185,7 +185,7 @@
             margin-right: 0;
         }
         
-        /* मुख्य कंटेंट स्टाइल */
+        /* Main content */
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -196,7 +196,7 @@
             margin-left: 70px;
         }
         
-        /* पेज कंटेंट स्टाइल */
+        /* Page content */
         .page-content {
             animation: fadeIn 0.5s;
         }
@@ -205,7 +205,7 @@
             to { opacity: 1; }
         }
         
-        /* वेलकम बैनर स्टाइल */
+        /* Welcome banner */
         .welcome-banner {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             color: white;
@@ -223,7 +223,7 @@
             opacity: 0.9;
         }
         
-        /* कार्ड स्टाइल */
+        /* Card styles */
         .card {
             border: none;
             border-radius: 10px;
@@ -240,7 +240,7 @@
             font-weight: 600;
         }
         
-        /* बटन स्टाइल */
+        /* Button styles */
         .btn {
             border-radius: 5px;
             font-weight: 500;
@@ -289,7 +289,7 @@
             border-color: #25cff2;
         }
         
-        /* टेबल स्टाइल */
+        /* Table styles */
         .table {
             margin-bottom: 0;
         }
@@ -302,7 +302,7 @@
             --bs-table-bg-type: rgba(0, 0, 0, .05);
         }
         
-        /* फॉर्म स्टाइल */
+        /* Form styles */
         .form-control, .form-select {
             border-radius: 5px;
             border: 1px solid #ced4da;
@@ -313,7 +313,7 @@
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
         }
         
-        /* मॉडल स्टाइल */
+        /* Modal styles */
         .modal-content {
             border-radius: 10px;
             border: none;
@@ -327,7 +327,7 @@
             background-color: #f8f9fa;
         }
         
-        /* जीनियोलॉजी स्टाइल */
+        /* Genealogy styles */
         .genealogy-node {
             margin: 0 15px;
             text-align: center;
@@ -337,7 +337,7 @@
             margin: 0 auto;
         }
         
-        /* नेविगेशन स्टाइल */
+        /* Navigation styles */
         .nav-link {
             font-weight: 500;
             transition: all 0.3s ease;
@@ -350,7 +350,7 @@
             border-bottom: 2px solid #0d6efd;
         }
         
-        /* डैशबोर्ड स्टैट्स कार्ड */
+        /* Dashboard stats cards */
         .card.text-white h5 {
             color: rgba(255, 255, 255, 0.8);
         }
@@ -358,18 +358,18 @@
             font-weight: 700;
         }
         
-        /* बैज स्टाइल */
+        /* Badge styles */
         .badge {
             font-weight: 500;
             padding: 0.5em 0.75em;
         }
         
-        /* लिस्ट ग्रुप स्टाइल */
+        /* List group styles */
         .list-group-item {
             border: 1px solid rgba(0,0,0,.125);
         }
         
-        /* स्टेटस बैज */
+        /* Status badges */
         .status-active {
             background-color: #d1fae5;
             color: #065f46;
@@ -419,7 +419,7 @@
             font-weight: 600;
         }
         
-        /* रेफरल लिंक स्टाइल */
+        /* Referral link styles */
         .referral-link-container {
             background-color: #f8f9fa;
             border: 1px solid #ced4da;
@@ -474,7 +474,31 @@
             background-color: #5a6268;
         }
         
-        /* एनिमेशन */
+        /* UPI Payment Section */
+        .upi-section {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .upi-id {
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+        .qr-code {
+            margin: 20px 0;
+        }
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        /* Animation */
         @keyframes slideIn {
             from {
                 transform: translateX(100%);
@@ -502,7 +526,7 @@
             display: block;
         }
         
-        /* यूटिलिटी क्लासेस */
+        /* Utility classes */
         .hidden {
             display: none !important;
         }
@@ -519,7 +543,7 @@
             margin-top: 1.5rem;
         }
         
-        /* रेस्पॉन्सिव स्टाइल */
+        /* Responsive styles */
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -573,11 +597,20 @@
             .share-buttons {
                 flex-direction: column;
             }
+            
+            .upi-section {
+                padding: 15px;
+            }
+            
+            .qr-code img {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- लॉगिन स्क्रीन -->
+    <!-- Login Screen -->
     <div id="loginScreen" class="login-screen">
         <div class="login-card">
             <div class="text-center mb-4">
@@ -586,26 +619,26 @@
             <div id="loginAlert"></div>
             <form id="loginForm">
                 <div class="mb-3">
-                    <label for="username" class="form-label">यूजरनेम / ईमेल / फोन</label>
-                    <input type="text" class="form-control" id="username" placeholder="यूजरनेम दर्ज करें" required>
+                    <label for="username" class="form-label">Username / Email / Phone</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">पासवर्ड</label>
-                    <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें" required>
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" required>
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="adminCheck">
-                    <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
+                    <label class="form-check-label" for="adminCheck">Admin Login</label>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">लॉगिन</button>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
             <div class="text-center mt-3">
-                <a href="login.html" class="btn btn-outline-primary btn-sm">नया अकाउंट बनाएं</a>
+                <a href="register.html" class="btn btn-outline-primary btn-sm">Create New Account</a>
             </div>
         </div>
     </div>
 
-    <!-- हेडर -->
+    <!-- Header -->
     <header>
         <div class="container header-container">
             <div class="logo">
@@ -615,7 +648,7 @@
                 </a>
             </div>
             
-            <!-- हैमबर्गर मेन्यू -->
+            <!-- Hamburger Menu -->
             <button class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -626,98 +659,98 @@
                 <img src="https://via.placeholder.com/40" alt="User Avatar" id="userAvatar">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <span id="userName">यूजर</span>
+                        <span id="userName">User</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" data-page="profile">प्रोफाइल</a></li>
-                        <li><a class="dropdown-item" href="#" data-page="wallet">वॉलेट</a></li>
-                        <li><a class="dropdown-item" href="#" id="changePassword">पासवर्ड बदलें</a></li>
+                        <li><a class="dropdown-item" href="#" data-page="profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="#" data-page="wallet">Wallet</a></li>
+                        <li><a class="dropdown-item" href="#" id="changePassword">Change Password</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">लॉगआउट</a></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- साइडबार -->
+    <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <ul class="sidebar-menu">
             <li>
                 <a href="#" data-page="dashboard" class="active">
                     <i class="fas fa-home"></i>
-                    <span>डैशबोर्ड</span>
+                    <span>Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="profile">
                     <i class="fas fa-user"></i>
-                    <span>प्रोफाइल</span>
+                    <span>Profile</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="wallet">
                     <i class="fas fa-wallet"></i>
-                    <span>वॉलेट</span>
+                    <span>Wallet</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="activate">
                     <i class="fas fa-user-check"></i>
-                    <span>ID एक्टिवेट</span>
+                    <span>Activate ID</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="deposit">
                     <i class="fas fa-money-bill-wave"></i>
-                    <span>डिपॉजिट</span>
+                    <span>Deposit</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="withdrawal">
                     <i class="fas fa-money-check-alt"></i>
-                    <span>विड्रॉवल</span>
+                    <span>Withdrawal</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="income">
                     <i class="fas fa-chart-line"></i>
-                    <span>इनकम</span>
+                    <span>Income</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="team">
                     <i class="fas fa-users"></i>
-                    <span>टीम</span>
+                    <span>Team</span>
                 </a>
             </li>
             <li>
                 <a href="#" data-page="genealogy">
                     <i class="fas fa-sitemap"></i>
-                    <span>जीनियोलॉजी</span>
+                    <span>Genealogy</span>
                 </a>
             </li>
         </ul>
     </nav>
 
-    <!-- मुख्य कंटेंट -->
+    <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- डैशबोर्ड पेज -->
+        <!-- Dashboard Page -->
         <div id="dashboardPage" class="page-content">
-            <!-- वेलकम बैनर -->
+            <!-- Welcome Banner -->
             <div class="welcome-banner">
-                <h2>नमस्ते, <span id="welcomeUserName">यूजर</span>!</h2>
-                <p>CrownUsdt में आपका स्वागत है। आज का दिन शानदार हो!</p>
+                <h2>Hello, <span id="welcomeUserName">User</span>!</h2>
+                <p>Welcome to CrownUsdt. Have a great day!</p>
             </div>
             
-            <!-- रेफरल लिंक कार्ड -->
+            <!-- Referral Link Card -->
             <div class="card">
                 <div class="card-header">
-                    अपना रेफरल लिंक
+                    Your Referral Link
                 </div>
                 <div class="card-body">
                     <div class="referral-link-container">
-                        <div class="referral-link" id="dashboardReferralLink">https://businessbaddy29.github.io/crownusdt/register?ref=USER001</div>
+                        <div class="referral-link" id="dashboardReferralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=USER001</div>
                         <div class="share-buttons">
                             <button class="share-btn whatsapp-btn" id="shareWhatsappDashboard">
                                 <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -726,19 +759,19 @@
                                 <i class="fab fa-telegram-plane me-2"></i> Telegram
                             </button>
                             <button class="share-btn copy-btn" id="copyReferralBtnDashboard">
-                                <i class="fas fa-copy me-2"></i> कॉपी करें
+                                <i class="fas fa-copy me-2"></i> Copy
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- डैशबोर्ड स्टैट्स -->
+            <!-- Dashboard Stats -->
             <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">टोटल इनकम</h5>
+                            <h5 class="card-title">Total Income</h5>
                             <p class="card-text fs-2" id="totalIncome">₹0</p>
                         </div>
                     </div>
@@ -746,7 +779,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">डायरेक्ट इनकम</h5>
+                            <h5 class="card-title">Direct Income</h5>
                             <p class="card-text fs-2" id="directIncome">₹0</p>
                         </div>
                     </div>
@@ -754,7 +787,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-info">
                         <div class="card-body">
-                            <h5 class="card-title">टीम इनकम</h5>
+                            <h5 class="card-title">Team Income</h5>
                             <p class="card-text fs-2" id="teamIncome">₹0</p>
                         </div>
                     </div>
@@ -762,7 +795,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">वॉलेट बैलेंस</h5>
+                            <h5 class="card-title">Wallet Balance</h5>
                             <p class="card-text fs-2" id="walletBalance">₹0</p>
                         </div>
                     </div>
@@ -773,21 +806,21 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            हालिया इनकम
+                            Recent Income
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>तारीख</th>
-                                            <th>विवरण</th>
-                                            <th>राशि</th>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody id="recentIncomeTable">
                                         <tr>
-                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                            <td colspan="3" class="text-center">No data available</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -798,31 +831,31 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            टीम स्टैट्स
+                            Team Stats
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="border rounded p-3 mb-3">
-                                        <h5>डायरेक्ट टीम</h5>
+                                        <h5>Direct Team</h5>
                                         <p class="fs-4" id="directTeam">0</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="border rounded p-3 mb-3">
-                                        <h5>टोटल टीम</h5>
+                                        <h5>Total Team</h5>
                                         <p class="fs-4" id="totalTeam">0</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="border rounded p-3 mb-3">
-                                        <h5>एक्टिव टीम</h5>
+                                        <h5>Active Team</h5>
                                         <p class="fs-4" id="activeTeam">0</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="border rounded p-3 mb-3">
-                                        <h5>इनएक्टिव टीम</h5>
+                                        <h5>Inactive Team</h5>
                                         <p class="fs-4" id="inactiveTeam">0</p>
                                     </div>
                                 </div>
@@ -833,33 +866,33 @@
             </div>
         </div>
 
-        <!-- प्रोफाइल पेज -->
+        <!-- Profile Page -->
         <div id="profilePage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>प्रोफाइल</h2>
-                <p>अपनी प्रोफाइल जानकारी प्रबंधित करें</p>
+                <h2>Profile</h2>
+                <p>Manage your profile information</p>
             </div>
             
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="प्रोफाइल चित्र" id="profileImage">
-                            <h4 id="profileName">यूजर नाम</h4>
-                            <p class="text-muted" id="profileUsername">यूजरनेम</p>
+                            <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Profile Picture" id="profileImage">
+                            <h4 id="profileName">User Name</h4>
+                            <p class="text-muted" id="profileUsername">username</p>
                             <p class="text-muted" id="profileUserId">USER001</p>
-                            <button class="btn btn-sm btn-primary mt-2" id="changeProfileImage">चित्र बदलें</button>
+                            <button class="btn btn-sm btn-primary mt-2" id="changeProfileImage">Change Picture</button>
                         </div>
                     </div>
                     
-                    <!-- रेफरल लिंक कार्ड -->
+                    <!-- Referral Link Card -->
                     <div class="card mt-4">
                         <div class="card-header">
-                            अपना रेफरल लिंक
+                            Your Referral Link
                         </div>
                         <div class="card-body">
                             <div class="referral-link-container">
-                                <div class="referral-link" id="referralLink">https://businessbaddy29.github.io/crownusdt/register?ref=USER001</div>
+                                <div class="referral-link" id="referralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=USER001</div>
                                 <div class="share-buttons">
                                     <button class="share-btn whatsapp-btn" id="shareWhatsapp">
                                         <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -868,26 +901,26 @@
                                         <i class="fab fa-telegram-plane me-2"></i> Telegram
                                     </button>
                                     <button class="share-btn copy-btn" id="copyReferralBtn">
-                                        <i class="fas fa-copy me-2"></i> कॉपी करें
+                                        <i class="fas fa-copy me-2"></i> Copy
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- रेफरल स्टैट्स कार्ड -->
+                    <!-- Referral Stats Card -->
                     <div class="card mt-4">
                         <div class="card-header">
-                            रेफरल स्टैट्स
+                            Referral Stats
                         </div>
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col-md-6 border-end">
-                                    <h5>कुल रेफरल</h5>
+                                    <h5>Total Referrals</h5>
                                     <p class="fs-3" id="totalReferrals">0</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <h5>एक्टिव रेफरल</h5>
+                                    <h5>Active Referrals</h5>
                                     <p class="fs-3" id="activeReferrals">0</p>
                                 </div>
                             </div>
@@ -898,65 +931,65 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            व्यक्तिगत जानकारी
+                            Personal Information
                         </div>
                         <div class="card-body">
                             <form id="profileForm">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="fullName" class="form-label">पूरा नाम</label>
-                                        <input type="text" class="form-control" id="fullName" value="यूजर नाम">
+                                        <label for="fullName" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="fullName" value="User Name">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="email" class="form-label">ईमेल</label>
+                                        <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="email" value="user@example.com">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="phone" class="form-label">फोन नंबर</label>
+                                        <label for="phone" class="form-label">Phone Number</label>
                                         <input type="tel" class="form-control" id="phone" value="1234567890">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="dob" class="form-label">जन्मतिथि</label>
+                                        <label for="dob" class="form-label">Date of Birth</label>
                                         <input type="date" class="form-control" id="dob" value="1990-01-01">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="address" class="form-label">पता</label>
-                                        <textarea class="form-control" id="address" rows="2">पता</textarea>
+                                        <label for="address" class="form-label">Address</label>
+                                        <textarea class="form-control" id="address" rows="2">Address</textarea>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="city" class="form-label">शहर</label>
-                                        <input type="text" class="form-control" id="city" value="शहर">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="state" class="form-label">राज्य</label>
-                                        <input type="text" class="form-control" id="state" value="राज्य">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="country" class="form-label">देश</label>
-                                        <input type="text" class="form-control" id="country" value="भारत">
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="city" value="City">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="pincode" class="form-label">पिनकोड</label>
+                                        <label for="state" class="form-label">State</label>
+                                        <input type="text" class="form-control" id="state" value="State">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="country" class="form-label">Country</label>
+                                        <input type="text" class="form-control" id="country" value="India">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="pincode" class="form-label">Pincode</label>
                                         <input type="text" class="form-control" id="pincode" value="123456">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="nominee" class="form-label">नॉमिनी</label>
-                                        <input type="text" class="form-control" id="nominee" value="नॉमिनी नाम">
+                                        <label for="nominee" class="form-label">Nominee</label>
+                                        <input type="text" class="form-control" id="nominee" value="Nominee Name">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="bankDetails" class="form-label">बैंक विवरण</label>
-                                    <textarea class="form-control" id="bankDetails" rows="3">बैंक विवरण</textarea>
+                                    <label for="bankDetails" class="form-label">Bank Details</label>
+                                    <textarea class="form-control" id="bankDetails" rows="3">Bank Details</textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">अपडेट प्रोफाइल</button>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
                             </form>
                         </div>
                     </div>
@@ -964,18 +997,18 @@
             </div>
         </div>
 
-        <!-- वॉलेट पेज -->
+        <!-- Wallet Page -->
         <div id="walletPage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>वॉलेट</h2>
-                <p>अपने वॉलेट की जानकारी देखें</p>
+                <h2>Wallet</h2>
+                <p>View your wallet information</p>
             </div>
             
             <div class="row mb-4">
                 <div class="col-md-4">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">वॉलेट बैलेंस</h5>
+                            <h5 class="card-title">Wallet Balance</h5>
                             <p class="card-text fs-2" id="walletBalancePage">₹0</p>
                         </div>
                     </div>
@@ -983,7 +1016,7 @@
                 <div class="col-md-4">
                     <div class="card text-white bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">डिपॉजिट बैलेंस</h5>
+                            <h5 class="card-title">Deposit Balance</h5>
                             <p class="card-text fs-2" id="depositBalancePage">₹0</p>
                         </div>
                     </div>
@@ -991,7 +1024,7 @@
                 <div class="col-md-4">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">इनकम बैलेंस</h5>
+                            <h5 class="card-title">Income Balance</h5>
                             <p class="card-text fs-2" id="incomeBalancePage">₹0</p>
                         </div>
                     </div>
@@ -1002,22 +1035,22 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            वॉलेट ट्रांजैक्शन
+                            Wallet Transactions
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>तारीख</th>
-                                            <th>विवरण</th>
-                                            <th>राशि</th>
-                                            <th>प्रकार</th>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Type</th>
                                         </tr>
                                     </thead>
                                     <tbody id="walletTransactionTable">
                                         <tr>
-                                            <td colspan="4" class="text-center">कोई डेटा नहीं</td>
+                                            <td colspan="4" class="text-center">No data available</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1028,23 +1061,23 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            वॉलेट ट्रांसफर
+                            Wallet Transfer
                         </div>
                         <div class="card-body">
                             <form id="walletTransferForm">
                                 <div class="mb-3">
-                                    <label for="transferTo" class="form-label">ट्रांसफर टू (यूजर ID)</label>
-                                    <input type="text" class="form-control" id="transferTo" placeholder="यूजर ID दर्ज करें">
+                                    <label for="transferTo" class="form-label">Transfer To (User ID)</label>
+                                    <input type="text" class="form-control" id="transferTo" placeholder="Enter User ID">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="transferAmount" class="form-label">राशि</label>
-                                    <input type="number" class="form-control" id="transferAmount" placeholder="राशि दर्ज करें">
+                                    <label for="transferAmount" class="form-label">Amount</label>
+                                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter Amount">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="transferRemark" class="form-label">टिप्पणी</label>
-                                    <textarea class="form-control" id="transferRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                                    <label for="transferRemark" class="form-label">Remark</label>
+                                    <textarea class="form-control" id="transferRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">ट्रांसफर करें</button>
+                                <button type="submit" class="btn btn-primary">Transfer</button>
                             </form>
                         </div>
                     </div>
@@ -1052,46 +1085,46 @@
             </div>
         </div>
 
-        <!-- ID एक्टिवेट पेज -->
+        <!-- Activate ID Page -->
         <div id="activatePage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>ID एक्टिवेट</h2>
-                <p>नए सदस्यों को एक्टिवेट करें</p>
+                <h2>Activate ID</h2>
+                <p>Activate new members</p>
             </div>
             
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">नई ID एक्टिवेट करें</h5>
+                            <h5 class="card-title">Activate New ID</h5>
                             <form id="activateForm">
                                 <div class="mb-3">
-                                    <label for="userId" class="form-label">यूजर ID</label>
-                                    <input type="text" class="form-control" id="userId" placeholder="यूजर ID दर्ज करें">
+                                    <label for="userId" class="form-label">User ID</label>
+                                    <input type="text" class="form-control" id="userId" placeholder="Enter User ID">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="activationAmount" class="form-label">एक्टिवेशन राशि</label>
+                                    <label for="activationAmount" class="form-label">Activation Amount</label>
                                     <input type="number" class="form-control" id="activationAmount" value="1000" readonly>
-                                    <div class="form-text">एक्टिवेशन के लिए न्यूनतम राशि ₹1000 है</div>
+                                    <div class="form-text">Minimum activation amount is ₹1000</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="walletBalanceCheck" class="form-label">वॉलेट बैलेंस</label>
+                                    <label for="walletBalanceCheck" class="form-label">Wallet Balance</label>
                                     <input type="text" class="form-control" id="walletBalanceCheck" value="₹0" readonly>
-                                    <div class="form-text">आपके वॉलेट में पर्याप्त बैलेंस होना चाहिए</div>
+                                    <div class="form-text">You must have sufficient balance in your wallet</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="paymentMethod" class="form-label">भुगतान विधि</label>
+                                    <label for="paymentMethod" class="form-label">Payment Method</label>
                                     <select class="form-select" id="paymentMethod">
-                                        <option value="wallet">वॉलेट</option>
-                                        <option value="bank">बैंक ट्रांसफर</option>
+                                        <option value="wallet">Wallet</option>
+                                        <option value="bank">Bank Transfer</option>
                                         <option value="upi">UPI</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="transactionId" class="form-label">ट्रांजैक्शन ID</label>
-                                    <input type="text" class="form-control" id="transactionId" placeholder="ट्रांजैक्शन ID दर्ज करें">
+                                    <label for="transactionId" class="form-label">Transaction ID</label>
+                                    <input type="text" class="form-control" id="transactionId" placeholder="Enter Transaction ID">
                                 </div>
-                                <button type="submit" class="btn btn-primary" id="activateIdBtn">ID एक्टिवेट करें</button>
+                                <button type="submit" class="btn btn-primary" id="activateIdBtn">Activate ID</button>
                             </form>
                         </div>
                     </div>
@@ -1099,19 +1132,19 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">एक्टिवेशन हिस्ट्री</h5>
+                            <h5 class="card-title">Activation History</h5>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>तारीख</th>
-                                            <th>यूजर ID</th>
-                                            <th>राशि</th>
+                                            <th>Date</th>
+                                            <th>User ID</th>
+                                            <th>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody id="activationHistoryTable">
                                         <tr>
-                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                            <td colspan="3" class="text-center">No data available</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1122,44 +1155,58 @@
             </div>
         </div>
 
-        <!-- डिपॉजिट पेज -->
+        <!-- Deposit Page -->
         <div id="depositPage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>डिपॉजिट</h2>
-                <p>अपने खाते में पैसे जमा करें</p>
+                <h2>Deposit</h2>
+                <p>Add money to your account</p>
             </div>
             
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">नया डिपॉजिट</h5>
+                            <h5 class="card-title">New Deposit</h5>
                             <form id="depositForm">
                                 <div class="mb-3">
-                                    <label for="depositAmount" class="form-label">डिपॉजिट राशि</label>
-                                    <input type="number" class="form-control" id="depositAmount" placeholder="डिपॉजिट राशि दर्ज करें">
+                                    <label for="depositAmount" class="form-label">Deposit Amount</label>
+                                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter Deposit Amount">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="depositMethod" class="form-label">भुगतान विधि</label>
+                                    <label for="depositMethod" class="form-label">Payment Method</label>
                                     <select class="form-select" id="depositMethod">
-                                        <option value="bank">बैंक ट्रांसफर</option>
+                                        <option value="bank">Bank Transfer</option>
                                         <option value="upi">UPI</option>
-                                        <option value="cheque">चेक</option>
+                                        <option value="cheque">Cheque</option>
                                     </select>
                                 </div>
+                                
+                                <!-- UPI Payment Section -->
+                                <div id="upiSection" class="upi-section hidden">
+                                    <h5>UPI Payment Details</h5>
+                                    <div class="upi-id" id="upiId">superduperbhai@ybl</div>
+                                    <div class="qr-code">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=superduperbhai@ybl&pn=CrownUsdt" alt="UPI QR Code">
+                                    </div>
+                                    <p>Scan the QR code or use the UPI ID to make the payment</p>
+                                    <button type="button" class="btn btn-outline-primary" id="copyUpiBtn">
+                                        <i class="fas fa-copy me-2"></i> Copy UPI ID
+                                    </button>
+                                </div>
+                                
                                 <div class="mb-3">
-                                    <label for="depositTransactionId" class="form-label">ट्रांजैक्शन ID</label>
-                                    <input type="text" class="form-control" id="depositTransactionId" placeholder="ट्रांजैक्शन ID दर्ज करें">
+                                    <label for="depositTransactionId" class="form-label">Transaction ID</label>
+                                    <input type="text" class="form-control" id="depositTransactionId" placeholder="Enter Transaction ID">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="depositDate" class="form-label">तारीख</label>
+                                    <label for="depositDate" class="form-label">Date</label>
                                     <input type="date" class="form-control" id="depositDate">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="depositRemark" class="form-label">टिप्पणी</label>
-                                    <textarea class="form-control" id="depositRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                                    <label for="depositRemark" class="form-label">Remark</label>
+                                    <textarea class="form-control" id="depositRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">डिपॉजिट करें</button>
+                                <button type="submit" class="btn btn-primary">Deposit</button>
                             </form>
                         </div>
                     </div>
@@ -1167,19 +1214,19 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">डिपॉजिट हिस्ट्री</h5>
+                            <h5 class="card-title">Deposit History</h5>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>तारीख</th>
-                                            <th>राशि</th>
-                                            <th>स्थिति</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="depositHistoryTable">
                                         <tr>
-                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                            <td colspan="3" class="text-center">No data available</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1190,40 +1237,40 @@
             </div>
         </div>
 
-        <!-- विड्रॉवल पेज -->
+        <!-- Withdrawal Page -->
         <div id="withdrawalPage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>विड्रॉवल</h2>
-                <p>अपने पैसे निकालें</p>
+                <h2>Withdrawal</h2>
+                <p>Withdraw your money</p>
             </div>
             
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">नया विड्रॉवल</h5>
+                            <h5 class="card-title">New Withdrawal</h5>
                             <form id="withdrawalForm">
                                 <div class="mb-3">
-                                    <label for="withdrawalAmount" class="form-label">विड्रॉवल राशि</label>
-                                    <input type="number" class="form-control" id="withdrawalAmount" placeholder="विड्रॉवल राशि दर्ज करें">
-                                    <small class="text-muted">न्यूनतम विड्रॉवल: ₹500</small>
+                                    <label for="withdrawalAmount" class="form-label">Withdrawal Amount</label>
+                                    <input type="number" class="form-control" id="withdrawalAmount" placeholder="Enter Withdrawal Amount">
+                                    <small class="text-muted">Minimum withdrawal: ₹500</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="withdrawalMethod" class="form-label">भुगतान विधि</label>
+                                    <label for="withdrawalMethod" class="form-label">Payment Method</label>
                                     <select class="form-select" id="withdrawalMethod">
-                                        <option value="bank">बैंक ट्रांसफर</option>
+                                        <option value="bank">Bank Transfer</option>
                                         <option value="upi">UPI</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="withdrawalAccount" class="form-label">खाता विवरण</label>
-                                    <textarea class="form-control" id="withdrawalAccount" rows="2" placeholder="खाता विवरण दर्ज करें"></textarea>
+                                    <label for="withdrawalAccount" class="form-label">Account Details</label>
+                                    <textarea class="form-control" id="withdrawalAccount" rows="2" placeholder="Enter Account Details"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="withdrawalRemark" class="form-label">टिप्पणी</label>
-                                    <textarea class="form-control" id="withdrawalRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                                    <label for="withdrawalRemark" class="form-label">Remark</label>
+                                    <textarea class="form-control" id="withdrawalRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">विड्रॉवल करें</button>
+                                <button type="submit" class="btn btn-primary">Withdraw</button>
                             </form>
                         </div>
                     </div>
@@ -1231,19 +1278,19 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">विड्रॉवल हिस्ट्री</h5>
+                            <h5 class="card-title">Withdrawal History</h5>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>तारीख</th>
-                                            <th>राशि</th>
-                                            <th>स्थिति</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="withdrawalHistoryTable">
                                         <tr>
-                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                            <td colspan="3" class="text-center">No data available</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1254,18 +1301,18 @@
             </div>
         </div>
 
-        <!-- इनकम पेज -->
+        <!-- Income Page -->
         <div id="incomePage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>इनकम</h2>
-                <p>अपनी आय का विवरण देखें</p>
+                <h2>Income</h2>
+                <p>View your income details</p>
             </div>
             
             <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">डायरेक्ट इनकम</h5>
+                            <h5 class="card-title">Direct Income</h5>
                             <p class="card-text fs-2" id="directIncomePage">₹0</p>
                         </div>
                     </div>
@@ -1273,7 +1320,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">लेवल इनकम</h5>
+                            <h5 class="card-title">Level Income</h5>
                             <p class="card-text fs-2" id="levelIncomePage">₹0</p>
                         </div>
                     </div>
@@ -1281,7 +1328,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-info">
                         <div class="card-body">
-                            <h5 class="card-title">रॉयल्टी इनकम</h5>
+                            <h5 class="card-title">Royalty Income</h5>
                             <p class="card-text fs-2" id="royaltyIncomePage">₹0</p>
                         </div>
                     </div>
@@ -1289,7 +1336,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">बोनस इनकम</h5>
+                            <h5 class="card-title">Bonus Income</h5>
                             <p class="card-text fs-2" id="bonusIncomePage">₹0</p>
                         </div>
                     </div>
@@ -1299,26 +1346,26 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title mb-0">इनकम स्टेटमेंट</h5>
+                        <h5 class="card-title mb-0">Income Statement</h5>
                         <div>
-                            <button class="btn btn-sm btn-outline-primary" id="filterIncome">फिल्टर</button>
-                            <button class="btn btn-sm btn-success" id="downloadIncome">डाउनलोड</button>
+                            <button class="btn btn-sm btn-outline-primary" id="filterIncome">Filter</button>
+                            <button class="btn btn-sm btn-success" id="downloadIncome">Download</button>
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>तारीख</th>
-                                    <th>विवरण</th>
-                                    <th>इनकम प्रकार</th>
-                                    <th>राशि</th>
-                                    <th>स्थिति</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Income Type</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody id="incomeTable">
                                 <tr>
-                                    <td colspan="5" class="text-center">कोई डेटा नहीं</td>
+                                    <td colspan="5" class="text-center">No data available</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1327,18 +1374,18 @@
             </div>
         </div>
 
-        <!-- टीम पेज -->
+        <!-- Team Page -->
         <div id="teamPage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>टीम</h2>
-                <p>अपनी टीम का विवरण देखें</p>
+                <h2>Team</h2>
+                <p>View your team details</p>
             </div>
             
             <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">डायरेक्ट टीम</h5>
+                            <h5 class="card-title">Direct Team</h5>
                             <p class="card-text fs-2" id="directTeamPage">0</p>
                         </div>
                     </div>
@@ -1346,7 +1393,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">टोटल टीम</h5>
+                            <h5 class="card-title">Total Team</h5>
                             <p class="card-text fs-2" id="totalTeamPage">0</p>
                         </div>
                     </div>
@@ -1354,7 +1401,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-info">
                         <div class="card-body">
-                            <h5 class="card-title">एक्टिव टीम</h5>
+                            <h5 class="card-title">Active Team</h5>
                             <p class="card-text fs-2" id="activeTeamPage">0</p>
                         </div>
                     </div>
@@ -1362,7 +1409,7 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">इनएक्टिव टीम</h5>
+                            <h5 class="card-title">Inactive Team</h5>
                             <p class="card-text fs-2" id="inactiveTeamPage">0</p>
                         </div>
                     </div>
@@ -1372,26 +1419,26 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title mb-0">टीम सदस्य</h5>
+                        <h5 class="card-title mb-0">Team Members</h5>
                         <div>
-                            <button class="btn btn-sm btn-outline-primary" id="filterTeam">फिल्टर</button>
-                            <button class="btn btn-sm btn-success" id="downloadTeam">डाउनलोड</button>
+                            <button class="btn btn-sm btn-outline-primary" id="filterTeam">Filter</button>
+                            <button class="btn btn-sm btn-success" id="downloadTeam">Download</button>
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>यूजर ID</th>
-                                    <th>नाम</th>
-                                    <th>जॉइन डेट</th>
-                                    <th>स्थिति</th>
-                                    <th>कार्रवाई</th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="teamTable">
                                 <tr>
-                                    <td colspan="5" class="text-center">कोई डेटा नहीं</td>
+                                    <td colspan="5" class="text-center">No data available</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1400,11 +1447,11 @@
             </div>
         </div>
 
-        <!-- जीनियोलॉजी पेज -->
+        <!-- Genealogy Page -->
         <div id="genealogyPage" class="page-content hidden">
             <div class="welcome-banner">
-                <h2>जीनियोलॉजी</h2>
-                <p>अपनी टीम की संरचना देखें</p>
+                <h2>Genealogy</h2>
+                <p>View your team structure</p>
             </div>
             
             <div class="card">
@@ -1414,7 +1461,7 @@
                             <div class="card">
                                 <div class="card-body text-center">
                                     <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
-                                    <h6 id="genealogyUserName">यूजर</h6>
+                                    <h6 id="genealogyUserName">User</h6>
                                     <p class="mb-0" id="genealogyUserId">USER001</p>
                                 </div>
                             </div>
@@ -1427,7 +1474,7 @@
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
-                                        <h6>राजेश</h6>
+                                        <h6>Rajesh</h6>
                                         <p class="mb-0">USER002</p>
                                     </div>
                                 </div>
@@ -1436,7 +1483,7 @@
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
-                                        <h6>सीमा</h6>
+                                        <h6>Seema</h6>
                                         <p class="mb-0">USER003</p>
                                     </div>
                                 </div>
@@ -1445,19 +1492,19 @@
                     </div>
                     
                     <div class="text-center mt-4">
-                        <button class="btn btn-primary" id="viewFullGenealogy">पूरी जीनियोलॉजी देखें</button>
+                        <button class="btn btn-primary" id="viewFullGenealogy">View Full Genealogy</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- नोटिफिकेशन -->
+    <!-- Notification -->
     <div class="notification" id="notification"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // पेज लोड होने पर चेक करें कि यूजर लॉगिन है या नहीं
+        // Check login status on page load
         document.addEventListener('DOMContentLoaded', function() {
             checkLoginStatus();
             initializeEventListeners();
@@ -1465,77 +1512,77 @@
             startRealTimeUpdates();
         });
         
-        // रियल-टाइम अपडेट शुरू करें
+        // Start real-time updates
         function startRealTimeUpdates() {
-            // हर 5 सेकंड में डेटा अपडेट करें
+            // Update data every 5 seconds
             setInterval(updateRealTimeData, 5000);
         }
         
-        // रियल-टाइम डेटा अपडेट करें
+        // Update real-time data
         function updateRealTimeData() {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             if (currentUser) {
-                // टीम डेटा अपडेट करें
+                // Update team data
                 updateTeamData();
-                // वॉलेट डेटा अपडेट करें
+                // Update wallet data
                 updateWalletData();
-                // इनकम डेटा अपडेट करें
+                // Update income data
                 updateIncomeData();
             }
         }
         
-        // टीम डेटा अपडेट करें
+        // Update team data
         function updateTeamData() {
-            // यहां आप टीम डेटा को अपडेट कर सकते हैं
-            // डेमो के लिए, हम कुछ रैंडम डेटा जनरेट कर रहे हैं
+            // Here you can update team data
+            // For demo, we are generating some random data
             const directTeam = Math.floor(Math.random() * 10);
             const totalTeam = Math.floor(Math.random() * 50);
             const activeTeam = Math.floor(Math.random() * totalTeam);
             const inactiveTeam = totalTeam - activeTeam;
             
-            // डैशबोर्ड पर टीम स्टैट्स अपडेट करें
+            // Update team stats on dashboard
             document.getElementById('directTeam').textContent = directTeam;
             document.getElementById('totalTeam').textContent = totalTeam;
             document.getElementById('activeTeam').textContent = activeTeam;
             document.getElementById('inactiveTeam').textContent = inactiveTeam;
             
-            // टीम पेज पर टीम स्टैट्स अपडेट करें
+            // Update team stats on team page
             document.getElementById('directTeamPage').textContent = directTeam;
             document.getElementById('totalTeamPage').textContent = totalTeam;
             document.getElementById('activeTeamPage').textContent = activeTeam;
             document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
             
-            // टीम टेबल अपडेट करें
+            // Update team table
             updateTeamTable();
         }
         
-        // वॉलेट डेटा अपडेट करें
+        // Update wallet data
         function updateWalletData() {
-            // यहां आप वॉलेट डेटा को अपडेट कर सकते हैं
-            // डेमो के लिए, हम कुछ रैंडम डेटा जनरेट कर रहे हैं
+            // Here you can update wallet data
+            // For demo, we are generating some random data
             const walletBalance = Math.floor(Math.random() * 10000);
             const depositBalance = Math.floor(Math.random() * 5000);
             const incomeBalance = walletBalance - depositBalance;
             
-            // डैशबोर्ड पर वॉलेट बैलेंस अपडेट करें
+            // Update wallet balance on dashboard
             document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
             
-            // वॉलेट पेज पर वॉलेट बैलेंस अपडेट करें
+            // Update wallet balance on wallet page
             document.getElementById('walletBalancePage').textContent = `₹${walletBalance}`;
             document.getElementById('depositBalancePage').textContent = `₹${depositBalance}`;
             document.getElementById('incomeBalancePage').textContent = `₹${incomeBalance}`;
             
-            // एक्टिवेट पेज पर वॉलेट बैलेंस अपडेट करें
+            // Update wallet balance on activate page
             document.getElementById('walletBalanceCheck').value = `₹${walletBalance}`;
             
-            // वॉलेट ट्रांजैक्शन टेबल अपडेट करें
+            // Update wallet transaction table
             updateWalletTransactionTable();
         }
         
-        // इनकम डेटा अपडेट करें
+        // Update income data
         function updateIncomeData() {
-            // यहां आप इनकम डेटा को अपडेट कर सकते हैं
-            // डेमो के लिए, हम कुछ रैंडम डेटा जनरेट कर रहे हैं
+            // Here you can update income data
+            // For demo, we are generating some random data
             const totalIncome = Math.floor(Math.random() * 20000);
             const directIncome = Math.floor(Math.random() * 10000);
             const teamIncome = totalIncome - directIncome;
@@ -1543,38 +1590,38 @@
             const royaltyIncome = Math.floor(teamIncome * 0.3);
             const bonusIncome = teamIncome - levelIncome - royaltyIncome;
             
-            // डैशबोर्ड पर इनकम अपडेट करें
+            // Update income on dashboard
             document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
             document.getElementById('directIncome').textContent = `₹${directIncome}`;
             document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
             
-            // इनकम पेज पर इनकम अपडेट करें
+            // Update income on income page
             document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
             document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
             document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
             document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
             
-            // हालिया इनकम टेबल अपडेट करें
+            // Update recent income table
             updateRecentIncomeTable();
             
-            // इनकम टेबल अपडेट करें
+            // Update income table
             updateIncomeTable();
         }
         
-        // टीम टेबल अपडेट करें
+        // Update team table
         function updateTeamTable() {
             const teamTable = document.getElementById('teamTable');
             teamTable.innerHTML = '';
             
-            // डेमो टीम सदस्य
+            // Demo team members
             const teamMembers = [
-                { id: 'USER002', name: 'राजेश कुमार', joinDate: '2023-05-01', status: 'active' },
-                { id: 'USER003', name: 'सीमा सिंह', joinDate: '2023-05-05', status: 'active' },
-                { id: 'USER004', name: 'अमित शर्मा', joinDate: '2023-05-10', status: 'inactive' }
+                { id: 'USER002', name: 'Rajesh Kumar', joinDate: '2023-05-01', status: 'active' },
+                { id: 'USER003', name: 'Seema Singh', joinDate: '2023-05-05', status: 'active' },
+                { id: 'USER004', name: 'Amit Sharma', joinDate: '2023-05-10', status: 'inactive' }
             ];
             
             if (teamMembers.length === 0) {
-                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
             } else {
                 teamMembers.forEach(member => {
                     const row = document.createElement('tr');
@@ -1584,9 +1631,9 @@
                         <td>${member.id}</td>
                         <td>${member.name}</td>
                         <td>${member.joinDate}</td>
-                        <td><span class="${statusClass}">${member.status === 'active' ? 'एक्टिव' : member.status === 'inactive' ? 'इनएक्टिव' : 'ब्लॉक्ड'}</span></td>
+                        <td><span class="${statusClass}">${member.status === 'active' ? 'Active' : member.status === 'inactive' ? 'Inactive' : 'Blocked'}</span></td>
                         <td>
-                            <button class="btn btn-sm btn-outline-primary">व्यू</button>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                         </td>
                     `;
                     teamTable.appendChild(row);
@@ -1594,25 +1641,25 @@
             }
         }
         
-        // वॉलेट ट्रांजैक्शन टेबल अपडेट करें
+        // Update wallet transaction table
         function updateWalletTransactionTable() {
             const walletTransactionTable = document.getElementById('walletTransactionTable');
             walletTransactionTable.innerHTML = '';
             
-            // डेमो वॉलेट ट्रांजैक्शन
+            // Demo wallet transactions
             const walletTransactions = [
-                { date: '2023-06-15', description: 'डिपॉजिट', amount: 5000, type: 'credit' },
-                { date: '2023-06-10', description: 'इनकम', amount: 1000, type: 'credit' },
-                { date: '2023-06-05', description: 'विड्रॉवल', amount: 2000, type: 'debit' }
+                { date: '2023-06-15', description: 'Deposit', amount: 5000, type: 'credit' },
+                { date: '2023-06-10', description: 'Income', amount: 1000, type: 'credit' },
+                { date: '2023-06-05', description: 'Withdrawal', amount: 2000, type: 'debit' }
             ];
             
             if (walletTransactions.length === 0) {
-                walletTransactionTable.innerHTML = '<tr><td colspan="4" class="text-center">कोई डेटा नहीं</td></tr>';
+                walletTransactionTable.innerHTML = '<tr><td colspan="4" class="text-center">No data available</td></tr>';
             } else {
                 walletTransactions.forEach(transaction => {
                     const row = document.createElement('tr');
                     const typeClass = transaction.type === 'credit' ? 'text-success' : 'text-danger';
-                    const typeText = transaction.type === 'credit' ? 'क्रेडिट' : 'डेबिट';
+                    const typeText = transaction.type === 'credit' ? 'Credit' : 'Debit';
                     row.innerHTML = `
                         <td>${transaction.date}</td>
                         <td>${transaction.description}</td>
@@ -1624,20 +1671,20 @@
             }
         }
         
-        // हालिया इनकम टेबल अपडेट करें
+        // Update recent income table
         function updateRecentIncomeTable() {
             const recentIncomeTable = document.getElementById('recentIncomeTable');
             recentIncomeTable.innerHTML = '';
             
-            // डेमो हालिया इनकम
+            // Demo recent income
             const recentIncome = [
-                { date: '2023-06-15', description: 'डायरेक्ट इनकम', amount: 1000 },
-                { date: '2023-06-10', description: 'लेवल इनकम', amount: 500 },
-                { date: '2023-06-05', description: 'बोनस इनकम', amount: 250 }
+                { date: '2023-06-15', description: 'Direct Income', amount: 1000 },
+                { date: '2023-06-10', description: 'Level Income', amount: 500 },
+                { date: '2023-06-05', description: 'Bonus Income', amount: 250 }
             ];
             
             if (recentIncome.length === 0) {
-                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">कोई डेटा नहीं</td></tr>';
+                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
             } else {
                 recentIncome.forEach(income => {
                     const row = document.createElement('tr');
@@ -1651,20 +1698,20 @@
             }
         }
         
-        // इनकम टेबल अपडेट करें
+        // Update income table
         function updateIncomeTable() {
             const incomeTable = document.getElementById('incomeTable');
             incomeTable.innerHTML = '';
             
-            // डेमो इनकम
+            // Demo income
             const incomeData = [
-                { date: '2023-06-15', description: 'डायरेक्ट इनकम', type: 'डायरेक्ट', amount: 1000 },
-                { date: '2023-06-10', description: 'लेवल इनकम', type: 'लेवल', amount: 500 },
-                { date: '2023-06-05', description: 'बोनस इनकम', type: 'बोनस', amount: 250 }
+                { date: '2023-06-15', description: 'Direct Income', type: 'Direct', amount: 1000 },
+                { date: '2023-06-10', description: 'Level Income', type: 'Level', amount: 500 },
+                { date: '2023-06-05', description: 'Bonus Income', type: 'Bonus', amount: 250 }
             ];
             
             if (incomeData.length === 0) {
-                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
             } else {
                 incomeData.forEach(income => {
                     const row = document.createElement('tr');
@@ -1673,52 +1720,52 @@
                         <td>${income.description}</td>
                         <td>${income.type}</td>
                         <td>₹${income.amount}</td>
-                        <td><span class="status-approved">अप्रूव्ड</span></td>
+                        <td><span class="status-approved">Approved</span></td>
                     `;
                     incomeTable.appendChild(row);
                 });
             }
         }
         
-        // लॉगिन स्टेटस चेक करें
+        // Check login status
         function checkLoginStatus() {
             const currentUser = localStorage.getItem('currentUser');
             if (!currentUser) {
-                // यदि यूजर लॉगिन नहीं है, तो लॉगिन स्क्रीन दिखाएं
+                // If user is not logged in, show login screen
                 document.getElementById('loginScreen').classList.remove('hidden');
             } else {
-                // यदि यूजर लॉगिन है, तो लॉगिन स्क्रीन छिपाएं
+                // If user is logged in, hide login screen
                 document.getElementById('loginScreen').classList.add('hidden');
-                // यूजर डेटा लोड करें
+                // Load user data
                 const user = JSON.parse(currentUser);
                 updateUserInfo(user);
                 loadDashboardData(user);
             }
         }
         
-        // यूजर इनफो अपडेट करें
+        // Update user info
         function updateUserInfo(user) {
             document.getElementById('userName').textContent = user.name || user.username;
             document.getElementById('welcomeUserName').textContent = user.name || user.username;
             
-            // प्रोफाइल पेज पर यूजर इनफो अपडेट करें
+            // Update user info on profile page
             document.getElementById('profileName').textContent = user.name;
             document.getElementById('profileUsername').textContent = user.username;
             document.getElementById('profileUserId').textContent = user.id;
             
-            // रेफरल लिंक अपडेट करें
-            const referralLink = `https://businessbaddy29.github.io/crownusdt/register?ref=${user.id}`;
+            // Update referral link
+            const referralLink = `https://businessbaddy29.github.io/crownusdt/register.html?ref=${user.id}`;
             document.getElementById('referralLink').textContent = referralLink;
             document.getElementById('dashboardReferralLink').textContent = referralLink;
             
-            // जीनियोलॉजी पेज पर यूजर इनफो अपडेट करें
+            // Update user info on genealogy page
             document.getElementById('genealogyUserName').textContent = user.name;
             document.getElementById('genealogyUserId').textContent = user.id;
         }
         
-        // डैशबोर्ड डेटा लोड करें
+        // Load dashboard data
         function loadDashboardData(user) {
-            // डेमो डेटा
+            // Demo data
             const dashboardData = {
                 totalIncome: 12500,
                 directIncome: 5000,
@@ -1731,18 +1778,18 @@
                 totalReferrals: 5,
                 activeReferrals: 3,
                 recentIncome: [
-                    { date: '2023-06-15', description: 'डायरेक्ट इनकम', amount: 1000 },
-                    { date: '2023-06-10', description: 'लेवल इनकम', amount: 500 },
-                    { date: '2023-06-05', description: 'बोनस इनकम', amount: 250 }
+                    { date: '2023-06-15', description: 'Direct Income', amount: 1000 },
+                    { date: '2023-06-10', description: 'Level Income', amount: 500 },
+                    { date: '2023-06-05', description: 'Bonus Income', amount: 250 }
                 ],
                 teamMembers: [
-                    { id: 'USER002', name: 'राजेश कुमार', joinDate: '2023-05-01', status: 'active' },
-                    { id: 'USER003', name: 'सीमा सिंह', joinDate: '2023-05-05', status: 'active' },
-                    { id: 'USER004', name: 'अमित शर्मा', joinDate: '2023-05-10', status: 'inactive' }
+                    { id: 'USER002', name: 'Rajesh Kumar', joinDate: '2023-05-01', status: 'active' },
+                    { id: 'USER003', name: 'Seema Singh', joinDate: '2023-05-05', status: 'active' },
+                    { id: 'USER004', name: 'Amit Sharma', joinDate: '2023-05-10', status: 'inactive' }
                 ]
             };
             
-            // डैशबोर्ड स्टैट्स अपडेट करें
+            // Update dashboard stats
             document.getElementById('totalIncome').textContent = `₹${dashboardData.totalIncome}`;
             document.getElementById('directIncome').textContent = `₹${dashboardData.directIncome}`;
             document.getElementById('teamIncome').textContent = `₹${dashboardData.teamIncome}`;
@@ -1753,16 +1800,16 @@
             document.getElementById('activeTeam').textContent = dashboardData.activeTeam;
             document.getElementById('inactiveTeam').textContent = dashboardData.inactiveTeam;
             
-            // रेफरल स्टैट्स अपडेट करें
+            // Update referral stats
             document.getElementById('totalReferrals').textContent = dashboardData.totalReferrals;
             document.getElementById('activeReferrals').textContent = dashboardData.activeReferrals;
             
-            // हालिया इनकम टेबल अपडेट करें
+            // Update recent income table
             const recentIncomeTable = document.getElementById('recentIncomeTable');
             recentIncomeTable.innerHTML = '';
             
             if (dashboardData.recentIncome.length === 0) {
-                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">कोई डेटा नहीं</td></tr>';
+                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
             } else {
                 dashboardData.recentIncome.forEach(income => {
                     const row = document.createElement('tr');
@@ -1775,12 +1822,12 @@
                 });
             }
             
-            // टीम टेबल अपडेट करें
+            // Update team table
             const teamTable = document.getElementById('teamTable');
             teamTable.innerHTML = '';
             
             if (dashboardData.teamMembers.length === 0) {
-                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
             } else {
                 dashboardData.teamMembers.forEach(member => {
                     const row = document.createElement('tr');
@@ -1790,68 +1837,68 @@
                         <td>${member.id}</td>
                         <td>${member.name}</td>
                         <td>${member.joinDate}</td>
-                        <td><span class="${statusClass}">${member.status === 'active' ? 'एक्टिव' : member.status === 'inactive' ? 'इनएक्टिव' : 'ब्लॉक्ड'}</span></td>
+                        <td><span class="${statusClass}">${member.status === 'active' ? 'Active' : member.status === 'inactive' ? 'Inactive' : 'Blocked'}</span></td>
                         <td>
-                            <button class="btn btn-sm btn-outline-primary">व्यू</button>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                         </td>
                     `;
                     teamTable.appendChild(row);
                 });
             }
             
-            // टीम पेज स्टैट्स अपडेट करें
+            // Update team page stats
             document.getElementById('directTeamPage').textContent = dashboardData.directTeam;
             document.getElementById('totalTeamPage').textContent = dashboardData.totalTeam;
             document.getElementById('activeTeamPage').textContent = dashboardData.activeTeam;
             document.getElementById('inactiveTeamPage').textContent = dashboardData.inactiveTeam;
             
-            // इनकम पेज स्टैट्स अपडेट करें
+            // Update income page stats
             document.getElementById('directIncomePage').textContent = `₹${dashboardData.directIncome}`;
             document.getElementById('levelIncomePage').textContent = `₹${dashboardData.teamIncome * 0.6}`;
             document.getElementById('royaltyIncomePage').textContent = `₹${dashboardData.teamIncome * 0.3}`;
             document.getElementById('bonusIncomePage').textContent = `₹${dashboardData.teamIncome * 0.1}`;
             
-            // इनकम टेबल अपडेट करें
+            // Update income table
             const incomeTable = document.getElementById('incomeTable');
             incomeTable.innerHTML = '';
             
             if (dashboardData.recentIncome.length === 0) {
-                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
             } else {
                 dashboardData.recentIncome.forEach(income => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${income.date}</td>
                         <td>${income.description}</td>
-                        <td>${income.description.includes('डायरेक्ट') ? 'डायरेक्ट' : 
-                             income.description.includes('लेवल') ? 'लेवल' : 'बोनस'}</td>
+                        <td>${income.description.includes('Direct') ? 'Direct' : 
+                             income.description.includes('Level') ? 'Level' : 'Bonus'}</td>
                         <td>₹${income.amount}</td>
-                        <td><span class="status-approved">अप्रूव्ड</span></td>
+                        <td><span class="status-approved">Approved</span></td>
                     `;
                     incomeTable.appendChild(row);
                 });
             }
             
-            // वॉलेट डेटा अपडेट करें
+            // Update wallet data
             updateWalletData();
         }
         
-        // इवेंट लिस्टनर इनिशियलाइज करें
+        // Initialize event listeners
         function initializeEventListeners() {
-            // हैमबर्गर मेन्यू
+            // Hamburger menu
             document.getElementById('hamburger').addEventListener('click', function() {
                 this.classList.toggle('active');
                 document.getElementById('sidebar').classList.toggle('show');
             });
             
-            // साइडबार मेन्यू आइटम्स
+            // Sidebar menu items
             document.querySelectorAll('.sidebar-menu li a').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
                     const page = this.getAttribute('data-page');
                     showPage(page);
                     
-                    // एक्टिव क्लास अपडेट करें
+                    // Update active class
                     document.querySelectorAll('.sidebar-menu li a').forEach(link => {
                         link.classList.remove('active');
                     });
@@ -1859,7 +1906,7 @@
                 });
             });
             
-            // लॉगिन फॉर्म
+            // Login form
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -1868,36 +1915,36 @@
                 const isAdmin = document.getElementById('adminCheck').checked;
                 const alertDiv = document.getElementById('loginAlert');
                 
-                // अलर्ट क्लियर करें
+                // Clear alert
                 alertDiv.innerHTML = '';
                 
                 if (!username || !password) {
-                    showAlert('loginAlert', 'कृपया यूजरनेम और पासवर्ड दर्ज करें', 'danger');
+                    showAlert('loginAlert', 'Please enter username and password', 'danger');
                     return;
                 }
                 
-                // localStorage से यूजर्स डेटा लोड करें
+                // Load users data from localStorage
                 const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
                 
                 if (isAdmin) {
-                    // एडमिन लॉगिन
+                    // Admin login
                     if (username === 'admin' && password === 'admin123') {
-                        // स्टोरेज में लॉगिन जानकारी सेव करें
+                        // Save login info in storage
                         localStorage.setItem('currentUser', JSON.stringify({
                             id: 'ADMIN',
-                            name: 'एडमिन',
+                            name: 'Admin',
                             username: 'admin',
                             email: 'admin@mlmsoftware.com',
                             isAdmin: true
                         }));
                         
-                        // डैशबोर्ड पर रीडायरेक्ट करें
+                        // Redirect to dashboard
                         window.location.reload();
                     } else {
-                        showAlert('loginAlert', 'गलत एडमिन यूजरनेम या पासवर्ड', 'danger');
+                        showAlert('loginAlert', 'Invalid admin username or password', 'danger');
                     }
                 } else {
-                    // यूजर लॉगिन
+                    // User login
                     const user = demoUsers.find(u => 
                         u.username === username || 
                         u.email === username || 
@@ -1905,36 +1952,36 @@
                     );
                     
                     if (user && user.password === password) {
-                        // स्टोरेज में लॉगिन जानकारी सेव करें
+                        // Save login info in storage
                         localStorage.setItem('currentUser', JSON.stringify({
                             ...user,
                             isAdmin: false
                         }));
                         
-                        // डैशबोर्ड पर रीडायरेक्ट करें
+                        // Redirect to dashboard
                         window.location.reload();
                     } else {
-                        showAlert('loginAlert', 'गलत यूजरनेम या पासवर्ड', 'danger');
+                        showAlert('loginAlert', 'Invalid username or password', 'danger');
                     }
                 }
             });
             
-            // लॉगआउट बटन
+            // Logout button
             document.getElementById('logoutBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // localStorage से यूजर डेटा हटाएं
+                // Remove user data from storage
                 localStorage.removeItem('currentUser');
                 
-                // इंडेक्स पेज पर रीडायरेक्ट करें
+                // Redirect to index page
                 window.location.href = 'login.html';
             });
             
-            // प्रोफाइल फॉर्म
+            // Profile form
             document.getElementById('profileForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // फॉर्म डेटा प्राप्त करें
+                // Get form data
                 const formData = {
                     fullName: document.getElementById('fullName').value,
                     email: document.getElementById('email').value,
@@ -1949,7 +1996,7 @@
                     bankDetails: document.getElementById('bankDetails').value
                 };
                 
-                // यूजर डेटा अपडेट करें
+                // Update user data
                 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 const updatedUser = {
                     ...currentUser,
@@ -1960,24 +2007,24 @@
                 
                 localStorage.setItem('currentUser', JSON.stringify(updatedUser));
                 
-                // यूजर इनफो अपडेट करें
+                // Update user info
                 updateUserInfo(updatedUser);
                 
-                // सफलता संदेश दिखाएं
-                showNotification('प्रोफाइल सफलतापूर्वक अपडेट की गई');
+                // Show success message
+                showNotification('Profile updated successfully');
             });
             
-            // रेफरल लिंक शेयर बटन (डैशबोर्ड)
+            // Referral link share buttons (Dashboard)
             document.getElementById('shareWhatsappDashboard').addEventListener('click', function() {
                 const referralLink = document.getElementById('dashboardReferralLink').textContent;
-                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
                 const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');
             });
             
             document.getElementById('shareTelegramDashboard').addEventListener('click', function() {
                 const referralLink = document.getElementById('dashboardReferralLink').textContent;
-                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
                 const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
                 window.open(telegramUrl, '_blank');
             });
@@ -1985,21 +2032,21 @@
             document.getElementById('copyReferralBtnDashboard').addEventListener('click', function() {
                 const referralLink = document.getElementById('dashboardReferralLink').textContent;
                 navigator.clipboard.writeText(referralLink).then(function() {
-                    showNotification('रेफरल लिंक कॉपी किया गया');
+                    showNotification('Referral link copied');
                 });
             });
             
-            // रेफरल लिंक शेयर बटन (प्रोफाइल)
+            // Referral link share buttons (Profile)
             document.getElementById('shareWhatsapp').addEventListener('click', function() {
                 const referralLink = document.getElementById('referralLink').textContent;
-                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
                 const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');
             });
             
             document.getElementById('shareTelegram').addEventListener('click', function() {
                 const referralLink = document.getElementById('referralLink').textContent;
-                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
                 const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
                 window.open(telegramUrl, '_blank');
             });
@@ -2007,11 +2054,11 @@
             document.getElementById('copyReferralBtn').addEventListener('click', function() {
                 const referralLink = document.getElementById('referralLink').textContent;
                 navigator.clipboard.writeText(referralLink).then(function() {
-                    showNotification('रेफरल लिंक कॉपी किया गया');
+                    showNotification('Referral link copied');
                 });
             });
             
-            // एक्टिवेट फॉर्म
+            // Activate form
             document.getElementById('activateForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -2021,19 +2068,19 @@
                 const paymentMethod = document.getElementById('paymentMethod').value;
                 const transactionId = document.getElementById('transactionId').value;
                 
-                // वैलिडेशन
+                // Validation
                 if (!userId || !transactionId) {
-                    showNotification('कृपया सभी फील्ड भरें', 'error');
+                    showNotification('Please fill all fields', 'error');
                     return;
                 }
                 
-                // वॉलेट बैलेंस चेक करें
+                // Check wallet balance
                 if (walletBalance < activationAmount) {
-                    showNotification('आपके वॉलेट में पर्याप्त बैलेंस नहीं है', 'error');
+                    showNotification('Insufficient balance in your wallet', 'error');
                     return;
                 }
                 
-                // एक्टिवेशन हिस्ट्री टेबल अपडेट करें
+                // Update activation history table
                 const activationHistoryTable = document.getElementById('activationHistoryTable');
                 const row = document.createElement('tr');
                 const today = new Date().toISOString().split('T')[0];
@@ -2043,28 +2090,28 @@
                     <td>₹${activationAmount}</td>
                 `;
                 
-                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                // If table is empty, remove empty message first
                 if (activationHistoryTable.querySelector('tr td[colspan]')) {
                     activationHistoryTable.innerHTML = '';
                 }
                 
                 activationHistoryTable.appendChild(row);
                 
-                // वॉलेट बैलेंस अपडेट करें
+                // Update wallet balance
                 const newWalletBalance = walletBalance - activationAmount;
                 document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
                 document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
                 document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
                 
-                // फॉर्म रीसेट करें
+                // Reset form
                 document.getElementById('activateForm').reset();
                 document.getElementById('activationAmount').value = '1000';
                 
-                // सफलता संदेश दिखाएं
-                showNotification('ID एक्टिवेशन सफलतापूर्वक सबमिट किया गया');
+                // Show success message
+                showNotification('ID activation submitted successfully');
             });
             
-            // वॉलेट ट्रांसफर फॉर्म
+            // Wallet transfer form
             document.getElementById('walletTransferForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -2073,54 +2120,72 @@
                 const transferRemark = document.getElementById('transferRemark').value;
                 const walletBalance = parseInt(document.getElementById('walletBalancePage').textContent.replace('₹', ''));
                 
-                // वैलिडेशन
+                // Validation
                 if (!transferTo || !transferAmount) {
-                    showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                    showNotification('Please fill all required fields', 'error');
                     return;
                 }
                 
                 if (transferAmount <= 0) {
-                    showNotification('राशि 0 से अधिक होनी चाहिए', 'error');
+                    showNotification('Amount must be greater than 0', 'error');
                     return;
                 }
                 
                 if (walletBalance < transferAmount) {
-                    showNotification('आपके वॉलेट में पर्याप्त बैलेंस नहीं है', 'error');
+                    showNotification('Insufficient balance in your wallet', 'error');
                     return;
                 }
                 
-                // वॉलेट बैलेंस अपडेट करें
+                // Update wallet balance
                 const newWalletBalance = walletBalance - transferAmount;
                 document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
                 document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
                 document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
                 
-                // वॉलेट ट्रांजैक्शन टेबल अपडेट करें
+                // Update wallet transaction table
                 const walletTransactionTable = document.getElementById('walletTransactionTable');
                 const row = document.createElement('tr');
                 const today = new Date().toISOString().split('T')[0];
                 row.innerHTML = `
                     <td>${today}</td>
-                    <td>ट्रांसफर टू ${transferTo}</td>
+                    <td>Transfer to ${transferTo}</td>
                     <td class="text-danger">-₹${transferAmount}</td>
-                    <td>डेबिट</td>
+                    <td>Debit</td>
                 `;
                 
-                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                // If table is empty, remove empty message first
                 if (walletTransactionTable.querySelector('tr td[colspan]')) {
                     walletTransactionTable.innerHTML = '';
                 }
                 
                 walletTransactionTable.appendChild(row);
                 
-                // फॉर्म रीसेट करें
+                // Reset form
                 document.getElementById('walletTransferForm').reset();
                 
-                // सफलता संदेश दिखाएं
-                showNotification('वॉलेट ट्रांसफर सफलतापूर्वक किया गया');
+                // Show success message
+                showNotification('Wallet transfer completed successfully');
             });
             
-            // डिपॉजिट फॉर्म
+            // Deposit method change
+            document.getElementById('depositMethod').addEventListener('change', function() {
+                const upiSection = document.getElementById('upiSection');
+                if (this.value === 'upi') {
+                    upiSection.classList.remove('hidden');
+                } else {
+                    upiSection.classList.add('hidden');
+                }
+            });
+            
+            // Copy UPI ID button
+            document.getElementById('copyUpiBtn').addEventListener('click', function() {
+                const upiId = document.getElementById('upiId').textContent;
+                navigator.clipboard.writeText(upiId).then(function() {
+                    showNotification('UPI ID copied');
+                });
+            });
+            
+            // Deposit form
             document.getElementById('depositForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -2130,36 +2195,36 @@
                 const depositDate = document.getElementById('depositDate').value;
                 const depositRemark = document.getElementById('depositRemark').value;
                 
-                // वैलिडेशन
+                // Validation
                 if (!depositAmount || !depositTransactionId || !depositDate) {
-                    showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                    showNotification('Please fill all required fields', 'error');
                     return;
                 }
                 
-                // डिपॉजिट हिस्ट्री टेबल अपडेट करें
+                // Update deposit history table
                 const depositHistoryTable = document.getElementById('depositHistoryTable');
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${depositDate}</td>
                     <td>₹${depositAmount}</td>
-                    <td><span class="status-pending">पेंडिंग</span></td>
+                    <td><span class="status-pending">Pending</span></td>
                 `;
                 
-                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                // If table is empty, remove empty message first
                 if (depositHistoryTable.querySelector('tr td[colspan]')) {
                     depositHistoryTable.innerHTML = '';
                 }
                 
                 depositHistoryTable.appendChild(row);
                 
-                // फॉर्म रीसेट करें
+                // Reset form
                 document.getElementById('depositForm').reset();
                 
-                // सफलता संदेश दिखाएं
-                showNotification('डिपॉजिट सफलतापूर्वक सबमिट किया गया');
+                // Show success message
+                showNotification('Deposit submitted successfully');
             });
             
-            // विड्रॉवल फॉर्म
+            // Withdrawal form
             document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -2168,90 +2233,90 @@
                 const withdrawalAccount = document.getElementById('withdrawalAccount').value;
                 const withdrawalRemark = document.getElementById('withdrawalRemark').value;
                 
-                // वैलिडेशन
+                // Validation
                 if (!withdrawalAmount || !withdrawalAccount) {
-                    showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                    showNotification('Please fill all required fields', 'error');
                     return;
                 }
                 
                 if (withdrawalAmount < 500) {
-                    showNotification('न्यूनतम विड्रॉवल राशि ₹500 है', 'error');
+                    showNotification('Minimum withdrawal amount is ₹500', 'error');
                     return;
                 }
                 
-                // विड्रॉवल हिस्ट्री टेबल अपडेट करें
+                // Update withdrawal history table
                 const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
                 const row = document.createElement('tr');
                 const today = new Date().toISOString().split('T')[0];
                 row.innerHTML = `
                     <td>${today}</td>
                     <td>₹${withdrawalAmount}</td>
-                    <td><span class="status-pending">पेंडिंग</span></td>
+                    <td><span class="status-pending">Pending</span></td>
                 `;
                 
-                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                // If table is empty, remove empty message first
                 if (withdrawalHistoryTable.querySelector('tr td[colspan]')) {
                     withdrawalHistoryTable.innerHTML = '';
                 }
                 
                 withdrawalHistoryTable.appendChild(row);
                 
-                // फॉर्म रीसेट करें
+                // Reset form
                 document.getElementById('withdrawalForm').reset();
                 
-                // सफलता संदेश दिखाएं
-                showNotification('विड्रॉवल सफलतापूर्वक सबमिट किया गया');
+                // Show success message
+                showNotification('Withdrawal submitted successfully');
             });
             
-            // अन्य बटन इवेंट
+            // Other button events
             document.getElementById('filterIncome').addEventListener('click', function() {
-                showNotification('इनकम फिल्टर फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Income filter function is not available yet');
             });
             
             document.getElementById('downloadIncome').addEventListener('click', function() {
-                showNotification('इनकम डाउनलोड फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Income download function is not available yet');
             });
             
             document.getElementById('filterTeam').addEventListener('click', function() {
-                showNotification('टीम फिल्टर फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Team filter function is not available yet');
             });
             
             document.getElementById('downloadTeam').addEventListener('click', function() {
-                showNotification('टीम डाउनलोड फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Team download function is not available yet');
             });
             
             document.getElementById('viewFullGenealogy').addEventListener('click', function() {
-                showNotification('पूरी जीनियोलॉजी देखने का फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Full genealogy view function is not available yet');
             });
             
             document.getElementById('changePassword').addEventListener('click', function(e) {
                 e.preventDefault();
-                showNotification('पासवर्ड बदलने का फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Change password function is not available yet');
             });
             
             document.getElementById('changeProfileImage').addEventListener('click', function() {
-                showNotification('प्रोफाइल चित्र बदलने का फंक्शन अभी उपलब्ध नहीं है');
+                showNotification('Change profile picture function is not available yet');
             });
         }
         
-        // पेज दिखाएं
+        // Show page
         function showPage(pageId) {
-            // सभी पेज छिपाएं
+            // Hide all pages
             document.querySelectorAll('.page-content').forEach(page => {
                 page.classList.add('hidden');
             });
             
-            // चुना गया पेज दिखाएं
+            // Show selected page
             document.getElementById(pageId + 'Page').classList.remove('hidden');
         }
         
-        // अलर्ट दिखाएं
+        // Show alert
         function showAlert(elementId, message, type) {
             const alertDiv = document.getElementById(elementId);
             alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
         }
         
-        // नोटिफिकेशन दिखाएं
+        // Show notification
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -2268,10 +2333,10 @@
             }, 3000);
         }
         
-        // यूजर डेटा लोड करें
+        // Load user data
         function loadUserData() {
-            // यह फंक्शन वास्तविक एप्लिकेशन में सर्वर से डेटा लोड करेगा
-            // अभी हम डेमो डेटा का उपयोग कर रहे हैं
+            // This function will load data from server in a real application
+            // For now, we are using demo data
         }
     </script>
 </body>
