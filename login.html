@@ -164,9 +164,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+            if (currentUser) {
+                // Redirect to dashboard if already logged in
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
             // Initialize demo users if they don't exist
             let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
-            if (!demoUsers) {
+            if (!demoUsers || demoUsers.length === 0) {
                 demoUsers = [
                     { id: 'CU123456', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456' },
                     { id: 'CU789012', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU789012' },
@@ -175,13 +183,6 @@
                     { id: 'CU567890', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU567890' }
                 ];
                 localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
-            }
-            
-            // Check if user is already logged in
-            const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-            if (currentUser) {
-                // Redirect to dashboard if already logged in
-                window.location.href = 'dashboard.html';
             }
             
             // Toggle password visibility
@@ -199,7 +200,7 @@
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const username = document.getElementById('username').value;
+                const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
                 const rememberMe = document.getElementById('rememberMe').checked;
                 const alertDiv = document.getElementById('loginAlert');
@@ -244,7 +245,12 @@
                     // Redirect to dashboard
                     window.location.href = 'dashboard.html';
                 } else {
-                    showAlert('loginAlert', 'Invalid username or password', 'danger');
+                    // Check if user exists but password is wrong
+                    if (user) {
+                        showAlert('loginAlert', 'Invalid password. Please try again.', 'danger');
+                    } else {
+                        showAlert('loginAlert', 'User not found. Please check your credentials or register first.', 'danger');
+                    }
                 }
             });
             
