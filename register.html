@@ -6,6 +6,10 @@
     <title>CrownUsdt - Register</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
     <style>
         /* Basic styles */
         * {
@@ -62,6 +66,11 @@
             text-align: center;
             margin-bottom: 1.5rem;
         }
+        .logo img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
         .logo h3 {
             color: #0d6efd;
             font-weight: bold;
@@ -113,6 +122,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="logo">
+                    <img src="logo.png" alt="CrownUsdt Logo">
                     <h3>CrownUsdt</h3>
                     <p class="text-muted">Create your account</p>
                 </div>
@@ -168,6 +178,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Initialize Firebase with your config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
+            authDomain: "crownusdt-bef5f.firebaseapp.com",
+            projectId: "crownusdt-bef5f",
+            storageBucket: "crownusdt-bef5f.firebasestorage.app",
+            messagingSenderId: "16212983577",
+            appId: "1:16212983577:web:54742789e0ca51e1800f88",
+            measurementId: "G-QMTHJ00757"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
         document.addEventListener('DOMContentLoaded', function() {
             // Check if there's a referral parameter in the URL
             const urlParams = new URLSearchParams(window.location.search);
@@ -176,19 +200,6 @@
             if (referralParam) {
                 // Pre-fill the referral code field
                 document.getElementById('referralCode').value = referralParam.trim();
-            }
-            
-            // Initialize demo users if they don't exist
-            let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
-            if (!demoUsers) {
-                demoUsers = [
-                    { id: 'CU123456', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456' },
-                    { id: 'CU789012', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU789012' },
-                    { id: 'CU345678', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU345678' },
-                    { id: 'CU901234', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU901234' },
-                    { id: 'CU567890', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU567890' }
-                ];
-                localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
             }
             
             // Function to generate a unique referral code
@@ -225,66 +236,101 @@
                     return;
                 }
                 
-                // Get users from localStorage
-                const users = JSON.parse(localStorage.getItem('demoUsers')) || [];
-                
-                // Debug: Log the referral code and available users
-                console.log('Referral Code:', referralCode);
-                console.log('Available Users:', users);
-                
-                // Validate referral code
-                const refUser = users.find(u => u.id === referralCode);
-                if (!refUser) {
-                    showAlert('registerAlert', 'Invalid referral code. Please check and try again.', 'danger');
-                    return;
-                }
-                
-                // Check if username or email already exists
-                if (users.find(u => u.username === username)) {
-                    showAlert('registerAlert', 'Username already exists', 'danger');
-                    return;
-                }
-                
-                if (users.find(u => u.email === email)) {
-                    showAlert('registerAlert', 'Email already exists', 'danger');
-                    return;
-                }
-                
-                // Generate unique referral code
-                let newUserId;
-                do {
-                    newUserId = generateReferralCode();
-                } while (users.some(user => user.id === newUserId));
-                
-                // Create new user
-                const newUser = {
-                    id: newUserId,
-                    name: fullName,
-                    username: username,
-                    email: email,
-                    phone: phone,
-                    password: password,
-                    joinDate: new Date().toISOString().split('T')[0],
-                    status: 'inactive',
-                    referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${newUserId}`
-                };
-                
-                // Add user to the list
-                users.push(newUser);
-                
-                // Save to localStorage
-                localStorage.setItem('demoUsers', JSON.stringify(users));
-                
-                // Show success message
-                showAlert('registerAlert', 'Registration successful! Please login.', 'success');
-                
-                // Reset form
-                document.getElementById('registerForm').reset();
-                
-                // Redirect to login page after 2 seconds
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
+                // Validate referral code in Firestore
+                db.collection('users').where('id', '==', referralCode).get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            showAlert('registerAlert', 'Invalid referral code. Please check and try again.', 'danger');
+                            return;
+                        }
+                        
+                        // Check if username or email already exists in Firestore
+                        return Promise.all([
+                            db.collection('users').where('username', '==', username).get(),
+                            db.collection('users').where('email', '==', email).get()
+                        ]);
+                    })
+                    .then(([usernameSnapshot, emailSnapshot]) => {
+                        if (!usernameSnapshot.empty) {
+                            showAlert('registerAlert', 'Username already exists', 'danger');
+                            return;
+                        }
+                        
+                        if (!emailSnapshot.empty) {
+                            showAlert('registerAlert', 'Email already exists', 'danger');
+                            return;
+                        }
+                        
+                        // Generate unique referral code
+                        let newUserId;
+                        let isUnique = false;
+                        
+                        // Function to check if ID is unique
+                        function checkUniqueId(id) {
+                            return db.collection('users').where('id', '==', id).get()
+                                .then(snapshot => snapshot.empty);
+                        }
+                        
+                        // Generate unique ID
+                        function generateUniqueId() {
+                            newUserId = generateReferralCode();
+                            return checkUniqueId(newUserId)
+                                .then(isUnique => {
+                                    if (isUnique) {
+                                        return newUserId;
+                                    } else {
+                                        return generateUniqueId();
+                                    }
+                                });
+                        }
+                        
+                        return generateUniqueId();
+                    })
+                    .then((newUserId) => {
+                        // Create user with Firebase Auth
+                        return auth.createUserWithEmailAndPassword(email, password)
+                            .then((userCredential) => {
+                                // Signed in
+                                const user = userCredential.user;
+                                
+                                // Add user to Firestore
+                                const userData = {
+                                    id: newUserId,
+                                    uid: user.uid,
+                                    name: fullName,
+                                    username: username,
+                                    email: email,
+                                    phone: phone,
+                                    joinDate: new Date().toISOString().split('T')[0],
+                                    status: 'inactive',
+                                    referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${newUserId}`
+                                };
+                                
+                                return db.collection('users').doc(user.uid).set(userData);
+                            });
+                    })
+                    .then(() => {
+                        // Show success message
+                        showAlert('registerAlert', 'Registration successful! Please login.', 'success');
+                        
+                        // Reset form
+                        document.getElementById('registerForm').reset();
+                        
+                        // Redirect to login page after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        
+                        if (errorCode === 'auth/email-already-in-use') {
+                            showAlert('registerAlert', 'Email already in use. Please use a different email.', 'danger');
+                        } else {
+                            showAlert('registerAlert', errorMessage, 'danger');
+                        }
+                    });
             });
         });
         
