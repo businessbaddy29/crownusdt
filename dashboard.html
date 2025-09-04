@@ -6,6 +6,10 @@
     <title>CrownUsdt - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
     <style>
         /* Basic styles */
         * {
@@ -593,7 +597,7 @@
         <div class="container header-container">
             <div class="logo">
                 <a href="dashboard.html">
-                    <img src="https://via.placeholder.com/50" alt="CrownUsdt Logo">
+                    <img src="logo.png" alt="CrownUsdt Logo">
                     <span>CrownUsdt</span>
                 </a>
             </div>
@@ -1454,21 +1458,36 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Initialize Firebase with your config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
+            authDomain: "crownusdt-bef5f.firebaseapp.com",
+            projectId: "crownusdt-bef5f",
+            storageBucket: "crownusdt-bef5f.firebasestorage.app",
+            messagingSenderId: "16212983577",
+            appId: "1:16212983577:web:54742789e0ca51e1800f88",
+            measurementId: "G-QMTHJ00757"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
         // Check login status on page load and redirect if not logged in
         document.addEventListener('DOMContentLoaded', function() {
             // Check if user is logged in
-            const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-            if (!currentUser) {
-                // Redirect to login page if not logged in
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            // User is logged in, initialize the dashboard
-            checkLoginStatus();
-            initializeEventListeners();
-            loadUserData();
-            startRealTimeUpdates();
+            auth.onAuthStateChanged(user => {
+                if (!user) {
+                    // Redirect to login page if not logged in
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                // User is logged in, initialize the dashboard
+                checkLoginStatus();
+                initializeEventListeners();
+                loadUserData();
+                startRealTimeUpdates();
+            });
         });
         
         // Start real-time updates
@@ -1479,7 +1498,7 @@
         
         // Update real-time data
         function updateRealTimeData() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+            const currentUser = auth.currentUser;
             if (currentUser) {
                 // Update team data
                 updateTeamData();
@@ -1493,135 +1512,152 @@
         // Update team data
         function updateTeamData() {
             // Get current user
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+            const currentUser = auth.currentUser;
             if (!currentUser) return;
             
             // Get all users
-            const users = JSON.parse(localStorage.getItem('demoUsers')) || [];
-            
-            // Find direct referrals (users who have current user as their referrer)
-            const directReferrals = users.filter(user => {
-                // Extract referral ID from the user's referral link
-                try {
-                    const referralUrl = new URL(user.referralLink);
-                    const referralId = referralUrl.searchParams.get('ref');
-                    return referralId === currentUser.id;
-                } catch (e) {
-                    return false;
-                }
+            db.collection('users').get().then(snapshot => {
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push(doc.data());
+                });
+                
+                // Find direct referrals (users who have current user as their referrer)
+                const directReferrals = users.filter(user => {
+                    // Extract referral ID from the user's referral link
+                    try {
+                        const referralUrl = new URL(user.referralLink);
+                        const referralId = referralUrl.searchParams.get('ref');
+                        return referralId === currentUser.uid;
+                    } catch (e) {
+                        return false;
+                    }
+                });
+                
+                // Calculate team stats
+                const directTeam = directReferrals.length;
+                const activeTeam = directReferrals.filter(user => user.status === 'active').length;
+                const inactiveTeam = directTeam - activeTeam;
+                
+                // Update team stats on dashboard
+                document.getElementById('directTeam').textContent = directTeam;
+                document.getElementById('activeTeam').textContent = activeTeam;
+                document.getElementById('inactiveTeam').textContent = inactiveTeam;
+                
+                // Update team stats on team page
+                document.getElementById('directTeamPage').textContent = directTeam;
+                document.getElementById('activeTeamPage').textContent = activeTeam;
+                document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
+                
+                // Update team table
+                updateTeamTable(directReferrals);
+                
+                // Update referral stats
+                document.getElementById('totalReferrals').textContent = directTeam;
+                document.getElementById('activeReferrals').textContent = activeTeam;
             });
-            
-            // Calculate team stats
-            const directTeam = directReferrals.length;
-            const activeTeam = directReferrals.filter(user => user.status === 'active').length;
-            const inactiveTeam = directTeam - activeTeam;
-            
-            // Update team stats on dashboard
-            document.getElementById('directTeam').textContent = directTeam;
-            document.getElementById('activeTeam').textContent = activeTeam;
-            document.getElementById('inactiveTeam').textContent = inactiveTeam;
-            
-            // Update team stats on team page
-            document.getElementById('directTeamPage').textContent = directTeam;
-            document.getElementById('activeTeamPage').textContent = activeTeam;
-            document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
-            
-            // Update team table
-            updateTeamTable(directReferrals);
-            
-            // Update referral stats
-            document.getElementById('totalReferrals').textContent = directTeam;
-            document.getElementById('activeReferrals').textContent = activeTeam;
         }
         
         // Update wallet data
         function updateWalletData() {
             // Get current user
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+            const currentUser = auth.currentUser;
             if (!currentUser) return;
             
-            // Get user transactions from localStorage or initialize if not exists
-            let walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + currentUser.id)) || [];
-            
-            // Calculate wallet balance
-            let walletBalance = 0;
-            let depositBalance = 0;
-            let incomeBalance = 0;
-            
-            walletTransactions.forEach(transaction => {
-                if (transaction.type === 'credit') {
-                    walletBalance += transaction.amount;
-                    if (transaction.description.includes('Deposit')) {
-                        depositBalance += transaction.amount;
-                    } else {
-                        incomeBalance += transaction.amount;
-                    }
-                } else {
-                    walletBalance -= transaction.amount;
-                }
-            });
-            
-            // Update wallet balance on dashboard
-            document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
-            
-            // Update wallet balance on wallet page
-            document.getElementById('walletBalancePage').textContent = `₹${walletBalance}`;
-            document.getElementById('depositBalancePage').textContent = `₹${depositBalance}`;
-            document.getElementById('incomeBalancePage').textContent = `₹${incomeBalance}`;
-            
-            // Update wallet balance on activate page
-            document.getElementById('walletBalanceCheck').value = `₹${walletBalance}`;
-            
-            // Update wallet transaction table
-            updateWalletTransactionTable(walletTransactions);
+            // Get user transactions from Firestore
+            db.collection('walletTransactions').where('userId', '==', currentUser.uid).get()
+                .then(snapshot => {
+                    const walletTransactions = [];
+                    snapshot.forEach(doc => {
+                        walletTransactions.push(doc.data());
+                    });
+                    
+                    // Calculate wallet balance
+                    let walletBalance = 0;
+                    let depositBalance = 0;
+                    let incomeBalance = 0;
+                    
+                    walletTransactions.forEach(transaction => {
+                        if (transaction.type === 'credit') {
+                            walletBalance += transaction.amount;
+                            if (transaction.description.includes('Deposit')) {
+                                depositBalance += transaction.amount;
+                            } else {
+                                incomeBalance += transaction.amount;
+                            }
+                        } else {
+                            walletBalance -= transaction.amount;
+                        }
+                    });
+                    
+                    // Update wallet balance on dashboard
+                    document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
+                    
+                    // Update wallet balance on wallet page
+                    document.getElementById('walletBalancePage').textContent = `₹${walletBalance}`;
+                    document.getElementById('depositBalancePage').textContent = `₹${depositBalance}`;
+                    document.getElementById('incomeBalancePage').textContent = `₹${incomeBalance}`;
+                    
+                    // Update wallet balance on activate page
+                    document.getElementById('walletBalanceCheck').value = `₹${walletBalance}`;
+                    
+                    // Update wallet transaction table
+                    updateWalletTransactionTable(walletTransactions);
+                });
         }
         
         // Update income data
         function updateIncomeData() {
             // Get current user
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+            const currentUser = auth.currentUser;
             if (!currentUser) return;
             
-            // Get user income from localStorage or initialize if not exists
-            let incomeData = JSON.parse(localStorage.getItem('incomeData_' + currentUser.id)) || [];
-            
-            // Calculate income stats
-            let directIncome = 0;
-            let levelIncome = 0;
-            let royaltyIncome = 0;
-            let bonusIncome = 0;
-            
-            incomeData.forEach(income => {
-                if (income.type === 'Direct') {
-                    directIncome += income.amount;
-                } else if (income.type === 'Level') {
-                    levelIncome += income.amount;
-                } else if (income.type === 'Royalty') {
-                    royaltyIncome += income.amount;
-                } else if (income.type === 'Bonus') {
-                    bonusIncome += income.amount;
-                }
-            });
-            
-            const totalIncome = directIncome + levelIncome + royaltyIncome + bonusIncome;
-            const teamIncome = levelIncome + royaltyIncome + bonusIncome;
-            
-            // Update income on dashboard
-            document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
-            document.getElementById('directIncome').textContent = `₹${directIncome}`;
-            document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
-            
-            // Update income on income page
-            document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
-            document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
-            document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
-            document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
-            
-            // Update recent income table
-            updateRecentIncomeTable(incomeData.slice(0, 3));
-            
-            // Update income table
-            updateIncomeTable(incomeData);
+            // Get user income from Firestore
+            db.collection('income').where('userId', '==', currentUser.uid).get()
+                .then(snapshot => {
+                    const incomeData = [];
+                    snapshot.forEach(doc => {
+                        incomeData.push(doc.data());
+                    });
+                    
+                    // Calculate income stats
+                    let directIncome = 0;
+                    let levelIncome = 0;
+                    let royaltyIncome = 0;
+                    let bonusIncome = 0;
+                    
+                    incomeData.forEach(income => {
+                        if (income.type === 'Direct') {
+                            directIncome += income.amount;
+                        } else if (income.type === 'Level') {
+                            levelIncome += income.amount;
+                        } else if (income.type === 'Royalty') {
+                            royaltyIncome += income.amount;
+                        } else if (income.type === 'Bonus') {
+                            bonusIncome += income.amount;
+                        }
+                    });
+                    
+                    const totalIncome = directIncome + levelIncome + royaltyIncome + bonusIncome;
+                    const teamIncome = levelIncome + royaltyIncome + bonusIncome;
+                    
+                    // Update income on dashboard
+                    document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+                    document.getElementById('directIncome').textContent = `₹${directIncome}`;
+                    document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+                    
+                    // Update income on income page
+                    document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+                    document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
+                    document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
+                    document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
+                    
+                    // Update recent income table
+                    updateRecentIncomeTable(incomeData.slice(0, 3));
+                    
+                    // Update income table
+                    updateIncomeTable(incomeData);
+                });
         }
         
         // Update team table
@@ -1723,17 +1759,29 @@
         
         // Check login status
         function checkLoginStatus() {
-            const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+            const currentUser = auth.currentUser;
             if (!currentUser) {
                 // If user is not logged in, redirect to login page
                 window.location.href = 'login.html';
                 return;
             }
             
-            // If user is logged in, load user data
-            const user = JSON.parse(currentUser);
-            updateUserInfo(user);
-            loadDashboardData(user);
+            // Get user data from Firestore
+            db.collection('users').doc(currentUser.uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        updateUserInfo(userData);
+                        loadDashboardData(userData);
+                    } else {
+                        // User data not found, redirect to login
+                        window.location.href = 'login.html';
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error getting user data:", error);
+                    window.location.href = 'login.html';
+                });
         }
         
         // Update user info
@@ -1758,163 +1806,195 @@
         
         // Load dashboard data
         function loadDashboardData(user) {
-            // Get user-specific data from localStorage
-            const walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + user.id)) || [];
-            const incomeData = JSON.parse(localStorage.getItem('incomeData_' + user.id)) || [];
-            const activationHistory = JSON.parse(localStorage.getItem('activationHistory_' + user.id)) || [];
-            const depositHistory = JSON.parse(localStorage.getItem('depositHistory_' + user.id)) || [];
-            const withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory_' + user.id)) || [];
-            
-            // Calculate wallet balance
-            let walletBalance = 0;
-            walletTransactions.forEach(transaction => {
-                if (transaction.type === 'credit') {
-                    walletBalance += transaction.amount;
+            // Get user-specific data from Firestore
+            Promise.all([
+                db.collection('walletTransactions').where('userId', '==', user.uid).get(),
+                db.collection('income').where('userId', '==', user.uid).get(),
+                db.collection('activationHistory').where('userId', '==', user.uid).get(),
+                db.collection('depositHistory').where('userId', '==', user.uid).get(),
+                db.collection('withdrawalHistory').where('userId', '==', user.uid).get()
+            ]).then(([walletSnapshot, incomeSnapshot, activationSnapshot, depositSnapshot, withdrawalSnapshot]) => {
+                // Process wallet transactions
+                const walletTransactions = [];
+                walletSnapshot.forEach(doc => {
+                    walletTransactions.push(doc.data());
+                });
+                
+                // Calculate wallet balance
+                let walletBalance = 0;
+                walletTransactions.forEach(transaction => {
+                    if (transaction.type === 'credit') {
+                        walletBalance += transaction.amount;
+                    } else {
+                        walletBalance -= transaction.amount;
+                    }
+                });
+                
+                // Process income data
+                const incomeData = [];
+                incomeSnapshot.forEach(doc => {
+                    incomeData.push(doc.data());
+                });
+                
+                // Calculate income stats
+                let directIncome = 0;
+                let teamIncome = 0;
+                incomeData.forEach(income => {
+                    if (income.type === 'Direct') {
+                        directIncome += income.amount;
+                    } else {
+                        teamIncome += income.amount;
+                    }
+                });
+                
+                const totalIncome = directIncome + teamIncome;
+                
+                // Update dashboard stats
+                document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+                document.getElementById('directIncome').textContent = `₹${directIncome}`;
+                document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+                document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
+                
+                // Update recent income table
+                const recentIncomeTable = document.getElementById('recentIncomeTable');
+                recentIncomeTable.innerHTML = '';
+                
+                if (incomeData.length === 0) {
+                    recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
                 } else {
-                    walletBalance -= transaction.amount;
+                    incomeData.slice(-3).reverse().forEach(income => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${income.date}</td>
+                            <td>${income.description}</td>
+                            <td>₹${income.amount}</td>
+                        `;
+                        recentIncomeTable.appendChild(row);
+                    });
                 }
-            });
-            
-            // Calculate income stats
-            let directIncome = 0;
-            let teamIncome = 0;
-            incomeData.forEach(income => {
-                if (income.type === 'Direct') {
-                    directIncome += income.amount;
+                
+                // Process activation history
+                const activationHistory = [];
+                activationSnapshot.forEach(doc => {
+                    activationHistory.push(doc.data());
+                });
+                
+                // Update activation history table
+                const activationHistoryTable = document.getElementById('activationHistoryTable');
+                activationHistoryTable.innerHTML = '';
+                
+                if (activationHistory.length === 0) {
+                    activationHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
                 } else {
-                    teamIncome += income.amount;
+                    activationHistory.slice(-5).reverse().forEach(activation => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${activation.date}</td>
+                            <td>${activation.userId}</td>
+                            <td>₹${activation.amount}</td>
+                        `;
+                        activationHistoryTable.appendChild(row);
+                    });
                 }
-            });
-            
-            const totalIncome = directIncome + teamIncome;
-            
-            // Update dashboard stats
-            document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
-            document.getElementById('directIncome').textContent = `₹${directIncome}`;
-            document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
-            document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
-            
-            // Update recent income table
-            const recentIncomeTable = document.getElementById('recentIncomeTable');
-            recentIncomeTable.innerHTML = '';
-            
-            if (incomeData.length === 0) {
-                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
-            } else {
-                incomeData.slice(-3).reverse().forEach(income => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${income.date}</td>
-                        <td>${income.description}</td>
-                        <td>₹${income.amount}</td>
-                    `;
-                    recentIncomeTable.appendChild(row);
+                
+                // Process deposit history
+                const depositHistory = [];
+                depositSnapshot.forEach(doc => {
+                    depositHistory.push(doc.data());
                 });
-            }
-            
-            // Update activation history table
-            const activationHistoryTable = document.getElementById('activationHistoryTable');
-            activationHistoryTable.innerHTML = '';
-            
-            if (activationHistory.length === 0) {
-                activationHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
-            } else {
-                activationHistory.slice(-5).reverse().forEach(activation => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${activation.date}</td>
-                        <td>${activation.userId}</td>
-                        <td>₹${activation.amount}</td>
-                    `;
-                    activationHistoryTable.appendChild(row);
-                });
-            }
-            
-            // Update deposit history table
-            const depositHistoryTable = document.getElementById('depositHistoryTable');
-            depositHistoryTable.innerHTML = '';
-            
-            if (depositHistory.length === 0) {
-                depositHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
-            } else {
-                depositHistory.slice(-5).reverse().forEach(deposit => {
-                    const row = document.createElement('tr');
-                    const statusClass = deposit.status === 'approved' ? 'status-approved' : 'status-pending';
-                    const statusText = deposit.status === 'approved' ? 'Approved' : 'Pending';
-                    row.innerHTML = `
-                        <td>${deposit.date}</td>
-                        <td>₹${deposit.amount}</td>
-                        <td><span class="${statusClass}">${statusText}</span></td>
-                    `;
-                    depositHistoryTable.appendChild(row);
-                });
-            }
-            
-            // Update withdrawal history table
-            const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
-            withdrawalHistoryTable.innerHTML = '';
-            
-            if (withdrawalHistory.length === 0) {
-                withdrawalHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
-            } else {
-                withdrawalHistory.slice(-5).reverse().forEach(withdrawal => {
-                    const row = document.createElement('tr');
-                    const statusClass = withdraw.status === 'approved' ? 'status-approved' : 'status-pending';
-                    const statusText = withdraw.status === 'approved' ? 'Approved' : 'Pending';
-                    row.innerHTML = `
-                        <td>${withdraw.date}</td>
-                        <td>₹${withdraw.amount}</td>
-                        <td><span class="${statusClass}">${statusText}</span></td>
-                    `;
-                    withdrawalHistoryTable.appendChild(row);
-                });
-            }
-            
-            // Update income page stats
-            let levelIncome = 0;
-            let royaltyIncome = 0;
-            let bonusIncome = 0;
-            
-            incomeData.forEach(income => {
-                if (income.type === 'Level') {
-                    levelIncome += income.amount;
-                } else if (income.type === 'Royalty') {
-                    royaltyIncome += income.amount;
-                } else if (income.type === 'Bonus') {
-                    bonusIncome += income.amount;
+                
+                // Update deposit history table
+                const depositHistoryTable = document.getElementById('depositHistoryTable');
+                depositHistoryTable.innerHTML = '';
+                
+                if (depositHistory.length === 0) {
+                    depositHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+                } else {
+                    depositHistory.slice(-5).reverse().forEach(deposit => {
+                        const row = document.createElement('tr');
+                        const statusClass = deposit.status === 'approved' ? 'status-approved' : 'status-pending';
+                        const statusText = deposit.status === 'approved' ? 'Approved' : 'Pending';
+                        row.innerHTML = `
+                            <td>${deposit.date}</td>
+                            <td>₹${deposit.amount}</td>
+                            <td><span class="${statusClass}">${statusText}</span></td>
+                        `;
+                        depositHistoryTable.appendChild(row);
+                    });
                 }
-            });
-            
-            document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
-            document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
-            document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
-            document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
-            
-            // Update income table
-            const incomeTable = document.getElementById('incomeTable');
-            incomeTable.innerHTML = '';
-            
-            if (incomeData.length === 0) {
-                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
-            } else {
-                incomeData.slice(-10).reverse().forEach(income => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${income.date}</td>
-                        <td>${income.description}</td>
-                        <td>${income.type}</td>
-                        <td>₹${income.amount}</td>
-                        <td><span class="status-approved">Approved</span></td>
-                    `;
-                    incomeTable.appendChild(row);
+                
+                // Process withdrawal history
+                const withdrawalHistory = [];
+                withdrawalSnapshot.forEach(doc => {
+                    withdrawalHistory.push(doc.data());
                 });
-            }
-            
-            // Update wallet data
-            updateWalletData();
-            
-            // Update team data
-            updateTeamData();
+                
+                // Update withdrawal history table
+                const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
+                withdrawalHistoryTable.innerHTML = '';
+                
+                if (withdrawalHistory.length === 0) {
+                    withdrawalHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+                } else {
+                    withdrawalHistory.slice(-5).reverse().forEach(withdrawal => {
+                        const row = document.createElement('tr');
+                        const statusClass = withdraw.status === 'approved' ? 'status-approved' : 'status-pending';
+                        const statusText = withdraw.status === 'approved' ? 'Approved' : 'Pending';
+                        row.innerHTML = `
+                            <td>${withdraw.date}</td>
+                            <td>₹${withdraw.amount}</td>
+                            <td><span class="${statusClass}">${statusText}</span></td>
+                        `;
+                        withdrawalHistoryTable.appendChild(row);
+                    });
+                }
+                
+                // Update income page stats
+                let levelIncome = 0;
+                let royaltyIncome = 0;
+                let bonusIncome = 0;
+                
+                incomeData.forEach(income => {
+                    if (income.type === 'Level') {
+                        levelIncome += income.amount;
+                    } else if (income.type === 'Royalty') {
+                        royaltyIncome += income.amount;
+                    } else if (income.type === 'Bonus') {
+                        bonusIncome += income.amount;
+                    }
+                });
+                
+                document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+                document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
+                document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
+                document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
+                
+                // Update income table
+                const incomeTable = document.getElementById('incomeTable');
+                incomeTable.innerHTML = '';
+                
+                if (incomeData.length === 0) {
+                    incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
+                } else {
+                    incomeData.slice(-10).reverse().forEach(income => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${income.date}</td>
+                            <td>${income.description}</td>
+                            <td>${income.type}</td>
+                            <td>₹${income.amount}</td>
+                            <td><span class="status-approved">Approved</span></td>
+                        `;
+                        incomeTable.appendChild(row);
+                    });
+                }
+                
+                // Update wallet data
+                updateWalletData();
+                
+                // Update team data
+                updateTeamData();
+            });
         }
         
         // Initialize event listeners
@@ -1944,12 +2024,13 @@
             document.getElementById('logoutBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Remove user data from storage
-                localStorage.removeItem('currentUser');
-                sessionStorage.removeItem('currentUser');
-                
-                // Redirect to login page
-                window.location.href = 'login.html';
+                // Sign out from Firebase
+                auth.signOut().then(() => {
+                    // Redirect to login page
+                    window.location.href = 'login.html';
+                }).catch((error) => {
+                    console.error("Sign out error", error);
+                });
             });
             
             // Profile form
@@ -1972,46 +2053,32 @@
                 };
                 
                 // Get current user
-                const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+                const currentUser = auth.currentUser;
                 
-                // Update user data in demoUsers array
-                const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
-                const userIndex = demoUsers.findIndex(u => u.id === currentUser.id);
-                
-                if (userIndex !== -1) {
-                    // Update user data
-                    demoUsers[userIndex] = {
-                        ...demoUsers[userIndex],
-                        name: formData.fullName,
-                        email: formData.email,
-                        phone: formData.phone
-                    };
+                // Update user data in Firestore
+                db.collection('users').doc(currentUser.uid).update({
+                    name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone
+                }).then(() => {
+                    // Update current user in Firebase Auth
+                    currentUser.updateEmail(formData.email);
                     
-                    // Save updated users array
-                    localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
-                    
-                    // Update current user in localStorage
-                    const updatedUser = {
-                        ...currentUser,
-                        name: formData.fullName,
-                        email: formData.email,
-                        phone: formData.phone
-                    };
-                    
-                    // Update in both localStorage and sessionStorage
-                    if (localStorage.getItem('currentUser')) {
-                        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-                    }
-                    if (sessionStorage.getItem('currentUser')) {
-                        sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
-                    }
-                    
-                    // Update user info on the page
-                    updateUserInfo(updatedUser);
-                    
-                    // Show success message
-                    showNotification('Profile updated successfully');
-                }
+                    // Get updated user data
+                    db.collection('users').doc(currentUser.uid).get()
+                        .then((doc) => {
+                            if (doc.exists) {
+                                const userData = doc.data();
+                                updateUserInfo(userData);
+                                
+                                // Show success message
+                                showNotification('Profile updated successfully');
+                            }
+                        });
+                }).catch((error) => {
+                    console.error("Error updating profile:", error);
+                    showNotification('Error updating profile. Please try again.', 'error');
+                });
             });
             
             // Referral link share buttons (Dashboard)
@@ -2081,52 +2148,47 @@
                 }
                 
                 // Get current user
-                const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+                const currentUser = auth.currentUser;
                 
-                // Get activation history or initialize if not exists
-                let activationHistory = JSON.parse(localStorage.getItem('activationHistory_' + currentUser.id)) || [];
-                
-                // Add to activation history
-                activationHistory.push({
-                    date: new Date().toISOString().split('T')[0],
-                    userId: userId,
-                    amount: activationAmount
-                });
-                
-                // Save activation history
-                localStorage.setItem('activationHistory_' + currentUser.id, JSON.stringify(activationHistory));
-                
-                // Update wallet balance
-                const newWalletBalance = walletBalance - activationAmount;
-                
-                // Get wallet transactions or initialize if not exists
-                let walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + currentUser.id)) || [];
-                
-                // Add wallet transaction
-                walletTransactions.push({
-                    date: new Date().toISOString().split('T')[0],
-                    description: `ID Activation for ${userId}`,
+                // Add to activation history in Firestore
+                db.collection('activationHistory').add({
+                    userId: currentUser.uid,
+                    activatedUserId: userId,
                     amount: activationAmount,
-                    type: 'debit'
+                    date: new Date().toISOString().split('T')[0],
+                    paymentMethod: paymentMethod,
+                    transactionId: transactionId
+                }).then(() => {
+                    // Update wallet balance
+                    const newWalletBalance = walletBalance - activationAmount;
+                    
+                    // Add wallet transaction
+                    db.collection('walletTransactions').add({
+                        userId: currentUser.uid,
+                        description: `ID Activation for ${userId}`,
+                        amount: activationAmount,
+                        type: 'debit',
+                        date: new Date().toISOString().split('T')[0]
+                    }).then(() => {
+                        // Update wallet balance on page
+                        document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
+                        
+                        // Reset form
+                        document.getElementById('activateForm').reset();
+                        document.getElementById('activationAmount').value = '1000';
+                        
+                        // Show success message
+                        showNotification('ID activation submitted successfully');
+                        
+                        // Refresh dashboard data
+                        checkLoginStatus();
+                    });
+                }).catch((error) => {
+                    console.error("Error activating ID:", error);
+                    showNotification('Error activating ID. Please try again.', 'error');
                 });
-                
-                // Save wallet transactions
-                localStorage.setItem('walletTransactions_' + currentUser.id, JSON.stringify(walletTransactions));
-                
-                // Update wallet balance on page
-                document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
-                document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
-                document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
-                
-                // Reset form
-                document.getElementById('activateForm').reset();
-                document.getElementById('activationAmount').value = '1000';
-                
-                // Show success message
-                showNotification('ID activation submitted successfully');
-                
-                // Refresh dashboard data
-                loadDashboardData(currentUser);
             });
             
             // Wallet transfer form
@@ -2155,36 +2217,56 @@
                 }
                 
                 // Get current user
-                const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+                const currentUser = auth.currentUser;
                 
-                // Get wallet transactions or initialize if not exists
-                let walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + currentUser.id)) || [];
-                
-                // Add wallet transaction
-                walletTransactions.push({
-                    date: new Date().toISOString().split('T')[0],
-                    description: `Transfer to ${transferTo}`,
-                    amount: transferAmount,
-                    type: 'debit'
-                });
-                
-                // Save wallet transactions
-                localStorage.setItem('walletTransactions_' + currentUser.id, JSON.stringify(walletTransactions));
-                
-                // Update wallet balance
-                const newWalletBalance = walletBalance - transferAmount;
-                document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
-                document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
-                document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
-                
-                // Reset form
-                document.getElementById('walletTransferForm').reset();
-                
-                // Show success message
-                showNotification('Wallet transfer completed successfully');
-                
-                // Refresh dashboard data
-                loadDashboardData(currentUser);
+                // Find user to transfer to
+                db.collection('users').where('id', '==', transferTo).get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            showNotification('User not found', 'error');
+                            return;
+                        }
+                        
+                        const toUser = querySnapshot.docs[0].data();
+                        
+                        // Add wallet transaction for current user
+                        return db.collection('walletTransactions').add({
+                            userId: currentUser.uid,
+                            description: `Transfer to ${transferTo}`,
+                            amount: transferAmount,
+                            type: 'debit',
+                            date: new Date().toISOString().split('T')[0]
+                        }).then(() => {
+                            // Add wallet transaction for recipient
+                            return db.collection('walletTransactions').add({
+                                userId: toUser.uid,
+                                description: `Transfer from ${currentUser.uid}`,
+                                amount: transferAmount,
+                                type: 'credit',
+                                date: new Date().toISOString().split('T')[0]
+                            });
+                        });
+                    })
+                    .then(() => {
+                        // Update wallet balance
+                        const newWalletBalance = walletBalance - transferAmount;
+                        document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
+                        
+                        // Reset form
+                        document.getElementById('walletTransferForm').reset();
+                        
+                        // Show success message
+                        showNotification('Wallet transfer completed successfully');
+                        
+                        // Refresh dashboard data
+                        checkLoginStatus();
+                    })
+                    .catch((error) => {
+                        console.error("Error transferring wallet:", error);
+                        showNotification('Error transferring wallet. Please try again.', 'error');
+                    });
             });
             
             // Deposit method change
@@ -2222,29 +2304,30 @@
                 }
                 
                 // Get current user
-                const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
-                
-                // Get deposit history or initialize if not exists
-                let depositHistory = JSON.parse(localStorage.getItem('depositHistory_' + currentUser.id)) || [];
+                const currentUser = auth.currentUser;
                 
                 // Add to deposit history
-                depositHistory.push({
-                    date: depositDate,
+                db.collection('depositHistory').add({
+                    userId: currentUser.uid,
                     amount: parseInt(depositAmount),
+                    method: depositMethod,
+                    transactionId: depositTransactionId,
+                    date: depositDate,
+                    remark: depositRemark,
                     status: 'pending'
+                }).then(() => {
+                    // Reset form
+                    document.getElementById('depositForm').reset();
+                    
+                    // Show success message
+                    showNotification('Deposit submitted successfully');
+                    
+                    // Refresh dashboard data
+                    checkLoginStatus();
+                }).catch((error) => {
+                    console.error("Error submitting deposit:", error);
+                    showNotification('Error submitting deposit. Please try again.', 'error');
                 });
-                
-                // Save deposit history
-                localStorage.setItem('depositHistory_' + currentUser.id, JSON.stringify(depositHistory));
-                
-                // Reset form
-                document.getElementById('depositForm').reset();
-                
-                // Show success message
-                showNotification('Deposit submitted successfully');
-                
-                // Refresh dashboard data
-                loadDashboardData(currentUser);
             });
             
             // Withdrawal form
@@ -2274,29 +2357,30 @@
                 }
                 
                 // Get current user
-                const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
-                
-                // Get withdrawal history or initialize if not exists
-                let withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory_' + currentUser.id)) || [];
+                const currentUser = auth.currentUser;
                 
                 // Add to withdrawal history
-                withdrawalHistory.push({
-                    date: new Date().toISOString().split('T')[0],
+                db.collection('withdrawalHistory').add({
+                    userId: currentUser.uid,
                     amount: parseInt(withdrawalAmount),
+                    method: withdrawalMethod,
+                    accountDetails: withdrawalAccount,
+                    remark: withdrawalRemark,
+                    date: new Date().toISOString().split('T')[0],
                     status: 'pending'
+                }).then(() => {
+                    // Reset form
+                    document.getElementById('withdrawalForm').reset();
+                    
+                    // Show success message
+                    showNotification('Withdrawal submitted successfully');
+                    
+                    // Refresh dashboard data
+                    checkLoginStatus();
+                }).catch((error) => {
+                    console.error("Error submitting withdrawal:", error);
+                    showNotification('Error submitting withdrawal. Please try again.', 'error');
                 });
-                
-                // Save withdrawal history
-                localStorage.setItem('withdrawalHistory_' + currentUser.id, JSON.stringify(withdrawalHistory));
-                
-                // Reset form
-                document.getElementById('withdrawalForm').reset();
-                
-                // Show success message
-                showNotification('Withdrawal submitted successfully');
-                
-                // Refresh dashboard data
-                loadDashboardData(currentUser);
             });
             
             // Other button events
