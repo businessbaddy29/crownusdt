@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrownUsdt - लॉगिन / रजिस्ट्रेशन</title>
+    <title>CrownUsdt - Login / Registration</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* बेसिक स्टाइल */
+        /* Basic styles */
         * {
             margin: 0;
             padding: 0;
@@ -127,112 +127,111 @@
                     <h3>CrownUsdt</h3>
                 </div>
                 
-                <!-- नेविगेशन टैब्स -->
+                <!-- Navigation tabs -->
                 <ul class="nav nav-tabs" id="authTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">लॉगिन</button>
+                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">रजिस्ट्रेशन</button>
+                        <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Registration</button>
                     </li>
                 </ul>
                 
-                <!-- टैब कंटेंट -->
+                <!-- Tab content -->
                 <div class="tab-content" id="authTabContent">
-                    <!-- लॉगिन टैब -->
+                    <!-- Login tab -->
                     <div class="tab-pane fade show active" id="login" role="tabpanel">
                         <div id="loginAlert"></div>
                         <form id="loginForm">
                             <div class="mb-3">
-                                <label for="username" class="form-label">यूजरनेम / ईमेल / फोन</label>
-                                <input type="text" class="form-control" id="username" placeholder="यूजरनेम दर्ज करें" required>
+                                <label for="username" class="form-label">Username / Email / Phone</label>
+                                <input type="text" class="form-control" id="username" placeholder="Enter username" required>
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">पासवर्ड</label>
-                                <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें" required>
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="adminCheck">
-                                <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
+                                <label class="form-check-label" for="adminCheck">Admin Login</label>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">लॉगिन</button>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                         <div class="text-center mt-3">
-                            <a href="#" id="forgotPassword">पासवर्ड भूल गए?</a>
+                            <a href="#" id="forgotPassword">Forgot Password?</a>
                         </div>
                     </div>
                     
-                    <!-- रजिस्ट्रेशन टैब -->
+                    <!-- Registration tab -->
                     <div class="tab-pane fade" id="register" role="tabpanel">
                         <div id="registerAlert"></div>
                         <form id="registerForm">
                             <div class="mb-3">
-                                <label for="regFullName" class="form-label">पूरा नाम</label>
-                                <input type="text" class="form-control" id="regFullName" placeholder="पूरा नाम दर्ज करें" required>
+                                <label for="regFullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="regFullName" placeholder="Enter full name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regUsername" class="form-label">यूजरनेम</label>
-                                <input type="text" class="form-control" id="regUsername" placeholder="यूजरनेम दर्ज करें" required>
+                                <label for="regUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="regUsername" placeholder="Enter username" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regEmail" class="form-label">ईमेल</label>
-                                <input type="email" class="form-control" id="regEmail" placeholder="ईमेल दर्ज करें" required>
+                                <label for="regEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="regEmail" placeholder="Enter email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regPhone" class="form-label">फोन नंबर</label>
-                                <input type="tel" class="form-control" id="regPhone" placeholder="फोन नंबर दर्ज करें" required>
+                                <label for="regPhone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="regPhone" placeholder="Enter phone number" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regPassword" class="form-label">पासवर्ड</label>
-                                <input type="password" class="form-control" id="regPassword" placeholder="पासवर्ड दर्ज करें" required>
+                                <label for="regPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="regPassword" placeholder="Enter password" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regConfirmPassword" class="form-label">पासवर्ड की पुष्टि करें</label>
-                                <input type="password" class="form-control" id="regConfirmPassword" placeholder="पासवर्ड दोबारा दर्ज करें" required>
+                                <label for="regConfirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="regConfirmPassword" placeholder="Re-enter password" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regReferral" class="form-label">रेफरल लिंक <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="regReferral" placeholder="रेफरल लिंक दर्ज करें" required>
-                                <div class="form-text">रेफरल लिंक के बिना रजिस्ट्रेशन संभव नहीं है</div>
+                                <label for="regReferral" class="form-label">Referral Link <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="regReferral" placeholder="Enter referral link" required>
+                                <div class="form-text">Registration is not possible without a referral link</div>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">रजिस्टर करें</button>
+                            <button type="submit" class="btn btn-primary w-100">Register</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // पेज लोड होने पर चेक करें कि यूजर पहले से लॉगिन है या नहीं
+        // Check if user is already logged in when page loads
         document.addEventListener('DOMContentLoaded', function() {
             checkExistingLogin();
             
-            // localStorage से यूजर्स डेटा लोड करें या नया बनाएं
+            // Load users data from localStorage or create new
             let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
             if (!demoUsers) {
                 demoUsers = [
-                    { id: 'USER001', name: 'राजेश कुमार', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER001' },
-                    { id: 'USER002', name: 'सीमा सिंह', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER002' },
-                    { id: 'USER003', name: 'अमित शर्मा', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://crownusdt.com/register?ref=USER003' },
-                    { id: 'USER004', name: 'प्रिया गुप्ता', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://crownusdt.com/register?ref=USER004' },
-                    { id: 'USER005', name: 'विकास पटेल', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER005' }
+                    { id: 'USER001', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER001' },
+                    { id: 'USER002', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER002' },
+                    { id: 'USER003', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://crownusdt.com/register?ref=USER003' },
+                    { id: 'USER004', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://crownusdt.com/register?ref=USER004' },
+                    { id: 'USER005', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER005' }
                 ];
                 localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
             }
         });
         
-        // चेक करें कि यूजर पहले से लॉगिन है या नहीं
+        // Check if user is already logged in
         function checkExistingLogin() {
             const currentUser = localStorage.getItem('currentUser');
             if (currentUser) {
-                // यदि यूजर पहले से लॉगिन है, तो डैशबोर्ड पर रीडायरेक्ट करें
+                // If user is already logged in, redirect to dashboard
                 window.location.href = 'dashboard.html';
             }
         }
         
-        // लॉगिन फॉर्म सबमिशन
+        // Login form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -241,36 +240,36 @@
             const isAdmin = document.getElementById('adminCheck').checked;
             const alertDiv = document.getElementById('loginAlert');
             
-            // अलर्ट क्लियर करें
+            // Clear alert
             alertDiv.innerHTML = '';
             
             if (!username || !password) {
-                showAlert('loginAlert', 'कृपया यूजरनेम और पासवर्ड दर्ज करें', 'danger');
+                showAlert('loginAlert', 'Please enter username and password', 'danger');
                 return;
             }
             
-            // localStorage से यूजर्स डेटा लोड करें
+            // Load users data from localStorage
             const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
             
             if (isAdmin) {
-                // एडमिन लॉगिन
+                // Admin login
                 if (username === 'admin' && password === 'admin123') {
-                    // स्टोरेज में लॉगिन जानकारी सेव करें
+                    // Save login information in storage
                     localStorage.setItem('currentUser', JSON.stringify({
                         id: 'ADMIN',
-                        name: 'एडमिन',
+                        name: 'Admin',
                         username: 'admin',
                         email: 'admin@mlmsoftware.com',
                         isAdmin: true
                     }));
                     
-                    // डैशबोर्ड पर रीडायरेक्ट करें
+                    // Redirect to dashboard
                     window.location.href = 'dashboard.html';
                 } else {
-                    showAlert('loginAlert', 'गलत एडमिन यूजरनेम या पासवर्ड', 'danger');
+                    showAlert('loginAlert', 'Incorrect admin username or password', 'danger');
                 }
             } else {
-                // यूजर लॉगिन
+                // User login
                 const user = demoUsers.find(u => 
                     u.username === username || 
                     u.email === username || 
@@ -278,21 +277,21 @@
                 );
                 
                 if (user && user.password === password) {
-                    // स्टोरेज में लॉगिन जानकारी सेव करें
+                    // Save login information in storage
                     localStorage.setItem('currentUser', JSON.stringify({
                         ...user,
                         isAdmin: false
                     }));
                     
-                    // डैशबोर्ड पर रीडायरेक्ट करें
+                    // Redirect to dashboard
                     window.location.href = 'dashboard.html';
                 } else {
-                    showAlert('loginAlert', 'गलत यूजरनेम या पासवर्ड', 'danger');
+                    showAlert('loginAlert', 'Incorrect username or password', 'danger');
                 }
             }
         });
         
-        // रजिस्ट्रेशन फॉर्म सबमिशन
+        // Registration form submission
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -305,49 +304,49 @@
             const referral = document.getElementById('regReferral').value;
             const alertDiv = document.getElementById('registerAlert');
             
-            // अलर्ट क्लियर करें
+            // Clear alert
             alertDiv.innerHTML = '';
             
-            // वैलिडेशन
+            // Validation
             if (!fullName || !username || !email || !phone || !password || !confirmPassword || !referral) {
-                showAlert('registerAlert', 'कृपया सभी फील्ड भरें', 'danger');
+                showAlert('registerAlert', 'Please fill all fields', 'danger');
                 return;
             }
             
             if (password !== confirmPassword) {
-                showAlert('registerAlert', 'पासवर्ड मेल नहीं खा रहे', 'danger');
+                showAlert('registerAlert', 'Passwords do not match', 'danger');
                 return;
             }
             
-            // localStorage से यूजर्स डेटा लोड करें
+            // Load users data from localStorage
             const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
             
-            // रेफरल लिंक वैलिडेशन
+            // Referral link validation
             const refUser = demoUsers.find(u => 
                 u.referralLink === referral || 
                 u.id === referral
             );
             
             if (!refUser) {
-                showAlert('registerAlert', 'अमान्य रेफरल लिंक', 'danger');
+                showAlert('registerAlert', 'Invalid referral link', 'danger');
                 return;
             }
             
-            // यूजरनेम और ईमेल यूनीकनेस चेक
+            // Username and email uniqueness check
             if (demoUsers.find(u => u.username === username)) {
-                showAlert('registerAlert', 'यह यूजरनेम पहले से उपयोग में है', 'danger');
+                showAlert('registerAlert', 'This username is already in use', 'danger');
                 return;
             }
             
             if (demoUsers.find(u => u.email === email)) {
-                showAlert('registerAlert', 'यह ईमेल पहले से उपयोग में है', 'danger');
+                showAlert('registerAlert', 'This email is already in use', 'danger');
                 return;
             }
             
-            // नया यूजर आईडी जनरेट करें
+            // Generate new user ID
             const newUserId = 'USER' + String(demoUsers.length + 1).padStart(3, '0');
             
-            // नया यूजर बनाएं
+            // Create new user
             const newUser = {
                 id: newUserId,
                 name: fullName,
@@ -360,40 +359,40 @@
                 referralLink: 'https://crownusdt.com/register?ref=' + newUserId
             };
             
-            // डेमो यूजर्स में जोड़ें
+            // Add to demo users
             demoUsers.push(newUser);
             
-            // localStorage में अपडेट किए गए यूजर्स को सेव करें
+            // Save updated users in localStorage
             localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
             
-            // स्टोरेज में लॉगिन जानकारी सेव करें
+            // Save login information in storage
             localStorage.setItem('currentUser', JSON.stringify({
                 ...newUser,
                 isAdmin: false
             }));
             
-            // सफलता संदेश
-            showAlert('registerAlert', 'रजिस्ट्रेशन सफल! डैशबोर्ड पर रीडायरेक्ट हो रहे हैं...', 'success');
+            // Success message
+            showAlert('registerAlert', 'Registration successful! Redirecting to dashboard...', 'success');
             
-            // फॉर्म रीसेट करें
+            // Reset form
             document.getElementById('registerForm').reset();
             
-            // डैशबोर्ड पर रीडायरेक्ट करें
+            // Redirect to dashboard
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 2000);
         });
         
-        // अलर्ट फंक्शन
+        // Alert function
         function showAlert(elementId, message, type) {
             const alertDiv = document.getElementById(elementId);
             alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
         }
         
-        // भूले हुए पासवर्ड लिंक
+        // Forgot password link
         document.getElementById('forgotPassword').addEventListener('click', function(e) {
             e.preventDefault();
-            showAlert('loginAlert', 'पासवर्ड रीसेट लिंक आपके ईमेल पर भेजा गया है', 'success');
+            showAlert('loginAlert', 'Password reset link has been sent to your email', 'success');
         });
     </script>
 </body>
