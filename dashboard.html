@@ -630,6 +630,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#" data-page="profile">प्रोफाइल</a></li>
+                        <li><a class="dropdown-item" href="#" data-page="wallet">वॉलेट</a></li>
                         <li><a class="dropdown-item" href="#" id="changePassword">पासवर्ड बदलें</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#" id="logoutBtn">लॉगआउट</a></li>
@@ -652,6 +653,12 @@
                 <a href="#" data-page="profile">
                     <i class="fas fa-user"></i>
                     <span>प्रोफाइल</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="wallet">
+                    <i class="fas fa-wallet"></i>
+                    <span>वॉलेट</span>
                 </a>
             </li>
             <li>
@@ -701,6 +708,29 @@
             <div class="welcome-banner">
                 <h2>नमस्ते, <span id="welcomeUserName">यूजर</span>!</h2>
                 <p>CrownUsdt में आपका स्वागत है। आज का दिन शानदार हो!</p>
+            </div>
+            
+            <!-- रेफरल लिंक कार्ड -->
+            <div class="card">
+                <div class="card-header">
+                    अपना रेफरल लिंक
+                </div>
+                <div class="card-body">
+                    <div class="referral-link-container">
+                        <div class="referral-link" id="dashboardReferralLink">https://businessbaddy29.github.io/crownusdt/register?ref=USER001</div>
+                        <div class="share-buttons">
+                            <button class="share-btn whatsapp-btn" id="shareWhatsappDashboard">
+                                <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                            </button>
+                            <button class="share-btn telegram-btn" id="shareTelegramDashboard">
+                                <i class="fab fa-telegram-plane me-2"></i> Telegram
+                            </button>
+                            <button class="share-btn copy-btn" id="copyReferralBtnDashboard">
+                                <i class="fas fa-copy me-2"></i> कॉपी करें
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- डैशबोर्ड स्टैट्स -->
@@ -829,7 +859,7 @@
                         </div>
                         <div class="card-body">
                             <div class="referral-link-container">
-                                <div class="referral-link" id="referralLink">https://crownusdt.com/register?ref=USER001</div>
+                                <div class="referral-link" id="referralLink">https://businessbaddy29.github.io/crownusdt/register?ref=USER001</div>
                                 <div class="share-buttons">
                                     <button class="share-btn whatsapp-btn" id="shareWhatsapp">
                                         <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -934,6 +964,94 @@
             </div>
         </div>
 
+        <!-- वॉलेट पेज -->
+        <div id="walletPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>वॉलेट</h2>
+                <p>अपने वॉलेट की जानकारी देखें</p>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">वॉलेट बैलेंस</h5>
+                            <p class="card-text fs-2" id="walletBalancePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">डिपॉजिट बैलेंस</h5>
+                            <p class="card-text fs-2" id="depositBalancePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">इनकम बैलेंस</h5>
+                            <p class="card-text fs-2" id="incomeBalancePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            वॉलेट ट्रांजैक्शन
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>तारीख</th>
+                                            <th>विवरण</th>
+                                            <th>राशि</th>
+                                            <th>प्रकार</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="walletTransactionTable">
+                                        <tr>
+                                            <td colspan="4" class="text-center">कोई डेटा नहीं</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            वॉलेट ट्रांसफर
+                        </div>
+                        <div class="card-body">
+                            <form id="walletTransferForm">
+                                <div class="mb-3">
+                                    <label for="transferTo" class="form-label">ट्रांसफर टू (यूजर ID)</label>
+                                    <input type="text" class="form-control" id="transferTo" placeholder="यूजर ID दर्ज करें">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transferAmount" class="form-label">राशि</label>
+                                    <input type="number" class="form-control" id="transferAmount" placeholder="राशि दर्ज करें">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transferRemark" class="form-label">टिप्पणी</label>
+                                    <textarea class="form-control" id="transferRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">ट्रांसफर करें</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ID एक्टिवेट पेज -->
         <div id="activatePage" class="page-content hidden">
             <div class="welcome-banner">
@@ -954,6 +1072,12 @@
                                 <div class="mb-3">
                                     <label for="activationAmount" class="form-label">एक्टिवेशन राशि</label>
                                     <input type="number" class="form-control" id="activationAmount" value="1000" readonly>
+                                    <div class="form-text">एक्टिवेशन के लिए न्यूनतम राशि ₹1000 है</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="walletBalanceCheck" class="form-label">वॉलेट बैलेंस</label>
+                                    <input type="text" class="form-control" id="walletBalanceCheck" value="₹0" readonly>
+                                    <div class="form-text">आपके वॉलेट में पर्याप्त बैलेंस होना चाहिए</div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="paymentMethod" class="form-label">भुगतान विधि</label>
@@ -967,7 +1091,7 @@
                                     <label for="transactionId" class="form-label">ट्रांजैक्शन ID</label>
                                     <input type="text" class="form-control" id="transactionId" placeholder="ट्रांजैक्शन ID दर्ज करें">
                                 </div>
-                                <button type="submit" class="btn btn-primary">ID एक्टिवेट करें</button>
+                                <button type="submit" class="btn btn-primary" id="activateIdBtn">ID एक्टिवेट करें</button>
                             </form>
                         </div>
                     </div>
@@ -1338,7 +1462,223 @@
             checkLoginStatus();
             initializeEventListeners();
             loadUserData();
+            startRealTimeUpdates();
         });
+        
+        // रियल-टाइम अपडेट शुरू करें
+        function startRealTimeUpdates() {
+            // हर 5 सेकंड में डेटा अपडेट करें
+            setInterval(updateRealTimeData, 5000);
+        }
+        
+        // रियल-टाइम डेटा अपडेट करें
+        function updateRealTimeData() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                // टीम डेटा अपडेट करें
+                updateTeamData();
+                // वॉलेट डेटा अपडेट करें
+                updateWalletData();
+                // इनकम डेटा अपडेट करें
+                updateIncomeData();
+            }
+        }
+        
+        // टीम डेटा अपडेट करें
+        function updateTeamData() {
+            // यहां आप टीम डेटा को अपडेट कर सकते हैं
+            // डेमो के लिए, हम कुछ रैंडम डेटा जनरेट कर रहे हैं
+            const directTeam = Math.floor(Math.random() * 10);
+            const totalTeam = Math.floor(Math.random() * 50);
+            const activeTeam = Math.floor(Math.random() * totalTeam);
+            const inactiveTeam = totalTeam - activeTeam;
+            
+            // डैशबोर्ड पर टीम स्टैट्स अपडेट करें
+            document.getElementById('directTeam').textContent = directTeam;
+            document.getElementById('totalTeam').textContent = totalTeam;
+            document.getElementById('activeTeam').textContent = activeTeam;
+            document.getElementById('inactiveTeam').textContent = inactiveTeam;
+            
+            // टीम पेज पर टीम स्टैट्स अपडेट करें
+            document.getElementById('directTeamPage').textContent = directTeam;
+            document.getElementById('totalTeamPage').textContent = totalTeam;
+            document.getElementById('activeTeamPage').textContent = activeTeam;
+            document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
+            
+            // टीम टेबल अपडेट करें
+            updateTeamTable();
+        }
+        
+        // वॉलेट डेटा अपडेट करें
+        function updateWalletData() {
+            // यहां आप वॉलेट डेटा को अपडेट कर सकते हैं
+            // डेमो के लिए, हम कुछ रैंडम डेटा जनरेट कर रहे हैं
+            const walletBalance = Math.floor(Math.random() * 10000);
+            const depositBalance = Math.floor(Math.random() * 5000);
+            const incomeBalance = walletBalance - depositBalance;
+            
+            // डैशबोर्ड पर वॉलेट बैलेंस अपडेट करें
+            document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
+            
+            // वॉलेट पेज पर वॉलेट बैलेंस अपडेट करें
+            document.getElementById('walletBalancePage').textContent = `₹${walletBalance}`;
+            document.getElementById('depositBalancePage').textContent = `₹${depositBalance}`;
+            document.getElementById('incomeBalancePage').textContent = `₹${incomeBalance}`;
+            
+            // एक्टिवेट पेज पर वॉलेट बैलेंस अपडेट करें
+            document.getElementById('walletBalanceCheck').value = `₹${walletBalance}`;
+            
+            // वॉलेट ट्रांजैक्शन टेबल अपडेट करें
+            updateWalletTransactionTable();
+        }
+        
+        // इनकम डेटा अपडेट करें
+        function updateIncomeData() {
+            // यहां आप इनकम डेटा को अपडेट कर सकते हैं
+            // डेमो के लिए, हम कुछ रैंडम डेटा जनरेट कर रहे हैं
+            const totalIncome = Math.floor(Math.random() * 20000);
+            const directIncome = Math.floor(Math.random() * 10000);
+            const teamIncome = totalIncome - directIncome;
+            const levelIncome = Math.floor(teamIncome * 0.6);
+            const royaltyIncome = Math.floor(teamIncome * 0.3);
+            const bonusIncome = teamIncome - levelIncome - royaltyIncome;
+            
+            // डैशबोर्ड पर इनकम अपडेट करें
+            document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+            document.getElementById('directIncome').textContent = `₹${directIncome}`;
+            document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+            
+            // इनकम पेज पर इनकम अपडेट करें
+            document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+            document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
+            document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
+            document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
+            
+            // हालिया इनकम टेबल अपडेट करें
+            updateRecentIncomeTable();
+            
+            // इनकम टेबल अपडेट करें
+            updateIncomeTable();
+        }
+        
+        // टीम टेबल अपडेट करें
+        function updateTeamTable() {
+            const teamTable = document.getElementById('teamTable');
+            teamTable.innerHTML = '';
+            
+            // डेमो टीम सदस्य
+            const teamMembers = [
+                { id: 'USER002', name: 'राजेश कुमार', joinDate: '2023-05-01', status: 'active' },
+                { id: 'USER003', name: 'सीमा सिंह', joinDate: '2023-05-05', status: 'active' },
+                { id: 'USER004', name: 'अमित शर्मा', joinDate: '2023-05-10', status: 'inactive' }
+            ];
+            
+            if (teamMembers.length === 0) {
+                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                teamMembers.forEach(member => {
+                    const row = document.createElement('tr');
+                    const statusClass = member.status === 'active' ? 'status-active' : 
+                                       member.status === 'inactive' ? 'status-inactive' : 'status-blocked';
+                    row.innerHTML = `
+                        <td>${member.id}</td>
+                        <td>${member.name}</td>
+                        <td>${member.joinDate}</td>
+                        <td><span class="${statusClass}">${member.status === 'active' ? 'एक्टिव' : member.status === 'inactive' ? 'इनएक्टिव' : 'ब्लॉक्ड'}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">व्यू</button>
+                        </td>
+                    `;
+                    teamTable.appendChild(row);
+                });
+            }
+        }
+        
+        // वॉलेट ट्रांजैक्शन टेबल अपडेट करें
+        function updateWalletTransactionTable() {
+            const walletTransactionTable = document.getElementById('walletTransactionTable');
+            walletTransactionTable.innerHTML = '';
+            
+            // डेमो वॉलेट ट्रांजैक्शन
+            const walletTransactions = [
+                { date: '2023-06-15', description: 'डिपॉजिट', amount: 5000, type: 'credit' },
+                { date: '2023-06-10', description: 'इनकम', amount: 1000, type: 'credit' },
+                { date: '2023-06-05', description: 'विड्रॉवल', amount: 2000, type: 'debit' }
+            ];
+            
+            if (walletTransactions.length === 0) {
+                walletTransactionTable.innerHTML = '<tr><td colspan="4" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                walletTransactions.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    const typeClass = transaction.type === 'credit' ? 'text-success' : 'text-danger';
+                    const typeText = transaction.type === 'credit' ? 'क्रेडिट' : 'डेबिट';
+                    row.innerHTML = `
+                        <td>${transaction.date}</td>
+                        <td>${transaction.description}</td>
+                        <td class="${typeClass}">${transaction.type === 'credit' ? '+' : '-'}₹${transaction.amount}</td>
+                        <td>${typeText}</td>
+                    `;
+                    walletTransactionTable.appendChild(row);
+                });
+            }
+        }
+        
+        // हालिया इनकम टेबल अपडेट करें
+        function updateRecentIncomeTable() {
+            const recentIncomeTable = document.getElementById('recentIncomeTable');
+            recentIncomeTable.innerHTML = '';
+            
+            // डेमो हालिया इनकम
+            const recentIncome = [
+                { date: '2023-06-15', description: 'डायरेक्ट इनकम', amount: 1000 },
+                { date: '2023-06-10', description: 'लेवल इनकम', amount: 500 },
+                { date: '2023-06-05', description: 'बोनस इनकम', amount: 250 }
+            ];
+            
+            if (recentIncome.length === 0) {
+                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                recentIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>₹${income.amount}</td>
+                    `;
+                    recentIncomeTable.appendChild(row);
+                });
+            }
+        }
+        
+        // इनकम टेबल अपडेट करें
+        function updateIncomeTable() {
+            const incomeTable = document.getElementById('incomeTable');
+            incomeTable.innerHTML = '';
+            
+            // डेमो इनकम
+            const incomeData = [
+                { date: '2023-06-15', description: 'डायरेक्ट इनकम', type: 'डायरेक्ट', amount: 1000 },
+                { date: '2023-06-10', description: 'लेवल इनकम', type: 'लेवल', amount: 500 },
+                { date: '2023-06-05', description: 'बोनस इनकम', type: 'बोनस', amount: 250 }
+            ];
+            
+            if (incomeData.length === 0) {
+                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                incomeData.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>${income.type}</td>
+                        <td>₹${income.amount}</td>
+                        <td><span class="status-approved">अप्रूव्ड</span></td>
+                    `;
+                    incomeTable.appendChild(row);
+                });
+            }
+        }
         
         // लॉगिन स्टेटस चेक करें
         function checkLoginStatus() {
@@ -1367,8 +1707,9 @@
             document.getElementById('profileUserId').textContent = user.id;
             
             // रेफरल लिंक अपडेट करें
-            const referralLink = `https://crownusdt.com/register?ref=${user.id}`;
+            const referralLink = `https://businessbaddy29.github.io/crownusdt/register?ref=${user.id}`;
             document.getElementById('referralLink').textContent = referralLink;
+            document.getElementById('dashboardReferralLink').textContent = referralLink;
             
             // जीनियोलॉजी पेज पर यूजर इनफो अपडेट करें
             document.getElementById('genealogyUserName').textContent = user.name;
@@ -1490,6 +1831,9 @@
                     incomeTable.appendChild(row);
                 });
             }
+            
+            // वॉलेट डेटा अपडेट करें
+            updateWalletData();
         }
         
         // इवेंट लिस्टनर इनिशियलाइज करें
@@ -1623,7 +1967,29 @@
                 showNotification('प्रोफाइल सफलतापूर्वक अपडेट की गई');
             });
             
-            // रेफरल लिंक शेयर बटन
+            // रेफरल लिंक शेयर बटन (डैशबोर्ड)
+            document.getElementById('shareWhatsappDashboard').addEventListener('click', function() {
+                const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            document.getElementById('shareTelegramDashboard').addEventListener('click', function() {
+                const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+                window.open(telegramUrl, '_blank');
+            });
+            
+            document.getElementById('copyReferralBtnDashboard').addEventListener('click', function() {
+                const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                navigator.clipboard.writeText(referralLink).then(function() {
+                    showNotification('रेफरल लिंक कॉपी किया गया');
+                });
+            });
+            
+            // रेफरल लिंक शेयर बटन (प्रोफाइल)
             document.getElementById('shareWhatsapp').addEventListener('click', function() {
                 const referralLink = document.getElementById('referralLink').textContent;
                 const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
@@ -1650,13 +2016,20 @@
                 e.preventDefault();
                 
                 const userId = document.getElementById('userId').value;
-                const activationAmount = document.getElementById('activationAmount').value;
+                const activationAmount = parseInt(document.getElementById('activationAmount').value);
+                const walletBalance = parseInt(document.getElementById('walletBalanceCheck').value.replace('₹', ''));
                 const paymentMethod = document.getElementById('paymentMethod').value;
                 const transactionId = document.getElementById('transactionId').value;
                 
                 // वैलिडेशन
                 if (!userId || !transactionId) {
                     showNotification('कृपया सभी फील्ड भरें', 'error');
+                    return;
+                }
+                
+                // वॉलेट बैलेंस चेक करें
+                if (walletBalance < activationAmount) {
+                    showNotification('आपके वॉलेट में पर्याप्त बैलेंस नहीं है', 'error');
                     return;
                 }
                 
@@ -1677,12 +2050,74 @@
                 
                 activationHistoryTable.appendChild(row);
                 
+                // वॉलेट बैलेंस अपडेट करें
+                const newWalletBalance = walletBalance - activationAmount;
+                document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
+                document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
+                document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
+                
                 // फॉर्म रीसेट करें
                 document.getElementById('activateForm').reset();
                 document.getElementById('activationAmount').value = '1000';
                 
                 // सफलता संदेश दिखाएं
                 showNotification('ID एक्टिवेशन सफलतापूर्वक सबमिट किया गया');
+            });
+            
+            // वॉलेट ट्रांसफर फॉर्म
+            document.getElementById('walletTransferForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const transferTo = document.getElementById('transferTo').value;
+                const transferAmount = parseInt(document.getElementById('transferAmount').value);
+                const transferRemark = document.getElementById('transferRemark').value;
+                const walletBalance = parseInt(document.getElementById('walletBalancePage').textContent.replace('₹', ''));
+                
+                // वैलिडेशन
+                if (!transferTo || !transferAmount) {
+                    showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                    return;
+                }
+                
+                if (transferAmount <= 0) {
+                    showNotification('राशि 0 से अधिक होनी चाहिए', 'error');
+                    return;
+                }
+                
+                if (walletBalance < transferAmount) {
+                    showNotification('आपके वॉलेट में पर्याप्त बैलेंस नहीं है', 'error');
+                    return;
+                }
+                
+                // वॉलेट बैलेंस अपडेट करें
+                const newWalletBalance = walletBalance - transferAmount;
+                document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
+                document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
+                document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
+                
+                // वॉलेट ट्रांजैक्शन टेबल अपडेट करें
+                const walletTransactionTable = document.getElementById('walletTransactionTable');
+                const row = document.createElement('tr');
+                const today = new Date().toISOString().split('T')[0];
+                row.innerHTML = `
+                    <td>${today}</td>
+                    <td>ट्रांसफर टू ${transferTo}</td>
+                    <td class="text-danger">-₹${transferAmount}</td>
+                    <td>डेबिट</td>
+                `;
+                
+                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                if (walletTransactionTable.querySelector('tr td[colspan]')) {
+                    walletTransactionTable.innerHTML = '';
+                }
+                
+                walletTransactionTable.appendChild(row);
+                
+                // फॉर्म रीसेट करें
+                document.getElementById('walletTransferForm').reset();
+                
+                // सफलता संदेश दिखाएं
+                showNotification('वॉलेट ट्रांसफर सफलतापूर्वक किया गया');
             });
             
             // डिपॉजिट फॉर्म
