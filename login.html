@@ -19,66 +19,26 @@
             color: #333;
             line-height: 1.6;
         }
-        
-        /* Updated Color Scheme */
-        :root {
-            --primary-color: #8B008B;
-            --accent-color: #0066cc;
-            --text-color: #333;
-            --light-text: #555;
-            --background-light: #f0f8ff;
-            --white: #ffffff;
-            --footer-text: #ccc;
-            --error-color: #e74c3c;
-            --success-color: #2ecc71;
-        }
-        
         /* लॉगिन पेज स्टाइल */
         .login-container {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             min-height: 100vh;
         }
         .login-container .card {
             border: none;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .login-container .card-body {
             padding: 2rem;
         }
-        .login-container .form-control:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.25);
-        }
-        .login-container .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        .login-container .btn-primary:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-        
         /* यूजर पैनल स्टाइल */
         .user-panel {
             min-height: 100vh;
-            background-color: var(--background-light);
+            background-color: #f8f9fa;
         }
         .user-panel .navbar {
-            background-color: var(--primary-color);
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
-        }
-        .user-panel .navbar-brand {
-            color: var(--white) !important;
-        }
-        .user-panel .nav-link {
-            color: rgba(255,255,255,0.8) !important;
-            transition: all 0.3s ease;
-        }
-        .user-panel .nav-link:hover, .user-panel .nav-link.active {
-            color: var(--white) !important;
-            border-bottom: 2px solid var(--white);
         }
         .page-content {
             animation: fadeIn 0.5s;
@@ -87,28 +47,14 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
         /* एडमिन पैनल स्टाइल */
         .admin-panel {
             min-height: 100vh;
-            background-color: var(--background-light);
+            background-color: #f8f9fa;
         }
         .admin-panel .navbar {
-            background-color: var(--primary-color);
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
         }
-        .admin-panel .navbar-brand {
-            color: var(--white) !important;
-        }
-        .admin-panel .nav-link {
-            color: rgba(255,255,255,0.8) !important;
-            transition: all 0.3s ease;
-        }
-        .admin-panel .nav-link:hover, .admin-panel .nav-link.active {
-            color: var(--white) !important;
-            border-bottom: 2px solid var(--white);
-        }
-        
         /* कार्ड स्टाइल */
         .card {
             border: none;
@@ -120,12 +66,10 @@
             transform: translateY(-5px);
         }
         .card-header {
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: #f8f9fa;
             border-bottom: 1px solid rgba(0,0,0,.125);
             font-weight: 600;
         }
-        
         /* बटन स्टाइल */
         .btn {
             border-radius: 5px;
@@ -133,48 +77,47 @@
             transition: all 0.3s ease;
         }
         .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            background-color: #0d6efd;
+            border-color: #0d6efd;
         }
         .btn-primary:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
         }
         .btn-success {
-            background-color: var(--success-color);
-            border-color: var(--success-color);
+            background-color: #198754;
+            border-color: #198754;
         }
         .btn-success:hover {
-            background-color: #27ae60;
-            border-color: #27ae60;
+            background-color: #157347;
+            border-color: #146c43;
         }
         .btn-danger {
-            background-color: var(--error-color);
-            border-color: var(--error-color);
+            background-color: #dc3545;
+            border-color: #dc3545;
         }
         .btn-danger:hover {
-            background-color: #c0392b;
-            border-color: #c0392b;
+            background-color: #bb2d3b;
+            border-color: #b02a37;
         }
         .btn-warning {
-            background-color: #f39c12;
-            border-color: #f39c12;
+            background-color: #ffc107;
+            border-color: #ffc107;
             color: #000;
         }
         .btn-warning:hover {
-            background-color: #e67e22;
-            border-color: #e67e22;
+            background-color: #ffca2c;
+            border-color: #ffc720;
             color: #000;
         }
         .btn-info {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
+            background-color: #0dcaf0;
+            border-color: #0dcaf0;
         }
         .btn-info:hover {
-            background-color: #0052a3;
-            border-color: #0052a3;
+            background-color: #31d2f2;
+            border-color: #25cff2;
         }
-        
         /* टेबल स्टाइल */
         .table {
             margin-bottom: 0;
@@ -182,24 +125,21 @@
         .table th {
             border-top: none;
             font-weight: 600;
-            color: var(--primary-color);
-            background-color: rgba(139, 0, 139, 0.1);
+            color: #495057;
         }
         .table-striped > tbody > tr:nth-of-type(odd) > * {
-            --bs-table-bg-type: rgba(0, 102, 204, 0.05);
+            --bs-table-bg-type: rgba(0, 0, 0, .05);
         }
-        
         /* फॉर्म स्टाइल */
         .form-control, .form-select {
             border-radius: 5px;
             border: 1px solid #ced4da;
         }
         .form-control:focus, .form-select:focus {
-            border-color: var(--accent-color);
+            border-color: #86b7fe;
             outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
         }
-        
         /* मॉडल स्टाइल */
         .modal-content {
             border-radius: 10px;
@@ -207,14 +147,12 @@
         }
         .modal-header {
             border-bottom: 1px solid #dee2e6;
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: #f8f9fa;
         }
         .modal-footer {
             border-top: 1px solid #dee2e6;
             background-color: #f8f9fa;
         }
-        
         /* जीनियोलॉजी स्टाइल */
         .genealogy-node {
             margin: 0 15px;
@@ -223,58 +161,35 @@
         .genealogy-node .card {
             width: 150px;
             margin: 0 auto;
-            background-color: var(--white);
-            border: 2px solid var(--primary-color);
         }
-        
         /* नेविगेशन स्टाइल */
         .nav-link {
             font-weight: 500;
             transition: all 0.3s ease;
         }
         .nav-link:hover {
-            color: var(--primary-color) !important;
+            color: #0d6efd !important;
         }
         .nav-link.active {
-            color: var(--primary-color) !important;
-            border-bottom: 2px solid var(--primary-color);
+            color: #0d6efd !important;
+            border-bottom: 2px solid #0d6efd;
         }
-        
         /* डैशबोर्ड स्टैट्स कार्ड */
-        .card.text-white {
-            border: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
         .card.text-white h5 {
             color: rgba(255, 255, 255, 0.8);
         }
         .card.text-white .card-text {
             font-weight: 700;
         }
-        .card.text-white.bg-primary {
-            background-color: var(--primary-color) !important;
-        }
-        .card.text-white.bg-success {
-            background-color: var(--success-color) !important;
-        }
-        .card.text-white.bg-info {
-            background-color: var(--accent-color) !important;
-        }
-        .card.text-white.bg-warning {
-            background-color: #f39c12 !important;
-        }
-        
         /* बैज स्टाइल */
         .badge {
             font-weight: 500;
             padding: 0.5em 0.75em;
         }
-        
         /* लिस्ट ग्रुप स्टाइल */
         .list-group-item {
             border: 1px solid rgba(0,0,0,.125);
         }
-        
         /* रेस्पॉन्सिव स्टाइल */
         @media (max-width: 768px) {
             .card-body {
@@ -302,7 +217,6 @@
                 font-size: 0.875rem;
             }
         }
-        
         /* एनिमेशन */
         @keyframes slideIn {
             from {
@@ -319,7 +233,7 @@
             bottom: 20px;
             right: 20px;
             padding: 15px 20px;
-            background-color: var(--success-color);
+            background-color: #10b981;
             color: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -330,13 +244,6 @@
         .notification.show {
             display: block;
         }
-        .notification.error {
-            background-color: var(--error-color);
-        }
-        .notification.info {
-            background-color: var(--accent-color);
-        }
-        
         /* यूटिलिटी क्लासेस */
         .hidden {
             display: none !important;
@@ -353,7 +260,6 @@
         .mt-4 {
             margin-top: 1.5rem;
         }
-        
         /* स्टेटस बैज */
         .status-active {
             background-color: #d1fae5;
@@ -403,34 +309,26 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        
-        /* Referral Link Styles */
-        .referral-link-container {
-            background-color: rgba(0, 102, 204, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-        }
+        /* रेफरल लिंक स्टाइल */
         .referral-link {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-        .referral-link input {
-            flex-grow: 1;
-            margin-right: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: monospace;
+            word-break: break-all;
         }
         .copy-btn {
-            background-color: var(--accent-color);
+            background-color: #0d6efd;
             color: white;
             border: none;
-            padding: 8px 12px;
             border-radius: 5px;
+            padding: 5px 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 0.875rem;
         }
         .copy-btn:hover {
-            background-color: #0052a3;
+            background-color: #0b5ed7;
         }
     </style>
 </head>
@@ -442,71 +340,81 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <h3 class="text-center mb-4">CrownUsdt</h3>
-                        <div id="loginFormContainer">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">यूजरनेम</label>
-                                <input type="text" class="form-control" id="username" placeholder="यूजरनेम दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">पासवर्ड</label>
-                                <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें">
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="adminCheck">
-                                <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
-                            </div>
-                            <button id="loginBtn" class="btn btn-primary w-100">लॉगिन</button>
-                            <div class="text-center mt-3">
-                                <a href="#" id="showRegisterLink">रजिस्टर करें</a>
-                            </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">यूजरनेम</label>
+                            <input type="text" class="form-control" id="username" placeholder="यूजरनेम दर्ज करें">
                         </div>
-                        
-                        <!-- रजिस्ट्रेशन फॉर्म -->
-                        <div id="registerFormContainer" class="hidden">
-                            <div class="mb-3">
-                                <label for="regFullName" class="form-label">पूरा नाम</label>
-                                <input type="text" class="form-control" id="regFullName" placeholder="पूरा नाम दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="regUsername" class="form-label">यूजरनेम</label>
-                                <input type="text" class="form-control" id="regUsername" placeholder="यूजरनेम दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="regEmail" class="form-label">ईमेल</label>
-                                <input type="email" class="form-control" id="regEmail" placeholder="ईमेल दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="regPhone" class="form-label">फोन नंबर</label>
-                                <input type="tel" class="form-control" id="regPhone" placeholder="फोन नंबर दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="regPassword" class="form-label">पासवर्ड</label>
-                                <input type="password" class="form-control" id="regPassword" placeholder="पासवर्ड दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="regConfirmPassword" class="form-label">पासवर्ड की पुष्टि करें</label>
-                                <input type="password" class="form-control" id="regConfirmPassword" placeholder="पासवर्ड फिर से दर्ज करें">
-                            </div>
-                            <div class="mb-3">
-                                <label for="regReferral" class="form-label">रेफरल लिंक <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="regReferral" placeholder="रेफरल लिंक दर्ज करें" required>
-                                <small class="text-muted">रेफरल लिंक के बिना रजिस्ट्रेशन संभव नहीं है</small>
-                            </div>
-                            <button id="registerBtn" class="btn btn-primary w-100">रजिस्टर करें</button>
-                            <div class="text-center mt-3">
-                                <a href="#" id="showLoginLink">लॉगिन पर वापस जाएं</a>
-                            </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">पासवर्ड</label>
+                            <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="adminCheck">
+                            <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
+                        </div>
+                        <button id="loginBtn" class="btn btn-primary w-100">लॉगिन</button>
+                        <div class="text-center mt-3">
+                            <a href="#" id="registerLink">रजिस्टर करें</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <!-- रजिस्ट्रेशन मॉडल -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">रजिस्ट्रेशन</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="regFullName" class="form-label">पूरा नाम</label>
+                            <input type="text" class="form-control" id="regFullName" placeholder="पूरा नाम दर्ज करें" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regUsername" class="form-label">यूजरनेम</label>
+                            <input type="text" class="form-control" id="regUsername" placeholder="यूजरनेम दर्ज करें" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regEmail" class="form-label">ईमेल</label>
+                            <input type="email" class="form-control" id="regEmail" placeholder="ईमेल दर्ज करें" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regPhone" class="form-label">फोन नंबर</label>
+                            <input type="tel" class="form-control" id="regPhone" placeholder="फोन नंबर दर्ज करें" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regPassword" class="form-label">पासवर्ड</label>
+                            <input type="password" class="form-control" id="regPassword" placeholder="पासवर्ड दर्ज करें" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regConfirmPassword" class="form-label">पासवर्ड की पुष्टि करें</label>
+                            <input type="password" class="form-control" id="regConfirmPassword" placeholder="पासवर्ड दोबारा दर्ज करें" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regReferral" class="form-label">रेफरल लिंक <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="regReferral" placeholder="रेफरल लिंक दर्ज करें" required>
+                            <div class="form-text">रेफरल लिंक के बिना रजिस्ट्रेशन संभव नहीं है</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-primary" id="registerBtn">रजिस्टर करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- यूजर पैनल -->
     <div id="userPanel" class="container-fluid user-panel hidden">
         <!-- नेविगेशन बार -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">MLM यूजर पैनल</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -555,7 +463,6 @@
                 </div>
             </div>
         </nav>
-        
         <!-- डैशबोर्ड -->
         <div id="userDashboard" class="container mt-4 page-content">
             <h2 class="mb-4">डैशबोर्ड</h2>
@@ -597,4 +504,2247 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="car
+                        <div class="card-header">
+                            हालिया इनकम
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>तारीख</th>
+                                            <th>विवरण</th>
+                                            <th>राशि</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentIncomeTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            टीम स्टैट्स
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 mb-3">
+                                        <h5>डायरेक्ट टीम</h5>
+                                        <p class="fs-4" id="directTeam">0</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 mb-3">
+                                        <h5>टोटल टीम</h5>
+                                        <p class="fs-4" id="totalTeam">0</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 mb-3">
+                                        <h5>एक्टिव टीम</h5>
+                                        <p class="fs-4" id="activeTeam">0</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 mb-3">
+                                        <h5>इनएक्टिव टीम</h5>
+                                        <p class="fs-4" id="inactiveTeam">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- प्रोफाइल पेज -->
+        <div id="userProfilePage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">प्रोफाइल</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="प्रोफाइल चित्र" id="profileImage">
+                            <h4 id="profileName">यूजर नाम</h4>
+                            <p class="text-muted" id="profileUsername">यूजरनेम</p>
+                            <button class="btn btn-sm btn-primary" id="changeProfileImage">चित्र बदलें</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">व्यक्तिगत जानकारी</h5>
+                            <form id="profileForm">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="fullName" class="form-label">पूरा नाम</label>
+                                        <input type="text" class="form-control" id="fullName" value="यूजर नाम">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">ईमेल</label>
+                                        <input type="email" class="form-control" id="email" value="user@example.com">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">फोन नंबर</label>
+                                        <input type="tel" class="form-control" id="phone" value="1234567890">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dob" class="form-label">जन्मतिथि</label>
+                                        <input type="date" class="form-control" id="dob" value="1990-01-01">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">पता</label>
+                                        <textarea class="form-control" id="address" rows="2">पता</textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="city" class="form-label">शहर</label>
+                                        <input type="text" class="form-control" id="city" value="शहर">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="state" class="form-label">राज्य</label>
+                                        <input type="text" class="form-control" id="state" value="राज्य">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="country" class="form-label">देश</label>
+                                        <input type="text" class="form-control" id="country" value="भारत">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="pincode" class="form-label">पिनकोड</label>
+                                        <input type="text" class="form-control" id="pincode" value="123456">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nominee" class="form-label">नॉमिनी</label>
+                                        <input type="text" class="form-control" id="nominee" value="नॉमिनी नाम">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="bankDetails" class="form-label">बैंक विवरण</label>
+                                    <textarea class="form-control" id="bankDetails" rows="3">बैंक विवरण</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="referralLink" class="form-label">आपका रेफरल लिंक</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control referral-link" id="referralLink" readonly>
+                                        <button class="copy-btn" type="button" id="copyReferralBtn">कॉपी करें</button>
+                                    </div>
+                                    <div class="form-text">इस लिंक को शेयर करके नए सदस्यों को जोड़ें</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">अपडेट प्रोफाइल</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ID एक्टिवेट पेज -->
+        <div id="userActivatePage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">ID एक्टिवेट</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">नई ID एक्टिवेट करें</h5>
+                            <form id="activateForm">
+                                <div class="mb-3">
+                                    <label for="userId" class="form-label">यूजर ID</label>
+                                    <input type="text" class="form-control" id="userId" placeholder="यूजर ID दर्ज करें">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="activationAmount" class="form-label">एक्टिवेशन राशि</label>
+                                    <input type="number" class="form-control" id="activationAmount" value="1000" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="paymentMethod" class="form-label">भुगतान विधि</label>
+                                    <select class="form-select" id="paymentMethod">
+                                        <option value="wallet">वॉलेट</option>
+                                        <option value="bank">बैंक ट्रांसफर</option>
+                                        <option value="upi">UPI</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transactionId" class="form-label">ट्रांजैक्शन ID</label>
+                                    <input type="text" class="form-control" id="transactionId" placeholder="ट्रांजैक्शन ID दर्ज करें">
+                                </div>
+                                <button type="submit" class="btn btn-primary">ID एक्टिवेट करें</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">एक्टिवेशन हिस्ट्री</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>तारीख</th>
+                                            <th>यूजर ID</th>
+                                            <th>राशि</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="activationHistoryTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- डिपॉजिट पेज -->
+        <div id="userDepositPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">डिपॉजिट</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">नया डिपॉजिट</h5>
+                            <form id="depositForm">
+                                <div class="mb-3">
+                                    <label for="depositAmount" class="form-label">डिपॉजिट राशि</label>
+                                    <input type="number" class="form-control" id="depositAmount" placeholder="डिपॉजिट राशि दर्ज करें">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositMethod" class="form-label">भुगतान विधि</label>
+                                    <select class="form-select" id="depositMethod">
+                                        <option value="bank">बैंक ट्रांसफर</option>
+                                        <option value="upi">UPI</option>
+                                        <option value="cheque">चेक</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositTransactionId" class="form-label">ट्रांजैक्शन ID</label>
+                                    <input type="text" class="form-control" id="depositTransactionId" placeholder="ट्रांजैक्शन ID दर्ज करें">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositDate" class="form-label">तारीख</label>
+                                    <input type="date" class="form-control" id="depositDate">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositRemark" class="form-label">टिप्पणी</label>
+                                    <textarea class="form-control" id="depositRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">डिपॉजिट करें</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">डिपॉजिट हिस्ट्री</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>तारीख</th>
+                                            <th>राशि</th>
+                                            <th>स्थिति</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="depositHistoryTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- विड्रॉवल पेज -->
+        <div id="userWithdrawalPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">विड्रॉवल</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">नया विड्रॉवल</h5>
+                            <form id="withdrawalForm">
+                                <div class="mb-3">
+                                    <label for="withdrawalAmount" class="form-label">विड्रॉवल राशि</label>
+                                    <input type="number" class="form-control" id="withdrawalAmount" placeholder="विड्रॉवल राशि दर्ज करें">
+                                    <small class="text-muted">न्यूनतम विड्रॉवल: ₹500</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="withdrawalMethod" class="form-label">भुगतान विधि</label>
+                                    <select class="form-select" id="withdrawalMethod">
+                                        <option value="bank">बैंक ट्रांसफर</option>
+                                        <option value="upi">UPI</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="withdrawalAccount" class="form-label">खाता विवरण</label>
+                                    <textarea class="form-control" id="withdrawalAccount" rows="2" placeholder="खाता विवरण दर्ज करें"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="withdrawalRemark" class="form-label">टिप्पणी</label>
+                                    <textarea class="form-control" id="withdrawalRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">विड्रॉवल करें</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">विड्रॉवल हिस्ट्री</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>तारीख</th>
+                                            <th>राशि</th>
+                                            <th>स्थिति</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="withdrawalHistoryTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">कोई डेटा नहीं</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- इनकम पेज -->
+        <div id="userIncomePage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">इनकम</h2>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">डायरेक्ट इनकम</h5>
+                            <p class="card-text fs-2" id="directIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">लेवल इनकम</h5>
+                            <p class="card-text fs-2" id="levelIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">रॉयल्टी इनकम</h5>
+                            <p class="card-text fs-2" id="royaltyIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">बोनस इनकम</h5>
+                            <p class="card-text fs-2" id="bonusIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">इनकम स्टेटमेंट</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary" id="filterIncome">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadIncome">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>तारीख</th>
+                                    <th>विवरण</th>
+                                    <th>इनकम प्रकार</th>
+                                    <th>राशि</th>
+                                    <th>स्थिति</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incomeTable">
+                                <tr>
+                                    <td colspan="5" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- टीम पेज -->
+        <div id="userTeamPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">टीम</h2>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">डायरेक्ट टीम</h5>
+                            <p class="card-text fs-2" id="directTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">टोटल टीम</h5>
+                            <p class="card-text fs-2" id="totalTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">एक्टिव टीम</h5>
+                            <p class="card-text fs-2" id="activeTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">इनएक्टिव टीम</h5>
+                            <p class="card-text fs-2" id="inactiveTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">टीम लिस्ट</h5>
+                        <div>
+                            <input type="text" class="form-control form-control-sm d-inline-block" id="searchTeam" placeholder="खोजें..." style="width: 200px;">
+                            <button class="btn btn-sm btn-outline-primary" id="filterTeam">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadTeam">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>यूजर ID</th>
+                                    <th>नाम</th>
+                                    <th>जॉइनिंग तारीख</th>
+                                    <th>स्थिति</th>
+                                    <th>टीम साइज</th>
+                                    <th>इनकम</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teamTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- जीनियोलॉजी पेज -->
+        <div id="userGenealogyPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">जीनियोलॉजी</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">टीम ट्री</h5>
+                        <div>
+                            <select class="form-select form-select-sm d-inline-block" id="genealogyLevel" style="width: 150px;">
+                                <option value="1">लेवल 1</option>
+                                <option value="2">लेवल 2</option>
+                                <option value="3">लेवल 3</option>
+                                <option value="4">लेवल 4</option>
+                                <option value="5">लेवल 5</option>
+                            </select>
+                            <button class="btn btn-sm btn-primary" id="loadGenealogy">लोड करें</button>
+                        </div>
+                    </div>
+                    <div id="genealogyTree" class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>आप</h6>
+                                        <p class="mb-0">ID: USER001</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4" id="genealogyLevel1">
+                            <!-- डायनामिक टीम नोड्स यहां जोड़े जाएंगे -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- एडमिन पैनल -->
+    <div id="adminPanel" class="container-fluid admin-panel hidden">
+        <!-- नेविगेशन बार -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">MLM एडमिन पैनल</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="adminNavbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-page="dashboard">डैशबोर्ड</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="users">यूजर्स</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="income">इनकम</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="deposits">डिपॉजिट</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="withdrawals">विड्रॉवल</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="transfers">ट्रांसफर</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="reports">रिपोर्ट्स</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="settings">सेटिंग्स</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user"></i> एडमिन
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" id="adminProfile">प्रोफाइल</a></li>
+                                <li><a class="dropdown-item" href="#" id="adminChangePassword">पासवर्ड बदलें</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logoutAdmin">लॉगआउट</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- एडमिन डैशबोर्ड -->
+        <div id="adminDashboard" class="container mt-4 page-content">
+            <h2 class="mb-4">एडमिन डैशबोर्ड</h2>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">कुल यूजर्स</h5>
+                            <p class="card-text fs-2" id="totalUsersAdmin">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">एक्टिव यूजर्स</h5>
+                            <p class="card-text fs-2" id="activeUsersAdmin">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">आज की इनकम</h5>
+                            <p class="card-text fs-2" id="todayIncomeAdmin">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">कुल इनकम</h5>
+                            <p class="card-text fs-2" id="totalIncomeAdmin">₹0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            हालिया गतिविधियां
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    नए रजिस्ट्रेशन
+                                    <span class="badge bg-primary rounded-pill" id="newRegistrations">0</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    नई डिपॉजिट
+                                    <span class="badge bg-success rounded-pill" id="newDeposits">0</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    नए विड्रॉवल
+                                    <span class="badge bg-info rounded-pill" id="newWithdrawals">0</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    पेंडिंग विड्रॉवल
+                                    <span class="badge bg-warning rounded-pill" id="pendingWithdrawals">0</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            त्वरित कार्रवाई
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" id="addIncomeBtn">इनकम जोड़ें</button>
+                                <button class="btn btn-danger" id="deductIncomeBtn">इनकम काटें</button>
+                                <button class="btn btn-warning" id="blockUserBtn">यूजर ब्लॉक करें</button>
+                                <button class="btn btn-success" id="unblockUserBtn">यूजर अनब्लॉक करें</button>
+                                <button class="btn btn-info" id="approveWithdrawalBtn">विड्रॉवल स्वीकृत करें</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- यूजर्स पेज -->
+        <div id="adminUsersPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">यूजर्स</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">यूजर लिस्ट</h5>
+                        <div>
+                            <input type="text" class="form-control form-control-sm d-inline-block" id="searchUsers" placeholder="खोजें..." style="width: 200px;">
+                            <button class="btn btn-sm btn-outline-primary" id="filterUsers">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadUsers">डाउनलोड</button>
+                            <button class="btn btn-sm btn-primary" id="addUserBtn">नया यूजर</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>यूजर ID</th>
+                                    <th>नाम</th>
+                                    <th>ईमेल</th>
+                                    <th>फोन</th>
+                                    <th>जॉइनिंग तारीख</th>
+                                    <th>स्थिति</th>
+                                    <th>वॉलेट बैलेंस</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <tr>
+                                    <td colspan="8" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- इनकम पेज -->
+        <div id="adminIncomePage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">इनकम</h2>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">डायरेक्ट इनकम</h5>
+                            <p class="card-text fs-2" id="directIncomeAdmin">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">लेवल इनकम</h5>
+                            <p class="card-text fs-2" id="levelIncomeAdmin">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">रॉयल्टी इनकम</h5>
+                            <p class="card-text fs-2" id="royaltyIncomeAdmin">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">बोनस इनकम</h5>
+                            <p class="card-text fs-2" id="bonusIncomeAdmin">₹0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">इनकम स्टेटमेंट</h5>
+                        <div>
+                            <button class="btn btn-sm btn-primary" id="addIncomeAdminBtn">इनकम जोड़ें</button>
+                            <button class="btn btn-sm btn-danger" id="deductIncomeAdminBtn">इनकम काटें</button>
+                            <button class="btn btn-sm btn-outline-primary" id="filterIncomeAdmin">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadIncomeAdmin">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>तारीख</th>
+                                    <th>यूजर ID</th>
+                                    <th>विवरण</th>
+                                    <th>इनकम प्रकार</th>
+                                    <th>राशि</th>
+                                    <th>स्थिति</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incomeTableAdmin">
+                                <tr>
+                                    <td colspan="7" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- डिपॉजिट पेज -->
+        <div id="adminDepositsPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">डिपॉजिट</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">डिपॉजिट लिस्ट</h5>
+                        <div>
+                            <input type="text" class="form-control form-control-sm d-inline-block" id="searchDeposits" placeholder="खोजें..." style="width: 200px;">
+                            <button class="btn btn-sm btn-outline-primary" id="filterDeposits">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadDeposits">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>तारीख</th>
+                                    <th>यूजर ID</th>
+                                    <th>राशि</th>
+                                    <th>भुगतान विधि</th>
+                                    <th>ट्रांजैक्शन ID</th>
+                                    <th>स्थिति</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="depositsTableAdmin">
+                                <tr>
+                                    <td colspan="7" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- विड्रॉवल पेज -->
+        <div id="adminWithdrawalsPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">विड्रॉवल</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">विड्रॉवल लिस्ट</h5>
+                        <div>
+                            <input type="text" class="form-control form-control-sm d-inline-block" id="searchWithdrawals" placeholder="खोजें..." style="width: 200px;">
+                            <button class="btn btn-sm btn-outline-primary" id="filterWithdrawals">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadWithdrawals">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>तारीख</th>
+                                    <th>यूजर ID</th>
+                                    <th>राशि</th>
+                                    <th>भुगतान विधि</th>
+                                    <th>खाता विवरण</th>
+                                    <th>स्थिति</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawalsTableAdmin">
+                                <tr>
+                                    <td colspan="7" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ट्रांसफर पेज -->
+        <div id="adminTransfersPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">ट्रांसफर</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">ट्रांसफर लिस्ट</h5>
+                        <div>
+                            <input type="text" class="form-control form-control-sm d-inline-block" id="searchTransfers" placeholder="खोजें..." style="width: 200px;">
+                            <button class="btn btn-sm btn-outline-primary" id="filterTransfers">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadTransfers">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>तारीख</th>
+                                    <th>भेजने वाला</th>
+                                    <th>प्राप्तकर्ता</th>
+                                    <th>राशि</th>
+                                    <th>विवरण</th>
+                                    <th>स्थिति</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transfersTableAdmin">
+                                <tr>
+                                    <td colspan="7" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- रिपोर्ट्स पेज -->
+        <div id="adminReportsPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">रिपोर्ट्स</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">यूजर रिपोर्ट्स</h5>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" id="allUsersReport">सभी यूजर्स</button>
+                                <button class="btn btn-outline-primary" id="activeUsersReport">एक्टिव यूजर्स</button>
+                                <button class="btn btn-outline-primary" id="inactiveUsersReport">इनएक्टिव यूजर्स</button>
+                                <button class="btn btn-outline-primary" id="blockedUsersReport">ब्लॉक्ड यूजर्स</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">इनकम रिपोर्ट्स</h5>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-success" id="dailyIncomeReport">दैनिक इनकम</button>
+                                <button class="btn btn-outline-success" id="weeklyIncomeReport">साप्ताहिक इनकम</button>
+                                <button class="btn btn-outline-success" id="monthlyIncomeReport">मासिक इनकम</button>
+                                <button class="btn btn-outline-success" id="yearlyIncomeReport">वार्षिक इनकम</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">वित्तीय रिपोर्ट्स</h5>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-info" id="depositReport">डिपॉजिट रिपोर्ट</button>
+                                <button class="btn btn-outline-info" id="withdrawalReport">विड्रॉवल रिपोर्ट</button>
+                                <button class="btn btn-outline-info" id="transferReport">ट्रांसफर रिपोर्ट</button>
+                                <button class="btn btn-outline-info" id="balanceSheetReport">बैलेंस शीट</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">टीम रिपोर्ट्स</h5>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-warning" id="teamSizeReport">टीम साइज रिपोर्ट</button>
+                                <button class="btn btn-outline-warning" id="teamPerformanceReport">टीम परफॉर्मेंस रिपोर्ट</button>
+                                <button class="btn btn-outline-warning" id="levelWiseReport">लेवल वाइज रिपोर्ट</button>
+                                <button class="btn btn-outline-warning" id="topEarnersReport">टॉप अर्नर्स रिपोर्ट</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- सेटिंग्स पेज -->
+        <div id="adminSettingsPage" class="container mt-4 page-content hidden">
+            <h2 class="mb-4">सेटिंग्स</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">सामान्य सेटिंग्स</h5>
+                            <form id="generalSettingsForm">
+                                <div class="mb-3">
+                                    <label for="siteName" class="form-label">साइट नाम</label>
+                                    <input type="text" class="form-control" id="siteName" value="MLM सॉफ्टवेयर">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="siteEmail" class="form-label">साइट ईमेल</label>
+                                    <input type="email" class="form-control" id="siteEmail" value="info@mlmsoftware.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sitePhone" class="form-label">साइट फोन</label>
+                                    <input type="tel" class="form-control" id="sitePhone" value="1234567890">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="currency" class="form-label">मुद्रा</label>
+                                    <select class="form-select" id="currency">
+                                        <option value="INR">भारतीय रुपया (₹)</option>
+                                        <option value="USD">यूएस डॉलर ($)</option>
+                                        <option value="EUR">यूरो (€)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">सेटिंग्स सेव करें</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">MLM सेटिंग्स</h5>
+                            <form id="mlmSettingsForm">
+                                <div class="mb-3">
+                                    <label for="joiningFee" class="form-label">जॉइनिंग फी</label>
+                                    <input type="number" class="form-control" id="joiningFee" value="1000">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="directCommission" class="form-label">डायरेक्ट कमीशन (%)</label>
+                                    <input type="number" class="form-control" id="directCommission" value="10">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="levelCommission" class="form-label">लेवल कमीशन (%)</label>
+                                    <input type="number" class="form-control" id="levelCommission" value="5">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="maxLevels" class="form-label">अधिकतम लेवल</label>
+                                    <input type="number" class="form-control" id="maxLevels" value="10">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="minWithdrawal" class="form-label">न्यूनतम विड्रॉवल</label>
+                                    <input type="number" class="form-control" id="minWithdrawal" value="500">
+                                </div>
+                                <button type="submit" class="btn btn-primary">सेटिंग्स सेव करें</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- मॉडल्स -->
+    <!-- इनकम जोड़ें मॉडल -->
+    <div class="modal fade" id="addIncomeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">इनकम जोड़ें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addIncomeModalForm">
+                        <div class="mb-3">
+                            <label for="incomeUserId" class="form-label">यूजर ID</label>
+                            <input type="text" class="form-control" id="incomeUserId" placeholder="यूजर ID दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="incomeAmount" class="form-label">राशि</label>
+                            <input type="number" class="form-control" id="incomeAmount" placeholder="राशि दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="incomeType" class="form-label">इनकम प्रकार</label>
+                            <select class="form-select" id="incomeType">
+                                <option value="direct">डायरेक्ट</option>
+                                <option value="level">लेवल</option>
+                                <option value="royalty">रॉयल्टी</option>
+                                <option value="bonus">बोनस</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="incomeDescription" class="form-label">विवरण</label>
+                            <textarea class="form-control" id="incomeDescription" rows="2" placeholder="विवरण दर्ज करें"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-primary" id="saveIncomeBtn">इनकम जोड़ें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- इनकम काटें मॉडल -->
+    <div class="modal fade" id="deductIncomeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">इनकम काटें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="deductIncomeModalForm">
+                        <div class="mb-3">
+                            <label for="deductIncomeUserId" class="form-label">यूजर ID</label>
+                            <input type="text" class="form-control" id="deductIncomeUserId" placeholder="यूजर ID दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deductIncomeAmount" class="form-label">राशि</label>
+                            <input type="number" class="form-control" id="deductIncomeAmount" placeholder="राशि दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deductIncomeType" class="form-label">इनकम प्रकार</label>
+                            <select class="form-select" id="deductIncomeType">
+                                <option value="direct">डायरेक्ट</option>
+                                <option value="level">लेवल</option>
+                                <option value="royalty">रॉयल्टी</option>
+                                <option value="bonus">बोनस</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deductIncomeDescription" class="form-label">विवरण</label>
+                            <textarea class="form-control" id="deductIncomeDescription" rows="2" placeholder="विवरण दर्ज करें"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-danger" id="deductIncomeBtn">इनकम काटें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- यूजर ब्लॉक मॉडल -->
+    <div class="modal fade" id="blockUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">यूजर ब्लॉक करें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="blockUserModalForm">
+                        <div class="mb-3">
+                            <label for="blockUserId" class="form-label">यूजर ID</label>
+                            <input type="text" class="form-control" id="blockUserId" placeholder="यूजर ID दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="blockReason" class="form-label">कारण</label>
+                            <textarea class="form-control" id="blockReason" rows="3" placeholder="ब्लॉक करने का कारण दर्ज करें"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-warning" id="blockUserBtn">यूजर ब्लॉक करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- यूजर अनब्लॉक मॉडल -->
+    <div class="modal fade" id="unblockUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">यूजर अनब्लॉक करें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="unblockUserModalForm">
+                        <div class="mb-3">
+                            <label for="unblockUserId" class="form-label">यूजर ID</label>
+                            <input type="text" class="form-control" id="unblockUserId" placeholder="यूजर ID दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="unblockReason" class="form-label">कारण</label>
+                            <textarea class="form-control" id="unblockReason" rows="3" placeholder="अनब्लॉक करने का कारण दर्ज करें"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-success" id="unblockUserBtn">यूजर अनब्लॉक करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- विड्रॉवल स्वीकृत मॉडल -->
+    <div class="modal fade" id="approveWithdrawalModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">विड्रॉवल स्वीकृत करें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="approveWithdrawalModalForm">
+                        <div class="mb-3">
+                            <label for="approveWithdrawalId" class="form-label">विड्रॉवल ID</label>
+                            <input type="text" class="form-control" id="approveWithdrawalId" placeholder="विड्रॉवल ID दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="approveTransactionId" class="form-label">ट्रांजैक्शन ID</label>
+                            <input type="text" class="form-control" id="approveTransactionId" placeholder="ट्रांजैक्शन ID दर्ज करें">
+                        </div>
+                        <div class="mb-3">
+                            <label for="approveRemark" class="form-label">टिप्पणी</label>
+                            <textarea class="form-control" id="approveRemark" rows="2" placeholder="टिप्पणी दर्ज करें"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-info" id="approveWithdrawalBtn">विड्रॉवल स्वीकृत करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- यूजर एडिट मॉडल -->
+    <div class="modal fade" id="editUserModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">यूजर एडिट करें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUserModalForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editUserId" class="form-label">यूजर ID</label>
+                                <input type="text" class="form-control" id="editUserId" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editUserName" class="form-label">नाम</label>
+                                <input type="text" class="form-control" id="editUserName">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editUserEmail" class="form-label">ईमेल</label>
+                                <input type="email" class="form-control" id="editUserEmail">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editUserPhone" class="form-label">फोन</label>
+                                <input type="tel" class="form-control" id="editUserPhone">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editUserStatus" class="form-label">स्थिति</label>
+                                <select class="form-select" id="editUserStatus">
+                                    <option value="active">एक्टिव</option>
+                                    <option value="inactive">इनएक्टिव</option>
+                                    <option value="blocked">ब्लॉक्ड</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editUserWallet" class="form-label">वॉलेट बैलेंस</label>
+                                <input type="number" class="form-control" id="editUserWallet">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editUserDirectIncome" class="form-label">डायरेक्ट इनकम</label>
+                                <input type="number" class="form-control" id="editUserDirectIncome">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editUserLevelIncome" class="form-label">लेवल इनकम</label>
+                                <input type="number" class="form-control" id="editUserLevelIncome">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editUserRoyaltyIncome" class="form-label">रॉयल्टी इनकम</label>
+                                <input type="number" class="form-control" id="editUserRoyaltyIncome">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editUserBonusIncome" class="form-label">बोनस इनकम</label>
+                                <input type="number" class="form-control" id="editUserBonusIncome">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-primary" id="saveUserBtn">सेव करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- रिपोर्ट जनरेट मॉडल -->
+    <div class="modal fade" id="reportGenerateModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">रिपोर्ट जनरेट करें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reportGenerateModalForm">
+                        <div class="mb-3">
+                            <label for="reportType" class="form-label">रिपोर्ट प्रकार</label>
+                            <input type="text" class="form-control" id="reportType" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportFormat" class="form-label">रिपोर्ट फॉर्मेट</label>
+                            <select class="form-select" id="reportFormat">
+                                <option value="excel">Excel</option>
+                                <option value="pdf">PDF</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportFromDate" class="form-label">तारीख से</label>
+                            <input type="date" class="form-control" id="reportFromDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportToDate" class="form-label">तारीख तक</label>
+                            <input type="date" class="form-control" id="reportToDate">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">रद्द करें</button>
+                    <button type="button" class="btn btn-success" id="generateReportBtn">रिपोर्ट जनरेट करें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // डेमो डेटा
+        const demoUsers = [
+            { id: 'USER001', name: 'राजेश कुमार', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', joinDate: '2023-01-15', status: 'active', wallet: 5000, directIncome: 2000, levelIncome: 1500, royaltyIncome: 1000, bonusIncome: 500, referralLink: 'https://crownusdt.com/register?ref=USER001' },
+            { id: 'USER002', name: 'सीमा सिंह', username: 'seema', email: 'seema@example.com', phone: '9876543211', joinDate: '2023-02-20', status: 'active', wallet: 3000, directIncome: 1000, levelIncome: 800, royaltyIncome: 600, bonusIncome: 300, referralLink: 'https://crownusdt.com/register?ref=USER002' },
+            { id: 'USER003', name: 'अमित शर्मा', username: 'amit', email: 'amit@example.com', phone: '9876543212', joinDate: '2023-03-10', status: 'inactive', wallet: 2000, directIncome: 500, levelIncome: 400, royaltyIncome: 300, bonusIncome: 200, referralLink: 'https://crownusdt.com/register?ref=USER003' },
+            { id: 'USER004', name: 'प्रिया गुप्ता', username: 'priya', email: 'priya@example.com', phone: '9876543213', joinDate: '2023-04-05', status: 'blocked', wallet: 1000, directIncome: 300, levelIncome: 200, royaltyIncome: 100, bonusIncome: 50, referralLink: 'https://crownusdt.com/register?ref=USER004' },
+            { id: 'USER005', name: 'विकास पटेल', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', joinDate: '2023-05-12', status: 'active', wallet: 4000, directIncome: 1500, levelIncome: 1000, royaltyIncome: 800, bonusIncome: 400, referralLink: 'https://crownusdt.com/register?ref=USER005' }
+        ];
+        const demoIncome = [
+            { id: 1, userId: 'USER001', date: '2023-10-01', description: 'डायरेक्ट इनकम', type: 'direct', amount: 500, status: 'approved' },
+            { id: 2, userId: 'USER001', date: '2023-10-02', description: 'लेवल इनकम', type: 'level', amount: 300, status: 'approved' },
+            { id: 3, userId: 'USER002', date: '2023-10-03', description: 'रॉयल्टी इनकम', type: 'royalty', amount: 200, status: 'approved' },
+            { id: 4, userId: 'USER003', date: '2023-10-04', description: 'बोनस इनकम', type: 'bonus', amount: 100, status: 'pending' },
+            { id: 5, userId: 'USER004', date: '2023-10-05', description: 'डायरेक्ट इनकम', type: 'direct', amount: 400, status: 'rejected' }
+        ];
+        const demoDeposits = [
+            { id: 1, userId: 'USER001', date: '2023-10-01', amount: 1000, method: 'bank', transactionId: 'TXN123456', status: 'approved' },
+            { id: 2, userId: 'USER002', date: '2023-10-02', amount: 2000, method: 'upi', transactionId: 'TXN123457', status: 'approved' },
+            { id: 3, userId: 'USER003', date: '2023-10-03', amount: 1500, method: 'bank', transactionId: 'TXN123458', status: 'pending' },
+            { id: 4, userId: 'USER004', date: '2023-10-04', amount: 500, method: 'upi', transactionId: 'TXN123459', status: 'approved' },
+            { id: 5, userId: 'USER005', date: '2023-10-05', amount: 3000, method: 'bank', transactionId: 'TXN123460', status: 'pending' }
+        ];
+        const demoWithdrawals = [
+            { id: 1, userId: 'USER001', date: '2023-10-01', amount: 500, method: 'bank', account: '1234567890', status: 'approved' },
+            { id: 2, userId: 'USER002', date: '2023-10-02', amount: 1000, method: 'upi', account: 'user@upi', status: 'pending' },
+            { id: 3, userId: 'USER003', date: '2023-10-03', amount: 800, method: 'bank', account: '0987654321', status: 'approved' },
+            { id: 4, userId: 'USER004', date: '2023-10-04', amount: 300, method: 'upi', account: 'user2@upi', status: 'rejected' },
+            { id: 5, userId: 'USER005', date: '2023-10-05', amount: 1500, method: 'bank', account: '1122334455', status: 'pending' }
+        ];
+        const demoTransfers = [
+            { id: 1, fromUserId: 'USER001', toUserId: 'USER002', date: '2023-10-01', amount: 500, description: 'ट्रांसफर', status: 'approved' },
+            { id: 2, fromUserId: 'USER002', toUserId: 'USER003', date: '2023-10-02', amount: 300, description: 'ट्रांसफर', status: 'approved' },
+            { id: 3, fromUserId: 'USER003', toUserId: 'USER004', date: '2023-10-03', amount: 200, description: 'ट्रांसफर', status: 'pending' },
+            { id: 4, fromUserId: 'USER004', toUserId: 'USER005', date: '2023-10-04', amount: 100, description: 'ट्रांसफर', status: 'approved' },
+            { id: 5, fromUserId: 'USER005', toUserId: 'USER001', date: '2023-10-05', amount: 400, description: 'ट्रांसफर', status: 'pending' }
+        ];
+        // ग्लोबल वेरिएबल्स
+        let currentUser = null;
+        let isAdmin = false;
+        // DOM एलिमेंट्स
+        const loginPage = document.getElementById('loginPage');
+        const userPanel = document.getElementById('userPanel');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerLink = document.getElementById('registerLink');
+        const adminCheck = document.getElementById('adminCheck');
+        const logoutUser = document.getElementById('logoutUser');
+        const logoutAdmin = document.getElementById('logoutAdmin');
+        const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+        const registerBtn = document.getElementById('registerBtn');
+        // यूजर पैनल नेविगेशन
+        const userNavLinks = document.querySelectorAll('#userPanel .nav-link');
+        const userPageContents = document.querySelectorAll('#userPanel .page-content');
+        // एडमिन पैनल नेविगेशन
+        const adminNavLinks = document.querySelectorAll('#adminPanel .nav-link');
+        const adminPageContents = document.querySelectorAll('#adminPanel .page-content');
+        // इवेंट लिस्टनर्स
+        loginBtn.addEventListener('click', handleLogin);
+        registerLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.show();
+        });
+        registerBtn.addEventListener('click', handleRegister);
+        logoutUser.addEventListener('click', handleLogout);
+        logoutAdmin.addEventListener('click', handleLogout);
+        // यूजर पैनल नेविगेशन
+        userNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showUserPage(page);
+            });
+        });
+        // एडमिन पैनल नेविगेशन
+        adminNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showAdminPage(page);
+            });
+        });
+        // फंक्शन्स
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showNotification('कृपया यूजरनेम और पासवर्ड दर्ज करें', 'error');
+                return;
+            }
+            
+            isAdmin = adminCheck.checked;
+            
+            if (isAdmin) {
+                // एडमिन लॉगिन
+                if (username === 'admin' && password === 'admin123') {
+                    currentUser = { id: 'ADMIN', name: 'एडमिन', username: 'admin', email: 'admin@mlmsoftware.com' };
+                    showAdminPanel();
+                } else {
+                    showNotification('गलत एडमिन यूजरनेम या पासवर्ड', 'error');
+                }
+            } else {
+                // यूजर लॉगिन
+                const user = demoUsers.find(u => u.username === username || u.email === username || u.phone === username);
+                if (user && password === 'password') {
+                    currentUser = user;
+                    showUserPanel();
+                } else {
+                    showNotification('गलत यूजरनेम या पासवर्ड', 'error');
+                }
+            }
+        }
+        function handleRegister() {
+            const fullName = document.getElementById('regFullName').value;
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const referral = document.getElementById('regReferral').value;
+            
+            // वैलिडेशन
+            if (!fullName || !username || !email || !phone || !password || !confirmPassword || !referral) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showNotification('पासवर्ड मेल नहीं खा रहे', 'error');
+                return;
+            }
+            
+            // रेफरल लिंक वैलिडेशन
+            const refUser = demoUsers.find(u => u.referralLink === referral || u.id === referral);
+            if (!refUser) {
+                showNotification('अमान्य रेफरल लिंक', 'error');
+                return;
+            }
+            
+            // यूजरनेम और ईमेल यूनीकनेस चेक
+            if (demoUsers.find(u => u.username === username)) {
+                showNotification('यह यूजरनेम पहले से उपयोग में है', 'error');
+                return;
+            }
+            
+            if (demoUsers.find(u => u.email === email)) {
+                showNotification('यह ईमेल पहले से उपयोग में है', 'error');
+                return;
+            }
+            
+            // नया यूजर आईडी जनरेट करें
+            const newUserId = 'USER' + String(demoUsers.length + 1).padStart(3, '0');
+            
+            // नया यूजर बनाएं
+            const newUser = {
+                id: newUserId,
+                name: fullName,
+                username: username,
+                email: email,
+                phone: phone,
+                joinDate: new Date().toISOString().split('T')[0],
+                status: 'inactive',
+                wallet: 0,
+                directIncome: 0,
+                levelIncome: 0,
+                royaltyIncome: 0,
+                bonusIncome: 0,
+                referralLink: 'https://crownusdt.com/register?ref=' + newUserId
+            };
+            
+            // डेमो यूजर्स में जोड़ें
+            demoUsers.push(newUser);
+            
+            // सफलता संदेश
+            showNotification('रजिस्ट्रेशन सफल! कृपया लॉगिन करें', 'success');
+            
+            // मॉडल बंद करें
+            registerModal.hide();
+            
+            // फॉर्म रीसेट करें
+            document.getElementById('registerForm').reset();
+        }
+        function handleLogout() {
+            currentUser = null;
+            isAdmin = false;
+            loginPage.classList.remove('hidden');
+            userPanel.classList.add('hidden');
+            adminPanel.classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('adminCheck').checked = false;
+        }
+        function showUserPanel() {
+            loginPage.classList.add('hidden');
+            adminPanel.classList.add('hidden');
+            userPanel.classList.remove('hidden');
+            loadUserDashboard();
+            showUserPage('dashboard');
+        }
+        function showAdminPanel() {
+            loginPage.classList.add('hidden');
+            userPanel.classList.add('hidden');
+            adminPanel.classList.remove('hidden');
+            loadAdminDashboard();
+            showAdminPage('dashboard');
+        }
+        function showUserPage(page) {
+            userPageContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            userNavLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById(`user${page.charAt(0).toUpperCase() + page.slice(1)}Page`).classList.remove('hidden');
+            
+            const activeLink = Array.from(userNavLinks).find(link => link.getAttribute('data-page') === page);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+        function showAdminPage(page) {
+            adminPageContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            adminNavLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById(`admin${page.charAt(0).toUpperCase() + page.slice(1)}Page`).classList.remove('hidden');
+            
+            const activeLink = Array.from(adminNavLinks).find(link => link.getAttribute('data-page') === page);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+        function loadUserDashboard() {
+            if (!currentUser) return;
+            
+            // डैशबोर्ड स्टैट्स लोड करें
+            const totalIncome = currentUser.directIncome + currentUser.levelIncome + currentUser.royaltyIncome + currentUser.bonusIncome;
+            document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+            document.getElementById('directIncome').textContent = `₹${currentUser.directIncome}`;
+            document.getElementById('teamIncome').textContent = `₹${currentUser.levelIncome + currentUser.royaltyIncome}`;
+            document.getElementById('walletBalance').textContent = `₹${currentUser.wallet}`;
+            
+            // टीम स्टैट्स लोड करें
+            const directTeam = demoUsers.filter(u => u.id !== currentUser.id).length;
+            const activeTeam = demoUsers.filter(u => u.status === 'active').length;
+            const inactiveTeam = demoUsers.filter(u => u.status === 'inactive').length;
+            
+            document.getElementById('directTeam').textContent = directTeam;
+            document.getElementById('totalTeam').textContent = demoUsers.length - 1;
+            document.getElementById('activeTeam').textContent = activeTeam;
+            document.getElementById('inactiveTeam').textContent = inactiveTeam;
+            
+            // हालिया इनकम लोड करें
+            const recentIncomeTable = document.getElementById('recentIncomeTable');
+            recentIncomeTable.innerHTML = '';
+            
+            const userIncome = demoIncome.filter(i => i.userId === currentUser.id).slice(0, 5);
+            if (userIncome.length > 0) {
+                userIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>₹${income.amount}</td>
+                    `;
+                    recentIncomeTable.appendChild(row);
+                });
+            } else {
+                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">कोई डेटा नहीं</td></tr>';
+            }
+            
+            // प्रोफाइल पेज लोड करें
+            loadUserProfile();
+        }
+        function loadUserProfile() {
+            if (!currentUser) return;
+            
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileUsername').textContent = currentUser.username;
+            document.getElementById('fullName').value = currentUser.name;
+            document.getElementById('email').value = currentUser.email;
+            document.getElementById('phone').value = currentUser.phone;
+            
+            // रेफरल लिंक लोड करें
+            if (currentUser.referralLink) {
+                document.getElementById('referralLink').value = currentUser.referralLink;
+            }
+        }
+        function loadAdminDashboard() {
+            // एडमिन डैशबोर्ड स्टैट्स लोड करें
+            document.getElementById('totalUsersAdmin').textContent = demoUsers.length;
+            document.getElementById('activeUsersAdmin').textContent = demoUsers.filter(u => u.status === 'active').length;
+            
+            const todayIncome = demoIncome
+                .filter(i => i.date === new Date().toISOString().split('T')[0] && i.status === 'approved')
+                .reduce((sum, i) => sum + i.amount, 0);
+            document.getElementById('todayIncomeAdmin').textContent = `₹${todayIncome}`;
+            
+            const totalIncome = demoIncome
+                .filter(i => i.status === 'approved')
+                .reduce((sum, i) => sum + i.amount, 0);
+            document.getElementById('totalIncomeAdmin').textContent = `₹${totalIncome}`;
+            
+            // हालिया गतिविधियां लोड करें
+            document.getElementById('newRegistrations').textContent = '5';
+            document.getElementById('newDeposits').textContent = '3';
+            document.getElementById('newWithdrawals').textContent = '2';
+            document.getElementById('pendingWithdrawals').textContent = '1';
+            
+            // यूजर्स टेबल लोड करें
+            loadUsersTable();
+        }
+        function loadUsersTable() {
+            const usersTable = document.getElementById('usersTable');
+            usersTable.innerHTML = '';
+            
+            demoUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.joinDate}</td>
+                    <td><span class="status-${user.status}">${user.status === 'active' ? 'एक्टिव' : user.status === 'inactive' ? 'इनएक्टिव' : 'ब्लॉक्ड'}</span></td>
+                    <td>₹${user.wallet}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary edit-user-btn" data-user-id="${user.id}">एडिट</button>
+                    </td>
+                `;
+                usersTable.appendChild(row);
+            });
+            
+            // एडिट यूजर बटन इवेंट लिस्टनर
+            document.querySelectorAll('.edit-user-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const userId = e.target.getAttribute('data-user-id');
+                    editUser(userId);
+                });
+            });
+        }
+        function editUser(userId) {
+            const user = demoUsers.find(u => u.id === userId);
+            if (!user) return;
+            
+            // एडिट यूजर मॉडल फील करें
+            document.getElementById('editUserId').value = user.id;
+            document.getElementById('editUserName').value = user.name;
+            document.getElementById('editUserEmail').value = user.email;
+            document.getElementById('editUserPhone').value = user.phone;
+            document.getElementById('editUserStatus').value = user.status;
+            document.getElementById('editUserWallet').value = user.wallet;
+            document.getElementById('editUserDirectIncome').value = user.directIncome;
+            document.getElementById('editUserLevelIncome').value = user.levelIncome;
+            document.getElementById('editUserRoyaltyIncome').value = user.royaltyIncome;
+            document.getElementById('editUserBonusIncome').value = user.bonusIncome;
+            
+            // मॉडल दिखाएं
+            const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            editUserModal.show();
+        }
+        // नोटिफिकेशन फंक्शन
+        function showNotification(message, type = 'success') {
+            // नोटिफिकेशन एलिमेंट बनाएं
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            // बॉडी में जोड़ें
+            document.body.appendChild(notification);
+            
+            // दिखाएं
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // 3 सेकंड बाद हटाएं
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        // इनकम जोड़ें बटन
+        document.getElementById('addIncomeBtn')?.addEventListener('click', () => {
+            const addIncomeModal = new bootstrap.Modal(document.getElementById('addIncomeModal'));
+            addIncomeModal.show();
+        });
+        // इनकम काटें बटन
+        document.getElementById('deductIncomeBtn')?.addEventListener('click', () => {
+            const deductIncomeModal = new bootstrap.Modal(document.getElementById('deductIncomeModal'));
+            deductIncomeModal.show();
+        });
+        // यूजर ब्लॉक बटन
+        document.getElementById('blockUserBtn')?.addEventListener('click', () => {
+            const blockUserModal = new bootstrap.Modal(document.getElementById('blockUserModal'));
+            blockUserModal.show();
+        });
+        // यूजर अनब्लॉक बटन
+        document.getElementById('unblockUserBtn')?.addEventListener('click', () => {
+            const unblockUserModal = new bootstrap.Modal(document.getElementById('unblockUserModal'));
+            unblockUserModal.show();
+        });
+        // विड्रॉवल स्वीकृत बटन
+        document.getElementById('approveWithdrawalBtn')?.addEventListener('click', () => {
+            const approveWithdrawalModal = new bootstrap.Modal(document.getElementById('approveWithdrawalModal'));
+            approveWithdrawalModal.show();
+        });
+        // सेव इनकम बटन
+        document.getElementById('saveIncomeBtn')?.addEventListener('click', () => {
+            const userId = document.getElementById('incomeUserId').value;
+            const amount = document.getElementById('incomeAmount').value;
+            const type = document.getElementById('incomeType').value;
+            const description = document.getElementById('incomeDescription').value;
+            
+            if (!userId || !amount) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`₹${amount} इनकम ${userId} को जोड़ी गई`);
+            
+            // मॉडल बंद करें
+            const addIncomeModal = bootstrap.Modal.getInstance(document.getElementById('addIncomeModal'));
+            addIncomeModal.hide();
+        });
+        // डेडक्ट इनकम बटन
+        document.getElementById('deductIncomeBtn')?.addEventListener('click', () => {
+            const userId = document.getElementById('deductIncomeUserId').value;
+            const amount = document.getElementById('deductIncomeAmount').value;
+            const type = document.getElementById('deductIncomeType').value;
+            const description = document.getElementById('deductIncomeDescription').value;
+            
+            if (!userId || !amount) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`₹${amount} इनकम ${userId} से काटी गई`);
+            
+            // मॉडल बंद करें
+            const deductIncomeModal = bootstrap.Modal.getInstance(document.getElementById('deductIncomeModal'));
+            deductIncomeModal.hide();
+        });
+        // ब्लॉक यूजर बटन
+        document.getElementById('blockUserBtn')?.addEventListener('click', () => {
+            const userId = document.getElementById('blockUserId').value;
+            const reason = document.getElementById('blockReason').value;
+            
+            if (!userId || !reason) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`यूजर ${userId} ब्लॉक कर दिया गया`);
+            
+            // मॉडल बंद करें
+            const blockUserModal = bootstrap.Modal.getInstance(document.getElementById('blockUserModal'));
+            blockUserModal.hide();
+        });
+        // अनब्लॉक यूजर बटन
+        document.getElementById('unblockUserBtn')?.addEventListener('click', () => {
+            const userId = document.getElementById('unblockUserId').value;
+            const reason = document.getElementById('unblockReason').value;
+            
+            if (!userId || !reason) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`यूजर ${userId} अनब्लॉक कर दिया गया`);
+            
+            // मॉडल बंद करें
+            const unblockUserModal = bootstrap.Modal.getInstance(document.getElementById('unblockUserModal'));
+            unblockUserModal.hide();
+        });
+        // अप्रूव विड्रॉवल बटन
+        document.getElementById('approveWithdrawalBtn')?.addEventListener('click', () => {
+            const withdrawalId = document.getElementById('approveWithdrawalId').value;
+            const transactionId = document.getElementById('approveTransactionId').value;
+            const remark = document.getElementById('approveRemark').value;
+            
+            if (!withdrawalId || !transactionId) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`विड्रॉवल ${withdrawalId} स्वीकृत कर दिया गया`);
+            
+            // मॉडल बंद करें
+            const approveWithdrawalModal = bootstrap.Modal.getInstance(document.getElementById('approveWithdrawalModal'));
+            approveWithdrawalModal.hide();
+        });
+        // सेव यूजर बटन
+        document.getElementById('saveUserBtn')?.addEventListener('click', () => {
+            const userId = document.getElementById('editUserId').value;
+            const name = document.getElementById('editUserName').value;
+            const email = document.getElementById('editUserEmail').value;
+            const phone = document.getElementById('editUserPhone').value;
+            const status = document.getElementById('editUserStatus').value;
+            const wallet = document.getElementById('editUserWallet').value;
+            const directIncome = document.getElementById('editUserDirectIncome').value;
+            const levelIncome = document.getElementById('editUserLevelIncome').value;
+            const royaltyIncome = document.getElementById('editUserRoyaltyIncome').value;
+            const bonusIncome = document.getElementById('editUserBonusIncome').value;
+            
+            if (!userId || !name || !email || !phone) {
+                showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`यूजर ${userId} की जानकारी अपडेट कर दी गई`);
+            
+            // मॉडल बंद करें
+            const editUserModal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+            editUserModal.hide();
+            
+            // यूजर्स टेबल रीलोड करें
+            loadUsersTable();
+        });
+        // जनरेट रिपोर्ट बटन
+        document.getElementById('generateReportBtn')?.addEventListener('click', () => {
+            const reportType = document.getElementById('reportType').value;
+            const reportFormat = document.getElementById('reportFormat').value;
+            const fromDate = document.getElementById('reportFromDate').value;
+            const toDate = document.getElementById('reportToDate').value;
+            
+            if (!fromDate || !toDate) {
+                showNotification('कृपया तारीख चुनें', 'error');
+                return;
+            }
+            
+            // डेमो के लिए नोटिफिकेशन दिखाएं
+            showNotification(`${reportType} रिपोर्ट ${reportFormat} फॉर्मेट में जनरेट हो रही है`);
+            
+            // मॉडल बंद करें
+            const reportGenerateModal = bootstrap.Modal.getInstance(document.getElementById('reportGenerateModal'));
+            reportGenerateModal.hide();
+        });
+        // रिपोर्ट बटन इवेंट लिस्टनर्स
+        document.getElementById('allUsersReport')?.addEventListener('click', () => {
+            openReportModal('सभी यूजर्स रिपोर्ट');
+        });
+        document.getElementById('activeUsersReport')?.addEventListener('click', () => {
+            openReportModal('एक्टिव यूजर्स रिपोर्ट');
+        });
+        document.getElementById('inactiveUsersReport')?.addEventListener('click', () => {
+            openReportModal('इनएक्टिव यूजर्स रिपोर्ट');
+        });
+        document.getElementById('blockedUsersReport')?.addEventListener('click', () => {
+            openReportModal('ब्लॉक्ड यूजर्स रिपोर्ट');
+        });
+        document.getElementById('dailyIncomeReport')?.addEventListener('click', () => {
+            openReportModal('दैनिक इनकम रिपोर्ट');
+        });
+        document.getElementById('weeklyIncomeReport')?.addEventListener('click', () => {
+            openReportModal('साप्ताहिक इनकम रिपोर्ट');
+        });
+        document.getElementById('monthlyIncomeReport')?.addEventListener('click', () => {
+            openReportModal('मासिक इनकम रिपोर्ट');
+        });
+        document.getElementById('yearlyIncomeReport')?.addEventListener('click', () => {
+            openReportModal('वार्षिक इनकम रिपोर्ट');
+        });
+        document.getElementById('depositReport')?.addEventListener('click', () => {
+            openReportModal('डिपॉजिट रिपोर्ट');
+        });
+        document.getElementById('withdrawalReport')?.addEventListener('click', () => {
+            openReportModal('विड्रॉवल रिपोर्ट');
+        });
+        document.getElementById('transferReport')?.addEventListener('click', () => {
+            openReportModal('ट्रांसफर रिपोर्ट');
+        });
+        document.getElementById('balanceSheetReport')?.addEventListener('click', () => {
+            openReportModal('बैलेंस शीट रिपोर्ट');
+        });
+        document.getElementById('teamSizeReport')?.addEventListener('click', () => {
+            openReportModal('टीम साइज रिपोर्ट');
+        });
+        document.getElementById('teamPerformanceReport')?.addEventListener('click', () => {
+            openReportModal('टीम परफॉर्मेंस रिपोर्ट');
+        });
+        document.getElementById('levelWiseReport')?.addEventListener('click', () => {
+            openReportModal('लेवल वाइज रिपोर्ट');
+        });
+        document.getElementById('topEarnersReport')?.addEventListener('click', () => {
+            openReportModal('टॉप अर्नर्स रिपोर्ट');
+        });
+        function openReportModal(reportType) {
+            document.getElementById('reportType').value = reportType;
+            const reportGenerateModal = new bootstrap.Modal(document.getElementById('reportGenerateModal'));
+            reportGenerateModal.show();
+        }
+        // फॉर्म सबमिशन इवेंट लिस्टनर्स
+        document.getElementById('profileForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('प्रोफाइल अपडेट किया गया');
+        });
+        document.getElementById('activateForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('ID एक्टिवेट करने का अनुरोध प्राप्त हुआ');
+        });
+        document.getElementById('depositForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('डिपॉजिट अनुरोध प्राप्त हुआ');
+        });
+        document.getElementById('withdrawalForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('विड्रॉवल अनुरोध प्राप्त हुआ');
+        });
+        document.getElementById('generalSettingsForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('सामान्य सेटिंग्स अपडेट की गईं');
+        });
+        document.getElementById('mlmSettingsForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('MLM सेटिंग्स अपडेट की गईं');
+        });
+        // डाउनलोड बटन इवेंट लिस्टनर्स
+        document.getElementById('downloadIncome')?.addEventListener('click', () => {
+            showNotification('इनकम रिपोर्ट डाउनलोड हो रही है');
+        });
+        document.getElementById('downloadTeam')?.addEventListener('click', () => {
+            showNotification('टीम रिपोर्ट डाउनलोड हो रही है');
+        });
+        document.getElementById('downloadUsers')?.addEventListener('click', () => {
+            showNotification('यूजर्स रिपोर्ट डाउनलोड हो रही है');
+        });
+        document.getElementById('downloadIncomeAdmin')?.addEventListener('click', () => {
+            showNotification('इनकम रिपोर्ट डाउनलोड हो रही है');
+        });
+        document.getElementById('downloadDeposits')?.addEventListener('click', () => {
+            showNotification('डिपॉजिट रिपोर्ट डाउनलोड हो रही है');
+        });
+        document.getElementById('downloadWithdrawals')?.addEventListener('click', () => {
+            showNotification('विड्रॉवल रिपोर्ट डाउनलोड हो रही है');
+        });
+        document.getElementById('downloadTransfers')?.addEventListener('click', () => {
+            showNotification('ट्रांसफर रिपोर्ट डाउनलोड हो रही है');
+        });
+        // फिल्टर बटन इवेंट लिस्टनर्स
+        document.getElementById('filterIncome')?.addEventListener('click', () => {
+            showNotification('इनकम फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        document.getElementById('filterTeam')?.addEventListener('click', () => {
+            showNotification('टीम फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        document.getElementById('filterUsers')?.addEventListener('click', () => {
+            showNotification('यूजर्स फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        document.getElementById('filterIncomeAdmin')?.addEventListener('click', () => {
+            showNotification('इनकम फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        document.getElementById('filterDeposits')?.addEventListener('click', () => {
+            showNotification('डिपॉजिट फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        document.getElementById('filterWithdrawals')?.addEventListener('click', () => {
+            showNotification('विड्रॉवल फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        document.getElementById('filterTransfers')?.addEventListener('click', () => {
+            showNotification('ट्रांसफर फिल्टर विकल्प विकासाधीन है', 'info');
+        });
+        // सर्च इनपुट इवेंट लिस्टनर्स
+        document.getElementById('searchTeam')?.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterTable('teamTable', searchTerm);
+        });
+        document.getElementById('searchUsers')?.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterTable('usersTable', searchTerm);
+        });
+        document.getElementById('searchDeposits')?.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterTable('depositsTableAdmin', searchTerm);
+        });
+        document.getElementById('searchWithdrawals')?.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterTable('withdrawalsTableAdmin', searchTerm);
+        });
+        document.getElementById('searchTransfers')?.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterTable('transfersTableAdmin', searchTerm);
+        });
+        function filterTable(tableId, searchTerm) {
+            const table = document.getElementById(tableId);
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+                let found = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().includes(searchTerm)) {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                row.style.display = found ? '' : 'none';
+            }
+        }
+        // जीनियोलॉजी लोड बटन
+        document.getElementById('loadGenealogy')?.addEventListener('click', () => {
+            const level = document.getElementById('genealogyLevel').value;
+            showNotification(`लेवल ${level} जीनियोलॉजी लोड हो रही है`, 'info');
+        });
+        // चेंज प्रोफाइल इमेज बटन
+        document.getElementById('changeProfileImage')?.addEventListener('click', () => {
+            showNotification('प्रोफाइल इमेज बदलने की सुविधा विकासाधीन है', 'info');
+        });
+        // चेंज पासवर्ड लिंक
+        document.getElementById('changePassword')?.addEventListener('click', () => {
+            showNotification('पासवर्ड बदलने की सुविधा विकासाधीन है', 'info');
+        });
+        document.getElementById('adminChangePassword')?.addEventListener('click', () => {
+            showNotification('पासवर्ड बदलने की सुविधा विकासाधीन है', 'info');
+        });
+        // यूजर प्रोफाइल लिंक
+        document.getElementById('userProfile')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            showUserPage('profile');
+        });
+        // एडमिन प्रोफाइल लिंक
+        document.getElementById('adminProfile')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification('एडमिन प्रोफाइल पेज विकासाधीन है', 'info');
+        });
+        // एड यूजर बटन
+        document.getElementById('addUserBtn')?.addEventListener('click', () => {
+            showNotification('नया यूजर जोड़ने की सुविधा विकासाधीन है', 'info');
+        });
+        // कॉपी रेफरल लिंक बटन
+        document.getElementById('copyReferralBtn')?.addEventListener('click', () => {
+            const referralLink = document.getElementById('referralLink');
+            referralLink.select();
+            document.execCommand('copy');
+            showNotification('रेफरल लिंक कॉपी किया गया');
+        });
+        // इनकम टेबल लोड करें
+        function loadIncomeTable() {
+            const incomeTable = document.getElementById('incomeTable');
+            incomeTable.innerHTML = '';
+            
+            demoIncome.forEach(income => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${income.date}</td>
+                    <td>${income.description}</td>
+                    <td>${income.type === 'direct' ? 'डायरेक्ट' : income.type === 'level' ? 'लेवल' : income.type === 'royalty' ? 'रॉयल्टी' : 'बोनस'}</td>
+                    <td>₹${income.amount}</td>
+                    <td><span class="status-${income.status}">${income.status === 'approved' ? 'स्वीकृत' : income.status === 'pending' ? 'पेंडिंग' : 'अस्वीकृत'}</span></td>
+                `;
+                incomeTable.appendChild(row);
+            });
+        }
+        // इनकम एडमिन टेबल लोड करें
+        function loadIncomeTableAdmin() {
+            const incomeTableAdmin = document.getElementById('incomeTableAdmin');
+            incomeTableAdmin.innerHTML = '';
+            
+            demoIncome.forEach(income => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${income.date}</td>
+                    <td>${income.userId}</td>
+                    <td>${income.description}</td>
+                    <td>${income.type === 'direct' ? 'डायरेक्ट' : income.type === 'level' ? 'लेवल' : income.type === 'royalty' ? 'रॉयल्टी' : 'बोनस'}</td>
+                    <td>₹${income.amount}</td>
+                    <td><span class="status-${income.status}">${income.status === 'approved' ? 'स्वीकृत' : income.status === 'pending' ? 'पेंडिंग' : 'अस्वीकृत'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">एडिट</button>
+                    </td>
+                `;
+                incomeTableAdmin.appendChild(row);
+            });
+        }
+        // डिपॉजिट टेबल लोड करें
+        function loadDepositsTableAdmin() {
+            const depositsTableAdmin = document.getElementById('depositsTableAdmin');
+            depositsTableAdmin.innerHTML = '';
+            
+            demoDeposits.forEach(deposit => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${deposit.date}</td>
+                    <td>${deposit.userId}</td>
+                    <td>₹${deposit.amount}</td>
+                    <td>${deposit.method === 'bank' ? 'बैंक' : 'UPI'}</td>
+                    <td>${deposit.transactionId}</td>
+                    <td><span class="status-${deposit.status}">${deposit.status === 'approved' ? 'स्वीकृत' : 'पेंडिंग'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">एडिट</button>
+                    </td>
+                `;
+                depositsTableAdmin.appendChild(row);
+            });
+        }
+        // विड्रॉवल टेबल लोड करें
+        function loadWithdrawalsTableAdmin() {
+            const withdrawalsTableAdmin = document.getElementById('withdrawalsTableAdmin');
+            withdrawalsTableAdmin.innerHTML = '';
+            
+            demoWithdrawals.forEach(withdrawal => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${withdrawal.date}</td>
+                    <td>${withdrawal.userId}</td>
+                    <td>₹${withdrawal.amount}</td>
+                    <td>${withdrawal.method === 'bank' ? 'बैंक' : 'UPI'}</td>
+                    <td>${withdrawal.account}</td>
+                    <td><span class="status-${withdrawal.status}">${withdrawal.status === 'approved' ? 'स्वीकृत' : withdrawal.status === 'pending' ? 'पेंडिंग' : 'अस्वीकृत'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">एडिट</button>
+                    </td>
+                `;
+                withdrawalsTableAdmin.appendChild(row);
+            });
+        }
+        // ट्रांसफर टेबल लोड करें
+        function loadTransfersTableAdmin() {
+            const transfersTableAdmin = document.getElementById('transfersTableAdmin');
+            transfersTableAdmin.innerHTML = '';
+            
+            demoTransfers.forEach(transfer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${transfer.date}</td>
+                    <td>${transfer.fromUserId}</td>
+                    <td>${transfer.toUserId}</td>
+                    <td>₹${transfer.amount}</td>
+                    <td>${transfer.description}</td>
+                    <td><span class="status-${transfer.status}">${transfer.status === 'approved' ? 'स्वीकृत' : 'पेंडिंग'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">एडिट</button>
+                    </td>
+                `;
+                transfersTableAdmin.appendChild(row);
+            });
+        }
+        // टीम टेबल लोड करें
+        function loadTeamTable() {
+            const teamTable = document.getElementById('teamTable');
+            teamTable.innerHTML = '';
+            
+            demoUsers.forEach(user => {
+                if (user.id === currentUser.id) return;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.joinDate}</td>
+                    <td><span class="status-${user.status}">${user.status === 'active' ? 'एक्टिव' : user.status === 'inactive' ? 'इनएक्टिव' : 'ब्लॉक्ड'}</span></td>
+                    <td>0</td>
+                    <td>₹${user.directIncome + user.levelIncome + user.royaltyIncome + user.bonusIncome}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">व्यू</button>
+                    </td>
+                `;
+                teamTable.appendChild(row);
+            });
+        }
+        // एक्टिवेशन हिस्ट्री टेबल लोड करें
+        function loadActivationHistoryTable() {
+            const activationHistoryTable = document.getElementById('activationHistoryTable');
+            activationHistoryTable.innerHTML = '';
+            
+            // डेमो डेटा
+            const demoActivations = [
+                { date: '2023-10-01', userId: 'USER002', amount: 1000 },
+                { date: '2023-10-02', userId: 'USER003', amount: 1000 },
+                { date: '2023-10-03', userId: 'USER004', amount: 1000 }
+            ];
+            
+            demoActivations.forEach(activation => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activation.date}</td>
+                    <td>${activation.userId}</td>
+                    <td>₹${activation.amount}</td>
+                `;
+                activationHistoryTable.appendChild(row);
+            });
+        }
+        // डिपॉजिट हिस्ट्री टेबल लोड करें
+        function loadDepositHistoryTable() {
+            const depositHistoryTable = document.getElementById('depositHistoryTable');
+            depositHistoryTable.innerHTML = '';
+            
+            demoDeposits.forEach(deposit => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${deposit.date}</td>
+                    <td>₹${deposit.amount}</td>
+                    <td><span class="status-${deposit.status}">${deposit.status === 'approved' ? 'स्वीकृत' : 'पेंडिंग'}</span></td>
+                `;
+                depositHistoryTable.appendChild(row);
+            });
+        }
+        // विड्रॉवल हिस्ट्री टेबल लोड करें
+        function loadWithdrawalHistoryTable() {
+            const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
+            withdrawalHistoryTable.innerHTML = '';
+            
+            demoWithdrawals.forEach(withdrawal => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${withdrawal.date}</td>
+                    <td>₹${withdrawal.amount}</td>
+                    <td><span class="status-${withdrawal.status}">${withdrawal.status === 'approved' ? 'स्वीकृत' : withdrawal.status === 'pending' ? 'पेंडिंग' : 'अस्वीकृत'}</span></td>
+                `;
+                withdrawalHistoryTable.appendChild(row);
+            });
+        }
+        // पेज लोड होने पर टेबल्स लोड करें
+        document.addEventListener('DOMContentLoaded', () => {
+            // इनकम टेबल लोड करें
+            if (document.getElementById('incomeTable')) {
+                loadIncomeTable();
+            }
+            
+            // इनकम एडमिन टेबल लोड करें
+            if (document.getElementById('incomeTableAdmin')) {
+                loadIncomeTableAdmin();
+            }
+            
+            // डिपॉजिट एडमिन टेबल लोड करें
+            if (document.getElementById('depositsTableAdmin')) {
+                loadDepositsTableAdmin();
+            }
+            
+            // विड्रॉवल एडमिन टेबल लोड करें
+            if (document.getElementById('withdrawalsTableAdmin')) {
+                loadWithdrawalsTableAdmin();
+            }
+            
+            // ट्रांसफर एडमिन टेबल लोड करें
+            if (document.getElementById('transfersTableAdmin')) {
+                loadTransfersTableAdmin();
+            }
+            
+            // टीम टेबल लोड करें
+            if (document.getElementById('teamTable')) {
+                loadTeamTable();
+            }
+            
+            // एक्टिवेशन हिस्ट्री टेबल लोड करें
+            if (document.getElementById('activationHistoryTable')) {
+                loadActivationHistoryTable();
+            }
+            
+            // डिपॉजिट हिस्ट्री टेबल लोड करें
+            if (document.getElementById('depositHistoryTable')) {
+                loadDepositHistoryTable();
+            }
+            
+            // विड्रॉवल हिस्ट्री टेबल लोड करें
+            if (document.getElementById('withdrawalHistoryTable')) {
+                loadWithdrawalHistoryTable();
+            }
+        });
+    </script>
+</body>
+</html>
