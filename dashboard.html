@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLM सॉफ्टवेयर - डैशबोर्ड</title>
+    <title>CrownUsdt - डैशबोर्ड</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -25,9 +25,32 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+        
+        /* लॉगिन स्क्रीन */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .login-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
         /* हेडर स्टाइल */
         header {
-            background-color: #8B008B;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             padding: 15px 0;
             border-bottom: 2px solid #0066cc;
             position: sticky;
@@ -58,24 +81,24 @@
         .logo a:hover {
             color: #0066cc;
         }
-        nav {
-            role: "navigation";
-        }
-        nav ul {
+        .user-info {
             display: flex;
-            list-style: none;
+            align-items: center;
+            color: white;
         }
-        nav ul li {
-            margin-left: 25px;
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid white;
         }
-        nav ul li a {
+        .user-info .dropdown-toggle {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover {
-            color: #0066cc;
+            display: flex;
+            align-items: center;
         }
         
         /* हैमबर्गर मेन्यू स्टाइल */
@@ -104,14 +127,100 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
         
+        /* साइडबार स्टाइल */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 250px;
+            height: calc(100vh - 80px);
+            background-color: #343a40;
+            padding-top: 20px;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        .sidebar.collapsed {
+            width: 70px;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-menu li {
+            position: relative;
+        }
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #adb5bd;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-menu li a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .sidebar-menu li a.active {
+            color: white;
+            background-color: rgba(0, 123, 255, 0.2);
+            border-left: 3px solid #007bff;
+        }
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+        }
+        .sidebar.collapsed .sidebar-menu li a span {
+            display: none;
+        }
+        .sidebar.collapsed .sidebar-menu li a {
+            justify-content: center;
+        }
+        .sidebar.collapsed .sidebar-menu li a i {
+            margin-right: 0;
+        }
+        
+        /* मुख्य कंटेंट स्टाइल */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: all 0.3s;
+            min-height: calc(100vh - 80px);
+        }
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+        
         /* पेज कंटेंट स्टाइल */
         .page-content {
             animation: fadeIn 0.5s;
-            padding: 20px 0;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        
+        /* वेलकम बैनर स्टाइल */
+        .welcome-banner {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .welcome-banner h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .welcome-banner p {
+            font-size: 16px;
+            opacity: 0.9;
         }
         
         /* कार्ड स्टाइल */
@@ -120,7 +229,7 @@
             border-radius: 10px;
             box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
             transition: transform 0.3s ease;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .card:hover {
             transform: translateY(-5px);
@@ -311,25 +420,58 @@
         }
         
         /* रेफरल लिंक स्टाइल */
-        .referral-link {
+        .referral-link-container {
             background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .referral-link {
+            background-color: white;
             border: 1px solid #ced4da;
             border-radius: 5px;
             padding: 10px;
             font-family: monospace;
             word-break: break-all;
+            margin-bottom: 15px;
         }
-        .copy-btn {
-            background-color: #0d6efd;
-            color: white;
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .share-btn {
             border: none;
             border-radius: 5px;
-            padding: 5px 10px;
+            padding: 8px 15px;
             cursor: pointer;
-            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        .telegram-btn {
+            background-color: #0088cc;
+            color: white;
+        }
+        .telegram-btn:hover {
+            background-color: #0077b5;
+        }
+        .copy-btn {
+            background-color: #6c757d;
+            color: white;
         }
         .copy-btn:hover {
-            background-color: #0b5ed7;
+            background-color: #5a6268;
         }
         
         /* एनिमेशन */
@@ -378,39 +520,31 @@
         }
         
         /* रेस्पॉन्सिव स्टाइल */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .main-content.expanded {
+                margin-left: 0;
+            }
             .hamburger {
                 display: block;
             }
-            
-            nav ul {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background-color: #8B008B;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-                padding: 20px 0;
-            }
-            
-            nav ul.active {
-                left: 0;
-            }
-            
-            nav ul li {
-                margin: 15px 0;
-            }
-            
-            .header-container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .welcome-banner h2 {
+                font-size: 22px;
+            }
+            .welcome-banner p {
+                font-size: 14px;
+            }
             .card-body {
                 padding: 1rem;
             }
@@ -435,10 +569,42 @@
                 width: 120px;
                 font-size: 0.875rem;
             }
+            
+            .share-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- लॉगिन स्क्रीन -->
+    <div id="loginScreen" class="login-screen hidden">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <h3>CrownUsdt</h3>
+            </div>
+            <div id="loginAlert"></div>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label">यूजरनेम / ईमेल / फोन</label>
+                    <input type="text" class="form-control" id="username" placeholder="यूजरनेम दर्ज करें" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">पासवर्ड</label>
+                    <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="adminCheck">
+                    <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">लॉगिन</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="login.html" class="btn btn-outline-primary btn-sm">नया अकाउंट बनाएं</a>
+            </div>
+        </div>
+    </div>
+
     <!-- हेडर -->
     <header>
         <div class="container header-container">
@@ -456,27 +622,88 @@
                 <span></span>
             </button>
             
-            <nav role="navigation">
-                <ul id="nav-menu">
-                    <li><a href="#" data-page="dashboard">डैशबोर्ड</a></li>
-                    <li><a href="#" data-page="profile">प्रोफाइल</a></li>
-                    <li><a href="#" data-page="activate">ID एक्टिवेट</a></li>
-                    <li><a href="#" data-page="deposit">डिपॉजिट</a></li>
-                    <li><a href="#" data-page="withdrawal">विड्रॉवल</a></li>
-                    <li><a href="#" data-page="income">इनकम</a></li>
-                    <li><a href="#" data-page="team">टीम</a></li>
-                    <li><a href="#" data-page="genealogy">जीनियोलॉजी</a></li>
-                    <li><a href="#" id="logoutBtn">लॉगआउट</a></li>
-                </ul>
-            </nav>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="User Avatar" id="userAvatar">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <span id="userName">यूजर</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" data-page="profile">प्रोफाइल</a></li>
+                        <li><a class="dropdown-item" href="#" id="changePassword">पासवर्ड बदलें</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">लॉगआउट</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </header>
 
+    <!-- साइडबार -->
+    <nav class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" data-page="dashboard" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>डैशबोर्ड</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="profile">
+                    <i class="fas fa-user"></i>
+                    <span>प्रोफाइल</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="activate">
+                    <i class="fas fa-user-check"></i>
+                    <span>ID एक्टिवेट</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="deposit">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>डिपॉजिट</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="withdrawal">
+                    <i class="fas fa-money-check-alt"></i>
+                    <span>विड्रॉवल</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="income">
+                    <i class="fas fa-chart-line"></i>
+                    <span>इनकम</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="team">
+                    <i class="fas fa-users"></i>
+                    <span>टीम</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="genealogy">
+                    <i class="fas fa-sitemap"></i>
+                    <span>जीनियोलॉजी</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
     <!-- मुख्य कंटेंट -->
-    <div class="container">
+    <div class="main-content" id="mainContent">
         <!-- डैशबोर्ड पेज -->
         <div id="dashboardPage" class="page-content">
-            <h2 class="mb-4">डैशबोर्ड</h2>
+            <!-- वेलकम बैनर -->
+            <div class="welcome-banner">
+                <h2>नमस्ते, <span id="welcomeUserName">यूजर</span>!</h2>
+                <p>CrownUsdt में आपका स्वागत है। आज का दिन शानदार हो!</p>
+            </div>
+            
+            <!-- डैशबोर्ड स्टैट्स -->
             <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
@@ -578,7 +805,11 @@
 
         <!-- प्रोफाइल पेज -->
         <div id="profilePage" class="page-content hidden">
-            <h2 class="mb-4">प्रोफाइल</h2>
+            <div class="welcome-banner">
+                <h2>प्रोफाइल</h2>
+                <p>अपनी प्रोफाइल जानकारी प्रबंधित करें</p>
+            </div>
+            
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
@@ -586,14 +817,60 @@
                             <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="प्रोफाइल चित्र" id="profileImage">
                             <h4 id="profileName">यूजर नाम</h4>
                             <p class="text-muted" id="profileUsername">यूजरनेम</p>
-                            <button class="btn btn-sm btn-primary" id="changeProfileImage">चित्र बदलें</button>
+                            <p class="text-muted" id="profileUserId">USER001</p>
+                            <button class="btn btn-sm btn-primary mt-2" id="changeProfileImage">चित्र बदलें</button>
+                        </div>
+                    </div>
+                    
+                    <!-- रेफरल लिंक कार्ड -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            अपना रेफरल लिंक
+                        </div>
+                        <div class="card-body">
+                            <div class="referral-link-container">
+                                <div class="referral-link" id="referralLink">https://crownusdt.com/register?ref=USER001</div>
+                                <div class="share-buttons">
+                                    <button class="share-btn whatsapp-btn" id="shareWhatsapp">
+                                        <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                                    </button>
+                                    <button class="share-btn telegram-btn" id="shareTelegram">
+                                        <i class="fab fa-telegram-plane me-2"></i> Telegram
+                                    </button>
+                                    <button class="share-btn copy-btn" id="copyReferralBtn">
+                                        <i class="fas fa-copy me-2"></i> कॉपी करें
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- रेफरल स्टैट्स कार्ड -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            रेफरल स्टैट्स
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-6 border-end">
+                                    <h5>कुल रेफरल</h5>
+                                    <p class="fs-3" id="totalReferrals">0</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>एक्टिव रेफरल</h5>
+                                    <p class="fs-3" id="activeReferrals">0</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-8">
                     <div class="card">
+                        <div class="card-header">
+                            व्यक्तिगत जानकारी
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">व्यक्तिगत जानकारी</h5>
                             <form id="profileForm">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
@@ -649,14 +926,6 @@
                                     <label for="bankDetails" class="form-label">बैंक विवरण</label>
                                     <textarea class="form-control" id="bankDetails" rows="3">बैंक विवरण</textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="referralLink" class="form-label">आपका रेफरल लिंक</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control referral-link" id="referralLink" readonly>
-                                        <button class="copy-btn" type="button" id="copyReferralBtn">कॉपी करें</button>
-                                    </div>
-                                    <div class="form-text">इस लिंक को शेयर करके नए सदस्यों को जोड़ें</div>
-                                </div>
                                 <button type="submit" class="btn btn-primary">अपडेट प्रोफाइल</button>
                             </form>
                         </div>
@@ -667,7 +936,11 @@
 
         <!-- ID एक्टिवेट पेज -->
         <div id="activatePage" class="page-content hidden">
-            <h2 class="mb-4">ID एक्टिवेट</h2>
+            <div class="welcome-banner">
+                <h2>ID एक्टिवेट</h2>
+                <p>नए सदस्यों को एक्टिवेट करें</p>
+            </div>
+            
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
@@ -727,7 +1000,11 @@
 
         <!-- डिपॉजिट पेज -->
         <div id="depositPage" class="page-content hidden">
-            <h2 class="mb-4">डिपॉजिट</h2>
+            <div class="welcome-banner">
+                <h2>डिपॉजिट</h2>
+                <p>अपने खाते में पैसे जमा करें</p>
+            </div>
+            
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
@@ -791,7 +1068,11 @@
 
         <!-- विड्रॉवल पेज -->
         <div id="withdrawalPage" class="page-content hidden">
-            <h2 class="mb-4">विड्रॉवल</h2>
+            <div class="welcome-banner">
+                <h2>विड्रॉवल</h2>
+                <p>अपने पैसे निकालें</p>
+            </div>
+            
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
@@ -851,7 +1132,11 @@
 
         <!-- इनकम पेज -->
         <div id="incomePage" class="page-content hidden">
-            <h2 class="mb-4">इनकम</h2>
+            <div class="welcome-banner">
+                <h2>इनकम</h2>
+                <p>अपनी आय का विवरण देखें</p>
+            </div>
+            
             <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
@@ -903,4 +1188,40 @@
                                     <th>तारीख</th>
                                     <th>विवरण</th>
                                     <th>इनकम प्रकार</th>
-                                    <th>र
+                                    <th>राशि</th>
+                                    <th>स्थिति</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incomeTable">
+                                <tr>
+                                    <td colspan="5" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- टीम पेज -->
+        <div id="teamPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>टीम</h2>
+                <p>अपनी टीम का विवरण देखें</p>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">डायरेक्ट टीम</h5>
+                            <p class="card-text fs-2" id="directTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">टोटल टीम</h5>
+                            <p class="card-text fs-2" id="totalTeamPage">0</p>
+                        </div
