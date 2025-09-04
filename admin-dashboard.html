@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrownUsdt - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header styles */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 15px 0;
+            border-bottom: 2px solid #0066cc;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .logo a:hover {
+            color: #0066cc;
+        }
+        .admin-info {
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .admin-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid white;
+        }
+        .admin-info .dropdown-toggle {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 250px;
+            height: calc(100vh - 80px);
+            background-color: #343a40;
+            padding-top: 20px;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        .sidebar.collapsed {
+            width: 70px;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-menu li {
+            position: relative;
+        }
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #adb5bd;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-menu li a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .sidebar-menu li a.active {
+            color: white;
+            background-color: rgba(0, 123, 255, 0.2);
+            border-left: 3px solid #007bff;
+        }
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+        }
+        .sidebar.collapsed .sidebar-menu li a span {
+            display: none;
+        }
+        .sidebar.collapsed .sidebar-menu li a {
+            justify-content: center;
+        }
+        .sidebar.collapsed .sidebar-menu li a i {
+            margin-right: 0;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: all 0.3s;
+            min-height: calc(100vh - 80px);
+        }
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+        
+        /* Page content */
+        .page-content {
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Welcome banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .welcome-banner h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .welcome-banner p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Card styles */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+            transition: transform 0.3s ease;
+            margin-bottom: 25px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid rgba(0,0,0,.125);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Button styles */
+        .btn {
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        .btn-success {
+            background-color: #198754;
+            border-color: #198754;
+        }
+        .btn-success:hover {
+            background-color: #157347;
+            border-color: #146c43;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+            border-color: #b02a37;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+        }
+        .btn-warning:hover {
+            background-color: #ffca2c;
+            border-color: #ffc720;
+            color: #000;
+        }
+        .btn-info {
+            background-color: #0dcaf0;
+            border-color: #0dcaf0;
+        }
+        .btn-info:hover {
+            background-color: #31d2f2;
+            border-color: #25cff2;
+        }
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Table styles */
+        .table {
+            margin-bottom: 0;
+        }
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: #495057;
+        }
+        .table-striped > tbody > tr:nth-of-type(odd) > * {
+            --bs-table-bg-type: rgba(0, 0, 0, .05);
+        }
+        
+        /* Form styles */
+        .form-control, .form-select {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
+        }
+        
+        /* Modal styles */
+        .modal-content {
+            border-radius: 10px;
+            border: none;
+        }
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+        .modal-footer {
+            border-top: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+        
+        /* Status badges */
+        .status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-inactive {
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-blocked {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-pending {
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-approved {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-rejected {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Animation */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: #10b981;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        .notification.show {
+            display: block;
+        }
+        
+        /* Utility classes */
+        .hidden {
+            display: none !important;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .main-content.expanded {
+                margin-left: 0;
+            }
+            .hamburger {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-banner h2 {
+                font-size: 22px;
+            }
+            .welcome-banner p {
+                font-size: 14px;
+            }
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+            
+            .d-flex {
+                flex-direction: column;
+            }
+            
+            .d-flex > * {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="admin-dashboard.html">
+                    <img src="logo.png" alt="CrownUsdt Logo">
+                    <span>CrownUsdt Admin</span>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="admin-info">
+                <img src="https://via.placeholder.com/40" alt="Admin Avatar">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <span>Admin</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" data-page="dashboard" class="active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="users">
+                    <i class="fas fa-users"></i>
+                    <span>Manage Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="wallet">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet Transactions</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="income">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Income Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="deposits">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Deposit Requests</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="withdrawals">
+                    <i class="fas fa-money-check-alt"></i>
+                    <span>Withdrawal Requests</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="activations">
+                    <i class="fas fa-user-check"></i>
+                    <span>ID Activations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page-content">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <h2>Admin Dashboard</h2>
+                <p>Manage CrownUsdt platform</p>
+            </div>
+            
+            <!-- Dashboard Stats -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text fs-2" id="totalUsers">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Active Users</h5>
+                            <p class="card-text fs-2" id="activeUsers">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Revenue</h5>
+                            <p class="card-text fs-2" id="totalRevenue">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Pending Requests</h5>
+                            <p class="card-text fs-2" id="pendingRequests">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Recent Registrations
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Name</th>
+                                            <th>User ID</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentRegistrationsTable">
+                                        <tr>
+                                            <td colspan="4" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Recent Activities
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>User</th>
+                                            <th>Activity</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentActivitiesTable">
+                                        <tr>
+                                            <td colspan="4" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Page -->
+        <div id="usersPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Manage Users</h2>
+                <p>View and manage all users</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    All Users
+                    <div>
+                        <button class="btn btn-sm btn-success" id="addUserBtn">
+                            <i class="fas fa-plus me-1"></i> Add User
+                        </button>
+                        <button class="btn btn-sm btn-primary" id="exportUsersBtn">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallet Page -->
+        <div id="walletPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Wallet Transactions</h2>
+                <p>View all wallet transactions</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Wallet Transactions
+                    <div>
+                        <button class="btn btn-sm btn-primary" id="exportWalletBtn">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="walletTransactionsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading transactions...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income Page -->
+        <div id="incomePage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Income Reports</h2>
+                <p>View all income reports</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Income Reports
+                    <div>
+                        <button class="btn btn-sm btn-primary" id="exportIncomeBtn">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>Income Type</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incomeTable">
+                                <tr>
+                                    <td colspan="6" class="text-center">Loading income reports...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deposits Page -->
+        <div id="depositsPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Deposit Requests</h2>
+                <p>Manage deposit requests</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Deposit Requests
+                    <div>
+                        <button class="btn btn-sm btn-primary" id="exportDepositsBtn">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="depositsTable">
+                                <tr>
+                                    <td colspan="8" class="text-center">Loading deposit requests...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Withdrawals Page -->
+        <div id="withdrawalsPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Withdrawal Requests</h2>
+                <p>Manage withdrawal requests</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Withdrawal Requests
+                    <div>
+                        <button class="btn btn-sm btn-primary" id="exportWithdrawalsBtn">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawalsTable">
+                                <tr>
+                                    <td colspan="8" class="text-center">Loading withdrawal requests...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activations Page -->
+        <div id="activationsPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>ID Activations</h2>
+                <p>View ID activation history</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    ID Activations
+                    <div>
+                        <button class="btn btn-sm btn-primary" id="exportActivationsBtn">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Admin ID</th>
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>Amount</th>
+                                    <th>Payment Method</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activationsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading activation history...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Edit Modal -->
+    <div class="modal fade" id="userEditModal" tabindex="-1" aria-labelledby="userEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userEditModalLabel">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="userEditForm">
+                        <input type="hidden" id="editUserId">
+                        <input type="hidden" id="editUserUid">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editFullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="editFullName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="editUsername" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="editEmail" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editPhone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="editPhone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editStatus" class="form-label">Status</label>
+                                <select class="form-select" id="editStatus" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="blocked">Blocked</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editWalletBalance" class="form-label">Wallet Balance</label>
+                                <input type="number" class="form-control" id="editWalletBalance" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editReferralLink" class="form-label">Referral Link</label>
+                            <input type="text" class="form-control" id="editReferralLink" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveUserBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Action Modal -->
+    <div class="modal fade" id="depositActionModal" tabindex="-1" aria-labelledby="depositActionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="depositActionModalLabel">Deposit Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="depositActionForm">
+                        <input type="hidden" id="depositActionId">
+                        
+                        <div class="mb-3">
+                            <label for="depositActionStatus" class="form-label">Action</label>
+                            <select class="form-select" id="depositActionStatus" required>
+                                <option value="approved">Approve</option>
+                                <option value="rejected">Reject</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="depositActionRemark" class="form-label">Remark</label>
+                            <textarea class="form-control" id="depositActionRemark" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveDepositActionBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdrawal Action Modal -->
+    <div class="modal fade" id="withdrawalActionModal" tabindex="-1" aria-labelledby="withdrawalActionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawalActionModalLabel">Withdrawal Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="withdrawalActionForm">
+                        <input type="hidden" id="withdrawalActionId">
+                        
+                        <div class="mb-3">
+                            <label for="withdrawalActionStatus" class="form-label">Action</label>
+                            <select class="form-select" id="withdrawalActionStatus" required>
+                                <option value="approved">Approve</option>
+                                <option value="rejected">Reject</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="withdrawalActionRemark" class="form-label">Remark</label>
+                            <textarea class="form-control" id="withdrawalActionRemark" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveWithdrawalActionBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize Firebase with your config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
+            authDomain: "crownusdt-bef5f.firebaseapp.com",
+            projectId: "crownusdt-bef5f",
+            storageBucket: "crownusdt-bef5f.firebasestorage.app",
+            messagingSenderId: "16212983577",
+            appId: "1:16212983577:web:54742789e0ca51e1800f88",
+            measurementId: "G-QMTHJ00757"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Check admin login status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in
+            const isAdminLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+            if (!isAdminLoggedIn || isAdminLoggedIn !== 'true') {
+                // Redirect to admin login page if not logged in
+                window.location.href = 'admin.html';
+                return;
+            }
+            
+            // Admin is logged in, initialize the dashboard
+            initializeEventListeners();
+            loadDashboardData();
+        });
+        
+        // Initialize event listeners
+        function initializeEventListeners() {
+            // Hamburger menu
+            document.getElementById('hamburger').addEventListener('click', function() {
+                this.classList.toggle('active');
+                document.getElementById('sidebar').classList.toggle('show');
+            });
+            
+            // Sidebar menu items
+            document.querySelectorAll('.sidebar-menu li a').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                    
+                    // Update active class
+                    document.querySelectorAll('.sidebar-menu li a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Load page data
+                    loadPageData(page);
+                });
+            });
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Clear admin login status
+                sessionStorage.removeItem('isAdminLoggedIn');
+                
+                // Redirect to admin login page
+                window.location.href = 'admin.html';
+            });
+            
+            // Add user button
+            document.getElementById('addUserBtn').addEventListener('click', function() {
+                // Reset form
+                document.getElementById('userEditForm').reset();
+                
+                // Set modal title
+                document.getElementById('userEditModalLabel').textContent = 'Add New User';
+                
+                // Show modal
+                const userEditModal = new bootstrap.Modal(document.getElementById('userEditModal'));
+                userEditModal.show();
+            });
+            
+            // Save user button
+            document.getElementById('saveUserBtn').addEventListener('click', function() {
+                const userId = document.getElementById('editUserId').value;
+                const userUid = document.getElementById('editUserUid').value;
+                const fullName = document.getElementById('editFullName').value;
+                const username = document.getElementById('editUsername').value;
+                const email = document.getElementById('editEmail').value;
+                const phone = document.getElementById('editPhone').value;
+                const status = document.getElementById('editStatus').value;
+                const walletBalance = parseInt(document.getElementById('editWalletBalance').value) || 0;
+                
+                if (!fullName || !username || !email || !phone) {
+                    showNotification('Please fill all required fields', 'error');
+                    return;
+                }
+                
+                if (userId && userUid) {
+                    // Update existing user
+                    db.collection('users').doc(userUid).update({
+                        name: fullName,
+                        username: username,
+                        email: email,
+                        phone: phone,
+                        status: status
+                    }).then(() => {
+                        // Update wallet balance
+                        db.collection('walletBalances').doc(userUid).set({
+                            balance: walletBalance
+                        }, { merge: true });
+                        
+                        // Hide modal
+                        const userEditModal = bootstrap.Modal.getInstance(document.getElementById('userEditModal'));
+                        userEditModal.hide();
+                        
+                        // Show success message
+                        showNotification('User updated successfully');
+                        
+                        // Reload users data
+                        loadUsersData();
+                    }).catch(error => {
+                        console.error('Error updating user:', error);
+                        showNotification('Error updating user', 'error');
+                    });
+                } else {
+                    // Add new user
+                    // Generate unique referral code
+                    const referralCode = 'CU' + Math.floor(100000 + Math.random() * 900000);
+                    
+                    // Create user in Firebase Auth
+                    const tempPassword = 'TempPass123';
+                    firebase.auth().createUserWithEmailAndPassword(email, tempPassword)
+                        .then((userCredential) => {
+                            // Add user to Firestore
+                            return db.collection('users').doc(userCredential.user.uid).set({
+                                id: referralCode,
+                                uid: userCredential.user.uid,
+                                name: fullName,
+                                username: username,
+                                email: email,
+                                phone: phone,
+                                joinDate: new Date().toISOString().split('T')[0],
+                                status: status,
+                                referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${referralCode}`
+                            });
+                        })
+                        .then(() => {
+                            // Set initial wallet balance
+                            return db.collection('walletBalances').doc(userCredential.user.uid).set({
+                                balance: walletBalance
+                            });
+                        })
+                        .then(() => {
+                            // Hide modal
+                            const userEditModal = bootstrap.Modal.getInstance(document.getElementById('userEditModal'));
+                            userEditModal.hide();
+                            
+                            // Show success message
+                            showNotification('User added successfully');
+                            
+                            // Reload users data
+                            loadUsersData();
+                        })
+                        .catch(error => {
+                            console.error('Error adding user:', error);
+                            showNotification('Error adding user', 'error');
+                        });
+                }
+            });
+            
+            // Save deposit action button
+            document.getElementById('saveDepositActionBtn').addEventListener('click', function() {
+                const depositId = document.getElementById('depositActionId').value;
+                const status = document.getElementById('depositActionStatus').value;
+                const remark = document.getElementById('depositActionRemark').value;
+                
+                db.collection('depositHistory').doc(depositId).update({
+                    status: status,
+                    remark: remark,
+                    processedAt: new Date().toISOString().split('T')[0],
+                    processedBy: 'admin'
+                }).then(() => {
+                    // Hide modal
+                    const depositActionModal = bootstrap.Modal.getInstance(document.getElementById('depositActionModal'));
+                    depositActionModal.hide();
+                    
+                    // Show success message
+                    showNotification('Deposit action saved successfully');
+                    
+                    // Reload deposits data
+                    loadDepositsData();
+                }).catch(error => {
+                    console.error('Error saving deposit action:', error);
+                    showNotification('Error saving deposit action', 'error');
+                });
+            });
+            
+            // Save withdrawal action button
+            document.getElementById('saveWithdrawalActionBtn').addEventListener('click', function() {
+                const withdrawalId = document.getElementById('withdrawalActionId').value;
+                const status = document.getElementById('withdrawalActionStatus').value;
+                const remark = document.getElementById('withdrawalActionRemark').value;
+                
+                db.collection('withdrawalHistory').doc(withdrawalId).update({
+                    status: status,
+                    remark: remark,
+                    processedAt: new Date().toISOString().split('T')[0],
+                    processedBy: 'admin'
+                }).then(() => {
+                    // Hide modal
+                    const withdrawalActionModal = bootstrap.Modal.getInstance(document.getElementById('withdrawalActionModal'));
+                    withdrawalActionModal.hide();
+                    
+                    // Show success message
+                    showNotification('Withdrawal action saved successfully');
+                    
+                    // Reload withdrawals data
+                    loadWithdrawalsData();
+                }).catch(error => {
+                    console.error('Error saving withdrawal action:', error);
+                    showNotification('Error saving withdrawal action', 'error');
+                });
+            });
+        }
+        
+        // Show page
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + 'Page').classList.remove('hidden');
+        }
+        
+        // Load page data
+        function loadPageData(page) {
+            switch(page) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'users':
+                    loadUsersData();
+                    break;
+                case 'wallet':
+                    loadWalletData();
+                    break;
+                case 'income':
+                    loadIncomeData();
+                    break;
+                case 'deposits':
+                    loadDepositsData();
+                    break;
+                case 'withdrawals':
+                    loadWithdrawalsData();
+                    break;
+                case 'activations':
+                    loadActivationsData();
+                    break;
+            }
+        }
+        
+        // Load dashboard data
+        function loadDashboardData() {
+            // Get all users
+            db.collection('users').get().then(snapshot => {
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push(doc.data());
+                });
+                
+                // Calculate stats
+                const totalUsers = users.length;
+                const activeUsers = users.filter(user => user.status === 'active').length;
+                
+                // Get total revenue from wallet transactions
+                db.collection('walletTransactions').get().then(walletSnapshot => {
+                    let totalRevenue = 0;
+                    walletSnapshot.forEach(doc => {
+                        const transaction = doc.data();
+                        if (transaction.type === 'credit') {
+                            totalRevenue += transaction.amount;
+                        }
+                    });
+                    
+                    // Get pending requests count
+                    Promise.all([
+                        db.collection('depositHistory').where('status', '==', 'pending').get(),
+                        db.collection('withdrawalHistory').where('status', '==', 'pending').get()
+                    ]).then(([depositSnapshot, withdrawalSnapshot]) => {
+                        const pendingDeposits = depositSnapshot.size;
+                        const pendingWithdrawals = withdrawalSnapshot.size;
+                        const pendingRequests = pendingDeposits + pendingWithdrawals;
+                        
+                        // Update dashboard stats
+                        document.getElementById('totalUsers').textContent = totalUsers;
+                        document.getElementById('activeUsers').textContent = activeUsers;
+                        document.getElementById('totalRevenue').textContent = `₹${totalRevenue}`;
+                        document.getElementById('pendingRequests').textContent = pendingRequests;
+                        
+                        // Load recent registrations
+                        loadRecentRegistrations(users);
+                        
+                        // Load recent activities
+                        loadRecentActivities();
+                    });
+                });
+            });
+        }
+        
+        // Load recent registrations
+        function loadRecentRegistrations(users) {
+            const recentRegistrationsTable = document.getElementById('recentRegistrationsTable');
+            recentRegistrationsTable.innerHTML = '';
+            
+            if (users.length === 0) {
+                recentRegistrationsTable.innerHTML = '<tr><td colspan="4" class="text-center">No data available</td></tr>';
+                return;
+            }
+            
+            // Sort users by join date (newest first) and get top 5
+            const sortedUsers = users.sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate)).slice(0, 5);
+            
+            sortedUsers.forEach(user => {
+                const row = document.createElement('tr');
+                const statusClass = user.status === 'active' ? 'status-active' : 
+                                   user.status === 'inactive' ? 'status-inactive' : 'status-blocked';
+                row.innerHTML = `
+                    <td>${user.joinDate}</td>
+                    <td>${user.name}</td>
+                    <td>${user.id}</td>
+                    <td><span class="${statusClass}">${user.status}</span></td>
+                `;
+                recentRegistrationsTable.appendChild(row);
+            });
+        }
+        
+        // Load recent activities
+        function loadRecentActivities() {
+            const recentActivitiesTable = document.getElementById('recentActivitiesTable');
+            recentActivitiesTable.innerHTML = '';
+            
+            // Get recent wallet transactions
+            db.collection('walletTransactions').orderBy('date', 'desc').limit(5).get()
+                .then(snapshot => {
+                    const activities = [];
+                    snapshot.forEach(doc => {
+                        const transaction = doc.data();
+                        activities.push({
+                            date: transaction.date,
+                            userId: transaction.userId,
+                            description: transaction.description,
+                            amount: transaction.amount,
+                            type: 'wallet'
+                        });
+                    });
+                    
+                    // Get recent deposits
+                    return db.collection('depositHistory').orderBy('date', 'desc').limit(5).get();
+                })
+                .then(snapshot => {
+                    snapshot.forEach(doc => {
+                        const deposit = doc.data();
+                        activities.push({
+                            date: deposit.date,
+                            userId: deposit.userId,
+                            description: 'Deposit',
+                            amount: deposit.amount,
+                            type: 'deposit'
+                        });
+                    });
+                    
+                    // Get recent withdrawals
+                    return db.collection('withdrawalHistory').orderBy('date', 'desc').limit(5).get();
+                })
+                .then(snapshot => {
+                    snapshot.forEach(doc => {
+                        const withdrawal = doc.data();
+                        activities.push({
+                            date: withdrawal.date,
+                            userId: withdrawal.userId,
+                            description: 'Withdrawal',
+                            amount: withdrawal.amount,
+                            type: 'withdrawal'
+                        });
+                    });
+                    
+                    // Sort activities by date (newest first) and get top 5
+                    activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    const topActivities = activities.slice(0, 5);
+                    
+                    // Get user names for activities
+                    const userIds = [...new Set(topActivities.map(activity => activity.userId))];
+                    const userPromises = userIds.map(userId => 
+                        db.collection('users').where('uid', '==', userId).get()
+                    );
+                    
+                    return Promise.all(userPromises);
+                })
+                .then(userSnapshots => {
+                    const userMap = {};
+                    userSnapshots.forEach(snapshot => {
+                        if (!snapshot.empty) {
+                            const user = snapshot.docs[0].data();
+                            userMap[user.uid] = user.name;
+                        }
+                    });
+                    
+                    // Display activities
+                    if (topActivities.length === 0) {
+                        recentActivitiesTable.innerHTML = '<tr><td colspan="4" class="text-center">No data available</td></tr>';
+                        return;
+                    }
+                    
+                    topActivities.forEach(activity => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${activity.date}</td>
+                            <td>${userMap[activity.userId] || 'Unknown'}</td>
+                            <td>${activity.description}</td>
+                            <td>₹${activity.amount}</td>
+                        `;
+                        recentActivitiesTable.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading recent activities:', error);
+                    recentActivitiesTable.innerHTML = '<tr><td colspan="4" class="text-center">Error loading data</td></tr>';
+                });
+        }
+        
+        // Load users data
+        function loadUsersData() {
+            const usersTable = document.getElementById('usersTable');
+            usersTable.innerHTML = '<tr><td colspan="7" class="text-center">Loading users...</td></tr>';
+            
+            db.collection('users').get().then(snapshot => {
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+                
+                if (users.length === 0) {
+                    usersTable.innerHTML = '<tr><td colspan="7" class="text-center">No users found</td></tr>';
+                    return;
+                }
+                
+                usersTable.innerHTML = '';
+                
+                users.forEach(user => {
+                    const userData = user.data;
+                    const statusClass = userData.status === 'active' ? 'status-active' : 
+                                       userData.status === 'inactive' ? 'status-inactive' : 'status-blocked';
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${userData.id}</td>
+                        <td>${userData.name}</td>
+                        <td>${userData.email}</td>
+                        <td>${userData.phone}</td>
+                        <td>${userData.joinDate}</td>
+                        <td><span class="${statusClass}">${userData.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-primary edit-user-btn" data-id="${user.id}" data-uid="${userData.uid}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </td>
+                    `;
+                    usersTable.appendChild(row);
+                });
+                
+                // Add event listeners to edit buttons
+                document.querySelectorAll('.edit-user-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const userId = this.getAttribute('data-id');
+                        const userUid = this.getAttribute('data-uid');
+                        
+                        // Get user data
+                        db.collection('users').doc(userUid).get().then(doc => {
+                            if (doc.exists) {
+                                const userData = doc.data();
+                                
+                                // Get wallet balance
+                                db.collection('walletBalances').doc(userUid).get().then(balanceDoc => {
+                                    const walletBalance = balanceDoc.exists ? balanceDoc.data().balance : 0;
+                                    
+                                    // Fill form
+                                    document.getElementById('editUserId').value = userData.id;
+                                    document.getElementById('editUserUid').value = userData.uid;
+                                    document.getElementById('editFullName').value = userData.name;
+                                    document.getElementById('editUsername').value = userData.username;
+                                    document.getElementById('editEmail').value = userData.email;
+                                    document.getElementById('editPhone').value = userData.phone;
+                                    document.getElementById('editStatus').value = userData.status;
+                                    document.getElementById('editWalletBalance').value = walletBalance;
+                                    document.getElementById('editReferralLink').value = userData.referralLink;
+                                    
+                                    // Set modal title
+                                    document.getElementById('userEditModalLabel').textContent = 'Edit User';
+                                    
+                                    // Show modal
+                                    const userEditModal = new bootstrap.Modal(document.getElementById('userEditModal'));
+                                    userEditModal.show();
+                                });
+                            }
+                        });
+                    });
+                });
+            }).catch(error => {
+                console.error('Error loading users:', error);
+                usersTable.innerHTML = '<tr><td colspan="7" class="text-center">Error loading users</td></tr>';
+            });
+        }
+        
+        // Load wallet data
+        function loadWalletData() {
+            const walletTransactionsTable = document.getElementById('walletTransactionsTable');
+            walletTransactionsTable.innerHTML = '<tr><td colspan="7" class="text-center">Loading transactions...</td></tr>';
+            
+            // Get all wallet transactions
+            db.collection('walletTransactions').orderBy('date', 'desc').get().then(snapshot => {
+                const transactions = [];
+                snapshot.forEach(doc => {
+                    transactions.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+                
+                if (transactions.length === 0) {
+                    walletTransactionsTable.innerHTML = '<tr><td colspan="7" class="text-center">No transactions found</td></tr>';
+                    return;
+                }
+                
+                walletTransactionsTable.innerHTML = '';
+                
+                // Get user names for transactions
+                const userIds = [...new Set(transactions.map(transaction => transaction.data.userId))];
+                const userPromises = userIds.map(userId => 
+                    db.collection('users').where('uid', '==', userId).get()
+                );
+                
+                Promise.all(userPromises).then(userSnapshots => {
+                    const userMap = {};
+                    userSnapshots.forEach(snapshot => {
+                        if (!snapshot.empty) {
+                            const user = snapshot.docs[0].data();
+                            userMap[user.uid] = user.name;
+                        }
+                    });
+                    
+                    // Display transactions
+                    transactions.forEach(transaction => {
+                        const transactionData = transaction.data;
+                        const typeClass = transactionData.type === 'credit' ? 'text-success' : 'text-danger';
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${transactionData.date}</td>
+                            <td>${transactionData.userId}</td>
+                            <td>${userMap[transactionData.userId] || 'Unknown'}</td>
+                            <td>${transactionData.description}</td>
+                            <td class="${typeClass}">${transactionData.type === 'credit' ? '+' : '-'}₹${transactionData.amount}</td>
+                            <td>${transactionData.type === 'credit' ? 'Credit' : 'Debit'}</td>
+                        `;
+                        walletTransactionsTable.appendChild(row);
+                    });
+                });
+            }).catch(error => {
+                console.error('Error loading wallet transactions:', error);
+                walletTransactionsTable.innerHTML = '<tr><td colspan="7" class="text-center">Error loading transactions</td></tr>';
+            });
+        }
+        
+        // Load income data
+        function loadIncomeData() {
+            const incomeTable = document.getElementById('incomeTable');
+            incomeTable.innerHTML = '<tr><td colspan="6" class="text-center">Loading income reports...</td></tr>';
+            
+            // Get all income records
+            db.collection('income').orderBy('date', 'desc').get().then(snapshot => {
+                const incomeRecords = [];
+                snapshot.forEach(doc => {
+                    incomeRecords.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+                
+                if (incomeRecords.length === 0) {
+                    incomeTable.innerHTML = '<tr><td colspan="6" class="text-center">No income records found</td></tr>';
+                    return;
+                }
+                
+                incomeTable.innerHTML = '';
+                
+                // Get user names for income records
+                const userIds = [...new Set(incomeRecords.map(income => income.data.userId))];
+                const userPromises = userIds.map(userId => 
+                    db.collection('users').where('uid', '==', userId).get()
+                );
+                
+                Promise.all(userPromises).then(userSnapshots => {
+                    const userMap = {};
+                    userSnapshots.forEach(snapshot => {
+                        if (!snapshot.empty) {
+                            const user = snapshot.docs[0].data();
+                            userMap[user.uid] = user.name;
+                        }
+                    });
+                    
+                    // Display income records
+                    incomeRecords.forEach(income => {
+                        const incomeData = income.data;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${incomeData.date}</td>
+                            <td>${incomeData.userId}</td>
+                            <td>${userMap[incomeData.userId] || 'Unknown'}</td>
+                            <td>${incomeData.type}</td>
+                            <td>₹${incomeData.amount}</td>
+                        `;
+                        incomeTable.appendChild(row);
+                    });
+                });
+            }).catch(error => {
+                console.error('Error loading income records:', error);
+                incomeTable.innerHTML = '<tr><td colspan="6" class="text-center">Error loading income records</td></tr>';
+            });
+        }
+        
+        // Load deposits data
+        function loadDepositsData() {
+            const depositsTable = document.getElementById('depositsTable');
+            depositsTable.innerHTML = '<tr><td colspan="8" class="text-center">Loading deposit requests...</td></tr>';
+            
+            // Get all deposit records
+            db.collection('depositHistory').orderBy('date', 'desc').get().then(snapshot => {
+                const deposits = [];
+                snapshot.forEach(doc => {
+                    deposits.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+                
+                if (deposits.length === 0) {
+                    depositsTable.innerHTML = '<tr><td colspan="8" class="text-center">No deposit requests found</td></tr>';
+                    return;
+                }
+                
+                depositsTable.innerHTML = '';
+                
+                // Get user names for deposits
+                const userIds = [...new Set(deposits.map(deposit => deposit.data.userId))];
+                const userPromises = userIds.map(userId => 
+                    db.collection('users').where('uid', '==', userId).get()
+                );
+                
+                Promise.all(userPromises).then(userSnapshots => {
+                    const userMap = {};
+                    userSnapshots.forEach(snapshot => {
+                        if (!snapshot.empty) {
+                            const user = snapshot.docs[0].data();
+                            userMap[user.uid] = user.name;
+                        }
+                    });
+                    
+                    // Display deposits
+                    deposits.forEach(deposit => {
+                        const depositData = deposit.data;
+                        const statusClass = depositData.status === 'approved' ? 'status-approved' : 
+                                          depositData.status === 'rejected' ? 'status-rejected' : 'status-pending';
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${depositData.date}</td>
+                            <td>${depositData.userId}</td>
+                            <td>${userMap[depositData.userId] || 'Unknown'}</td>
+                            <td>₹${depositData.amount}</td>
+                            <td>${depositData.method}</td>
+                            <td><span class="${statusClass}">${depositData.status}</span></td>
+                            <td>
+                                ${depositData.status === 'pending' ? `
+                                    <button class="btn btn-sm btn-primary deposit-action-btn" data-id="${deposit.id}">
+                                        <i class="fas fa-cog"></i> Action
+                                    </button>
+                                ` : ''}
+                            </td>
+                        `;
+                        depositsTable.appendChild(row);
+                    });
+                    
+                    // Add event listeners to action buttons
+                    document.querySelectorAll('.deposit-action-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const depositId = this.getAttribute('data-id');
+                            
+                            // Reset form
+                            document.getElementById('depositActionForm').reset();
+                            document.getElementById('depositActionId').value = depositId;
+                            
+                            // Set modal title
+                            document.getElementById('depositActionModalLabel').textContent = 'Deposit Action';
+                            
+                            // Show modal
+                            const depositActionModal = new bootstrap.Modal(document.getElementById('depositActionModal'));
+                            depositActionModal.show();
+                        });
+                    });
+                });
+            }).catch(error => {
+                console.error('Error loading deposit requests:', error);
+                depositsTable.innerHTML = '<tr><td colspan="8" class="text-center">Error loading deposit requests</td></tr>';
+            });
+        }
+        
+        // Load withdrawals data
+        function loadWithdrawalsData() {
+            const withdrawalsTable = document.getElementById('withdrawalsTable');
+            withdrawalsTable.innerHTML = '<tr><td colspan="8" class="text-center">Loading withdrawal requests...</td></tr>';
+            
+            // Get all withdrawal records
+            db.collection('withdrawalHistory').orderBy('date', 'desc').get().then(snapshot => {
+                const withdrawals = [];
+                snapshot.forEach(doc => {
+                    withdrawals.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+                
+                if (withdrawals.length === 0) {
+                    withdrawalsTable.innerHTML = '<tr><td colspan="8" class="text-center">No withdrawal requests found</td></tr>';
+                    return;
+                }
+                
+                withdrawalsTable.innerHTML = '';
+                
+                // Get user names for withdrawals
+                const userIds = [...new Set(withdrawals.map(withdrawal => withdrawal.data.userId))];
+                const userPromises = userIds.map(userId => 
+                    db.collection('users').where('uid', '==', userId).get()
+                );
+                
+                Promise.all(userPromises).then(userSnapshots => {
+                    const userMap = {};
+                    userSnapshots.forEach(snapshot => {
+                        if (!snapshot.empty) {
+                            const user = snapshot.docs[0].data();
+                            userMap[user.uid] = user.name;
+                        }
+                    });
+                    
+                    // Display withdrawals
+                    withdrawals.forEach(withdrawal => {
+                        const withdrawalData = withdrawal.data;
+                        const statusClass = withdrawalData.status === 'approved' ? 'status-approved' : 
+                                          withdrawalData.status === 'rejected' ? 'status-rejected' : 'status-pending';
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${withdrawalData.date}</td>
+                            <td>${withdrawalData.userId}</td>
+                            <td>${userMap[withdrawalData.userId] || 'Unknown'}</td>
+                            <td>₹${withdrawalData.amount}</td>
+                            <td>${withdrawalData.method}</td>
+                            <td><span class="${statusClass}">${withdrawalData.status}</span></td>
+                            <td>
+                                ${withdrawalData.status === 'pending' ? `
+                                    <button class="btn btn-sm btn-primary withdrawal-action-btn" data-id="${withdrawal.id}">
+                                        <i class="fas fa-cog"></i> Action
+                                    </button>
+                                ` : ''}
+                            </td>
+                        `;
+                        withdrawalsTable.appendChild(row);
+                    });
+                    
+                    // Add event listeners to action buttons
+                    document.querySelectorAll('.withdrawal-action-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const withdrawalId = this.getAttribute('data-id');
+                            
+                            // Reset form
+                            document.getElementById('withdrawalActionForm').reset();
+                            document.getElementById('withdrawalActionId').value = withdrawalId;
+                            
+                            // Set modal title
+                            document.getElementById('withdrawalActionModalLabel').textContent = 'Withdrawal Action';
+                            
+                            // Show modal
+                            const withdrawalActionModal = new bootstrap.Modal(document.getElementById('withdrawalActionModal'));
+                            withdrawalActionModal.show();
+                        });
+                    });
+                });
+            }).catch(error => {
+                console.error('Error loading withdrawal requests:', error);
+                withdrawalsTable.innerHTML = '<tr><td colspan="8" class="text-center">Error loading withdrawal requests</td></tr>';
+            });
+        }
+        
+        // Load activations data
+        function loadActivationsData() {
+            const activationsTable = document.getElementById('activationsTable');
+            activationsTable.innerHTML = '<tr><td colspan="7" class="text-center">Loading activation history...</td></tr>';
+            
+            // Get all activation records
+            db.collection('activationHistory').orderBy('date', 'desc').get().then(snapshot => {
+                const activations = [];
+                snapshot.forEach(doc => {
+                    activations.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+                
+                if (activations.length === 0) {
+                    activationsTable.innerHTML = '<tr><td colspan="7" class="text-center">No activation history found</td></tr>';
+                    return;
+                }
+                
+                activationsTable.innerHTML = '';
+                
+                // Get user names for activations
+                const userIds = [...new Set(activations.map(activation => [activation.data.userId, activation.data.activatedUserId]).flat())];
+                const userPromises = userIds.map(userId => 
+                    db.collection('users').where('uid', '==', userId).get()
+                );
+                
+                Promise.all(userPromises).then(userSnapshots => {
+                    const userMap = {};
+                    userSnapshots.forEach(snapshot => {
+                        if (!snapshot.empty) {
+                            const user = snapshot.docs[0].data();
+                            userMap[user.uid] = user.name;
+                        }
+                    });
+                    
+                    // Display activations
+                    activations.forEach(activation => {
+                        const activationData = activation.data;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${activationData.date}</td>
+                            <td>${activationData.userId}</td>
+                            <td>${activationData.activatedUserId}</td>
+                            <td>${userMap[activationData.activatedUserId] || 'Unknown'}</td>
+                            <td>₹${activationData.amount}</td>
+                            <td>${activationData.paymentMethod}</td>
+                        `;
+                        activationsTable.appendChild(row);
+                    });
+                });
+            }).catch(error => {
+                console.error('Error loading activation history:', error);
+                activationsTable.innerHTML = '<tr><td colspan="7" class="text-center">Error loading activation history</td></tr>';
+            });
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show';
+            
+            if (type === 'error') {
+                notification.style.backgroundColor = '#dc3545';
+            } else {
+                notification.style.backgroundColor = '#10b981';
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
