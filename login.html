@@ -151,7 +151,10 @@
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" placeholder="Enter password" required>
                             </div>
-                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="adminCheck">
+                                <label class="form-check-label" for="adminCheck">Admin Login</label>
+                            </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                         <div class="text-center mt-3">
@@ -188,9 +191,9 @@
                                 <input type="password" class="form-control" id="regConfirmPassword" placeholder="Re-enter password" required>
                             </div>
                             <div class="mb-3">
-                                <label for="regReferral" class="form-label">Referral Code <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="regReferral" placeholder="Enter referral code" required>
-                                <div class="form-text">Registration is not possible without a referral code</div>
+                                <label for="regReferral" class="form-label">Referral Link <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="regReferral" placeholder="Enter referral link" required>
+                                <div class="form-text">Registration is not possible without a referral link</div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Register</button>
                         </form>
