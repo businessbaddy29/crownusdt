@@ -6,6 +6,10 @@
     <title>CrownUsdt - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
     <style>
         /* Basic styles */
         * {
@@ -70,6 +74,11 @@
             text-align: center;
             margin-bottom: 1.5rem;
         }
+        .logo img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
         .logo h3 {
             color: #0d6efd;
             font-weight: bold;
@@ -127,6 +136,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="logo">
+                    <img src="logo.png" alt="CrownUsdt Logo">
                     <h3>CrownUsdt</h3>
                     <p class="text-muted">Login to your account</p>
                 </div>
@@ -163,27 +173,28 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Initialize Firebase with your config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
+            authDomain: "crownusdt-bef5f.firebaseapp.com",
+            projectId: "crownusdt-bef5f",
+            storageBucket: "crownusdt-bef5f.firebasestorage.app",
+            messagingSenderId: "16212983577",
+            appId: "1:16212983577:web:54742789e0ca51e1800f88",
+            measurementId: "G-QMTHJ00757"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
         document.addEventListener('DOMContentLoaded', function() {
             // Check if user is already logged in
-            const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-            if (currentUser) {
-                // Redirect to dashboard if already logged in
-                window.location.href = 'dashboard.html';
-                return;
-            }
-            
-            // Initialize demo users if they don't exist
-            let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
-            if (!demoUsers || demoUsers.length === 0) {
-                demoUsers = [
-                    { id: 'CU123456', name: 'Rajesh Kumar', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456' },
-                    { id: 'CU789012', name: 'Seema Singh', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU789012' },
-                    { id: 'CU345678', name: 'Amit Sharma', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU345678' },
-                    { id: 'CU901234', name: 'Priya Gupta', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU901234' },
-                    { id: 'CU567890', name: 'Vikas Patel', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://businessbaddy29.github.io/crownusdt/register.html?ref=CU567890' }
-                ];
-                localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
-            }
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // Redirect to dashboard if already logged in
+                    window.location.href = 'dashboard.html';
+                }
+            });
             
             // Toggle password visibility
             document.getElementById('togglePassword').addEventListener('click', function() {
@@ -213,51 +224,105 @@
                     return;
                 }
                 
-                // Load users data from localStorage
-                const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
+                // Set persistence based on remember me
+                const persistence = rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
                 
-                // User login
-                const user = demoUsers.find(u => 
-                    u.username === username || 
-                    u.email === username || 
-                    u.phone === username
-                );
-                
-                if (user && user.password === password) {
-                    // Check if user account is active
-                    if (user.status === 'blocked') {
-                        showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
-                        return;
-                    }
-                    
-                    // Save login info in storage
-                    const loggedInUser = {
-                        ...user,
-                        isAdmin: false
-                    };
-                    
-                    if (rememberMe) {
-                        localStorage.setItem('currentUser', JSON.stringify(loggedInUser));
-                    } else {
-                        sessionStorage.setItem('currentUser', JSON.stringify(loggedInUser));
-                    }
-                    
-                    // Redirect to dashboard
-                    window.location.href = 'dashboard.html';
-                } else {
-                    // Check if user exists but password is wrong
-                    if (user) {
-                        showAlert('loginAlert', 'Invalid password. Please try again.', 'danger');
-                    } else {
-                        showAlert('loginAlert', 'User not found. Please check your credentials or register first.', 'danger');
-                    }
-                }
+                auth.setPersistence(persistence)
+                    .then(() => {
+                        // First check if user exists in Firestore by username, email, or phone
+                        return db.collection('users').where('username', '==', username).get();
+                    })
+                    .then((querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            // User found by username
+                            const userDoc = querySnapshot.docs[0];
+                            const userData = userDoc.data();
+                            
+                            // Check if user account is active
+                            if (userData.status === 'blocked') {
+                                showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
+                                return;
+                            }
+                            
+                            // Login with email and password
+                            return auth.signInWithEmailAndPassword(userData.email, password);
+                        } else {
+                            // Try to find by email
+                            return db.collection('users').where('email', '==', username).get();
+                        }
+                    })
+                    .then((querySnapshot) => {
+                        if (querySnapshot && !querySnapshot.empty) {
+                            // User found by email
+                            const userDoc = querySnapshot.docs[0];
+                            const userData = userDoc.data();
+                            
+                            // Check if user account is active
+                            if (userData.status === 'blocked') {
+                                showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
+                                return;
+                            }
+                            
+                            // Login with email and password
+                            return auth.signInWithEmailAndPassword(userData.email, password);
+                        } else {
+                            // Try to find by phone
+                            return db.collection('users').where('phone', '==', username).get();
+                        }
+                    })
+                    .then((querySnapshot) => {
+                        if (querySnapshot && !querySnapshot.empty) {
+                            // User found by phone
+                            const userDoc = querySnapshot.docs[0];
+                            const userData = userDoc.data();
+                            
+                            // Check if user account is active
+                            if (userData.status === 'blocked') {
+                                showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
+                                return;
+                            }
+                            
+                            // Login with email and password
+                            return auth.signInWithEmailAndPassword(userData.email, password);
+                        } else {
+                            // User not found
+                            showAlert('loginAlert', 'User not found. Please check your credentials or register first.', 'danger');
+                        }
+                    })
+                    .then((userCredential) => {
+                        if (userCredential) {
+                            // Signed in successfully
+                            // Redirect to dashboard
+                            window.location.href = 'dashboard.html';
+                        }
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        
+                        if (errorCode === 'auth/user-not-found') {
+                            showAlert('loginAlert', 'User not found. Please check your credentials or register first.', 'danger');
+                        } else if (errorCode === 'auth/wrong-password') {
+                            showAlert('loginAlert', 'Invalid password. Please try again.', 'danger');
+                        } else {
+                            showAlert('loginAlert', errorMessage, 'danger');
+                        }
+                    });
             });
             
             // Handle forgot password
             document.getElementById('forgotPassword').addEventListener('click', function(e) {
                 e.preventDefault();
-                showAlert('loginAlert', 'Password reset functionality is not available yet. Please contact support.', 'info');
+                const email = prompt('Please enter your email address:');
+                if (email) {
+                    auth.sendPasswordResetEmail(email)
+                        .then(() => {
+                            showAlert('loginAlert', 'Password reset email sent. Please check your inbox.', 'success');
+                        })
+                        .catch((error) => {
+                            showAlert('loginAlert', error.message, 'danger');
+                        });
+                }
             });
         });
         
