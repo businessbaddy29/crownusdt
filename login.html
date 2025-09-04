@@ -205,15 +205,33 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // डेमो यूजर्स डेटा
-        const demoUsers = [
-            { id: 'USER001', name: 'राजेश कुमार', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER001' },
-            { id: 'USER002', name: 'सीमा सिंह', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER002' },
-            { id: 'USER003', name: 'अमित शर्मा', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://crownusdt.com/register?ref=USER003' },
-            { id: 'USER004', name: 'प्रिया गुप्ता', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://crownusdt.com/register?ref=USER004' },
-            { id: 'USER005', name: 'विकास पटेल', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER005' }
-        ];
-
+        // पेज लोड होने पर चेक करें कि यूजर पहले से लॉगिन है या नहीं
+        document.addEventListener('DOMContentLoaded', function() {
+            checkExistingLogin();
+            
+            // localStorage से यूजर्स डेटा लोड करें या नया बनाएं
+            let demoUsers = JSON.parse(localStorage.getItem('demoUsers'));
+            if (!demoUsers) {
+                demoUsers = [
+                    { id: 'USER001', name: 'राजेश कुमार', username: 'rajesh', email: 'rajesh@example.com', phone: '9876543210', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER001' },
+                    { id: 'USER002', name: 'सीमा सिंह', username: 'seema', email: 'seema@example.com', phone: '9876543211', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER002' },
+                    { id: 'USER003', name: 'अमित शर्मा', username: 'amit', email: 'amit@example.com', phone: '9876543212', password: 'password', status: 'inactive', referralLink: 'https://crownusdt.com/register?ref=USER003' },
+                    { id: 'USER004', name: 'प्रिया गुप्ता', username: 'priya', email: 'priya@example.com', phone: '9876543213', password: 'password', status: 'blocked', referralLink: 'https://crownusdt.com/register?ref=USER004' },
+                    { id: 'USER005', name: 'विकास पटेल', username: 'vikas', email: 'vikas@example.com', phone: '9876543214', password: 'password', status: 'active', referralLink: 'https://crownusdt.com/register?ref=USER005' }
+                ];
+                localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
+            }
+        });
+        
+        // चेक करें कि यूजर पहले से लॉगिन है या नहीं
+        function checkExistingLogin() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                // यदि यूजर पहले से लॉगिन है, तो डैशबोर्ड पर रीडायरेक्ट करें
+                window.location.href = 'dashboard.html';
+            }
+        }
+        
         // लॉगिन फॉर्म सबमिशन
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -230,6 +248,9 @@
                 showAlert('loginAlert', 'कृपया यूजरनेम और पासवर्ड दर्ज करें', 'danger');
                 return;
             }
+            
+            // localStorage से यूजर्स डेटा लोड करें
+            const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
             
             if (isAdmin) {
                 // एडमिन लॉगिन
@@ -298,6 +319,9 @@
                 return;
             }
             
+            // localStorage से यूजर्स डेटा लोड करें
+            const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
+            
             // रेफरल लिंक वैलिडेशन
             const refUser = demoUsers.find(u => 
                 u.referralLink === referral || 
@@ -339,16 +363,25 @@
             // डेमो यूजर्स में जोड़ें
             demoUsers.push(newUser);
             
+            // localStorage में अपडेट किए गए यूजर्स को सेव करें
+            localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
+            
+            // स्टोरेज में लॉगिन जानकारी सेव करें
+            localStorage.setItem('currentUser', JSON.stringify({
+                ...newUser,
+                isAdmin: false
+            }));
+            
             // सफलता संदेश
-            showAlert('registerAlert', 'रजिस्ट्रेशन सफल! कृपया लॉगिन करें', 'success');
+            showAlert('registerAlert', 'रजिस्ट्रेशन सफल! डैशबोर्ड पर रीडायरेक्ट हो रहे हैं...', 'success');
             
             // फॉर्म रीसेट करें
             document.getElementById('registerForm').reset();
             
-            // लॉगिन टैब पर स्विच करें
+            // डैशबोर्ड पर रीडायरेक्ट करें
             setTimeout(() => {
-                document.getElementById('login-tab').click();
-            }, 1500);
+                window.location.href = 'dashboard.html';
+            }, 2000);
         });
         
         // अलर्ट फंक्शन
