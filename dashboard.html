@@ -750,7 +750,7 @@
                 </div>
                 <div class="card-body">
                     <div class="referral-link-container">
-                        <div class="referral-link" id="dashboardReferralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=USER001</div>
+                        <div class="referral-link" id="dashboardReferralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456</div>
                         <div class="share-buttons">
                             <button class="share-btn whatsapp-btn" id="shareWhatsappDashboard">
                                 <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -880,7 +880,7 @@
                             <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Profile Picture" id="profileImage">
                             <h4 id="profileName">User Name</h4>
                             <p class="text-muted" id="profileUsername">username</p>
-                            <p class="text-muted" id="profileUserId">USER001</p>
+                            <p class="text-muted" id="profileUserId">CU123456</p>
                             <button class="btn btn-sm btn-primary mt-2" id="changeProfileImage">Change Picture</button>
                         </div>
                     </div>
@@ -892,7 +892,7 @@
                         </div>
                         <div class="card-body">
                             <div class="referral-link-container">
-                                <div class="referral-link" id="referralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=USER001</div>
+                                <div class="referral-link" id="referralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456</div>
                                 <div class="share-buttons">
                                     <button class="share-btn whatsapp-btn" id="shareWhatsapp">
                                         <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -1462,7 +1462,7 @@
                                 <div class="card-body text-center">
                                     <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
                                     <h6 id="genealogyUserName">User</h6>
-                                    <p class="mb-0" id="genealogyUserId">USER001</p>
+                                    <p class="mb-0" id="genealogyUserId">CU123456</p>
                                 </div>
                             </div>
                         </div>
@@ -1475,7 +1475,7 @@
                                     <div class="card-body text-center">
                                         <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
                                         <h6>Rajesh</h6>
-                                        <p class="mb-0">USER002</p>
+                                        <p class="mb-0">CU789012</p>
                                     </div>
                                 </div>
                             </div>
@@ -1484,7 +1484,7 @@
                                     <div class="card-body text-center">
                                         <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
                                         <h6>Seema</h6>
-                                        <p class="mb-0">USER003</p>
+                                        <p class="mb-0">CU345678</p>
                                     </div>
                                 </div>
                             </div>
@@ -1533,36 +1533,70 @@
         
         // Update team data
         function updateTeamData() {
-            // Here you can update team data
-            // For demo, we are generating some random data
-            const directTeam = Math.floor(Math.random() * 10);
-            const totalTeam = Math.floor(Math.random() * 50);
-            const activeTeam = Math.floor(Math.random() * totalTeam);
-            const inactiveTeam = totalTeam - activeTeam;
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) return;
+            
+            // Get all users
+            const users = JSON.parse(localStorage.getItem('demoUsers')) || [];
+            
+            // Find direct referrals (users who have current user as their referrer)
+            const directReferrals = users.filter(user => {
+                // Extract referral ID from the user's referral link
+                try {
+                    const referralUrl = new URL(user.referralLink);
+                    const referralId = referralUrl.searchParams.get('ref');
+                    return referralId === currentUser.id;
+                } catch (e) {
+                    return false;
+                }
+            });
+            
+            // Calculate team stats
+            const directTeam = directReferrals.length;
+            const activeTeam = directReferrals.filter(user => user.status === 'active').length;
+            const inactiveTeam = directTeam - activeTeam;
             
             // Update team stats on dashboard
             document.getElementById('directTeam').textContent = directTeam;
-            document.getElementById('totalTeam').textContent = totalTeam;
             document.getElementById('activeTeam').textContent = activeTeam;
             document.getElementById('inactiveTeam').textContent = inactiveTeam;
             
             // Update team stats on team page
             document.getElementById('directTeamPage').textContent = directTeam;
-            document.getElementById('totalTeamPage').textContent = totalTeam;
             document.getElementById('activeTeamPage').textContent = activeTeam;
             document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
             
             // Update team table
-            updateTeamTable();
+            updateTeamTable(directReferrals);
         }
         
         // Update wallet data
         function updateWalletData() {
-            // Here you can update wallet data
-            // For demo, we are generating some random data
-            const walletBalance = Math.floor(Math.random() * 10000);
-            const depositBalance = Math.floor(Math.random() * 5000);
-            const incomeBalance = walletBalance - depositBalance;
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) return;
+            
+            // Get user transactions from localStorage or initialize if not exists
+            let walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + currentUser.id)) || [];
+            
+            // Calculate wallet balance
+            let walletBalance = 0;
+            let depositBalance = 0;
+            let incomeBalance = 0;
+            
+            walletTransactions.forEach(transaction => {
+                if (transaction.type === 'credit') {
+                    walletBalance += transaction.amount;
+                    if (transaction.description.includes('Deposit')) {
+                        depositBalance += transaction.amount;
+                    } else {
+                        incomeBalance += transaction.amount;
+                    }
+                } else {
+                    walletBalance -= transaction.amount;
+                }
+            });
             
             // Update wallet balance on dashboard
             document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
@@ -1576,19 +1610,38 @@
             document.getElementById('walletBalanceCheck').value = `₹${walletBalance}`;
             
             // Update wallet transaction table
-            updateWalletTransactionTable();
+            updateWalletTransactionTable(walletTransactions);
         }
         
         // Update income data
         function updateIncomeData() {
-            // Here you can update income data
-            // For demo, we are generating some random data
-            const totalIncome = Math.floor(Math.random() * 20000);
-            const directIncome = Math.floor(Math.random() * 10000);
-            const teamIncome = totalIncome - directIncome;
-            const levelIncome = Math.floor(teamIncome * 0.6);
-            const royaltyIncome = Math.floor(teamIncome * 0.3);
-            const bonusIncome = teamIncome - levelIncome - royaltyIncome;
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) return;
+            
+            // Get user income from localStorage or initialize if not exists
+            let incomeData = JSON.parse(localStorage.getItem('incomeData_' + currentUser.id)) || [];
+            
+            // Calculate income stats
+            let directIncome = 0;
+            let levelIncome = 0;
+            let royaltyIncome = 0;
+            let bonusIncome = 0;
+            
+            incomeData.forEach(income => {
+                if (income.type === 'Direct') {
+                    directIncome += income.amount;
+                } else if (income.type === 'Level') {
+                    levelIncome += income.amount;
+                } else if (income.type === 'Royalty') {
+                    royaltyIncome += income.amount;
+                } else if (income.type === 'Bonus') {
+                    bonusIncome += income.amount;
+                }
+            });
+            
+            const totalIncome = directIncome + levelIncome + royaltyIncome + bonusIncome;
+            const teamIncome = levelIncome + royaltyIncome + bonusIncome;
             
             // Update income on dashboard
             document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
@@ -1602,23 +1655,16 @@
             document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
             
             // Update recent income table
-            updateRecentIncomeTable();
+            updateRecentIncomeTable(incomeData.slice(0, 3));
             
             // Update income table
-            updateIncomeTable();
+            updateIncomeTable(incomeData);
         }
         
         // Update team table
-        function updateTeamTable() {
+        function updateTeamTable(teamMembers) {
             const teamTable = document.getElementById('teamTable');
             teamTable.innerHTML = '';
-            
-            // Demo team members
-            const teamMembers = [
-                { id: 'USER002', name: 'Rajesh Kumar', joinDate: '2023-05-01', status: 'active' },
-                { id: 'USER003', name: 'Seema Singh', joinDate: '2023-05-05', status: 'active' },
-                { id: 'USER004', name: 'Amit Sharma', joinDate: '2023-05-10', status: 'inactive' }
-            ];
             
             if (teamMembers.length === 0) {
                 teamTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
@@ -1642,21 +1688,17 @@
         }
         
         // Update wallet transaction table
-        function updateWalletTransactionTable() {
+        function updateWalletTransactionTable(walletTransactions) {
             const walletTransactionTable = document.getElementById('walletTransactionTable');
             walletTransactionTable.innerHTML = '';
-            
-            // Demo wallet transactions
-            const walletTransactions = [
-                { date: '2023-06-15', description: 'Deposit', amount: 5000, type: 'credit' },
-                { date: '2023-06-10', description: 'Income', amount: 1000, type: 'credit' },
-                { date: '2023-06-05', description: 'Withdrawal', amount: 2000, type: 'debit' }
-            ];
             
             if (walletTransactions.length === 0) {
                 walletTransactionTable.innerHTML = '<tr><td colspan="4" class="text-center">No data available</td></tr>';
             } else {
-                walletTransactions.forEach(transaction => {
+                // Show only the last 10 transactions, most recent first
+                const recentTransactions = walletTransactions.slice(-10).reverse();
+                
+                recentTransactions.forEach(transaction => {
                     const row = document.createElement('tr');
                     const typeClass = transaction.type === 'credit' ? 'text-success' : 'text-danger';
                     const typeText = transaction.type === 'credit' ? 'Credit' : 'Debit';
@@ -1672,16 +1714,9 @@
         }
         
         // Update recent income table
-        function updateRecentIncomeTable() {
+        function updateRecentIncomeTable(recentIncome) {
             const recentIncomeTable = document.getElementById('recentIncomeTable');
             recentIncomeTable.innerHTML = '';
-            
-            // Demo recent income
-            const recentIncome = [
-                { date: '2023-06-15', description: 'Direct Income', amount: 1000 },
-                { date: '2023-06-10', description: 'Level Income', amount: 500 },
-                { date: '2023-06-05', description: 'Bonus Income', amount: 250 }
-            ];
             
             if (recentIncome.length === 0) {
                 recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
@@ -1699,21 +1734,17 @@
         }
         
         // Update income table
-        function updateIncomeTable() {
+        function updateIncomeTable(incomeData) {
             const incomeTable = document.getElementById('incomeTable');
             incomeTable.innerHTML = '';
-            
-            // Demo income
-            const incomeData = [
-                { date: '2023-06-15', description: 'Direct Income', type: 'Direct', amount: 1000 },
-                { date: '2023-06-10', description: 'Level Income', type: 'Level', amount: 500 },
-                { date: '2023-06-05', description: 'Bonus Income', type: 'Bonus', amount: 250 }
-            ];
             
             if (incomeData.length === 0) {
                 incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
             } else {
-                incomeData.forEach(income => {
+                // Show only the last 10 transactions, most recent first
+                const recentIncome = incomeData.slice(-10).reverse();
+                
+                recentIncome.forEach(income => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${income.date}</td>
@@ -1765,53 +1796,50 @@
         
         // Load dashboard data
         function loadDashboardData(user) {
-            // Demo data
-            const dashboardData = {
-                totalIncome: 12500,
-                directIncome: 5000,
-                teamIncome: 7500,
-                walletBalance: 8500,
-                directTeam: 5,
-                totalTeam: 25,
-                activeTeam: 18,
-                inactiveTeam: 7,
-                totalReferrals: 5,
-                activeReferrals: 3,
-                recentIncome: [
-                    { date: '2023-06-15', description: 'Direct Income', amount: 1000 },
-                    { date: '2023-06-10', description: 'Level Income', amount: 500 },
-                    { date: '2023-06-05', description: 'Bonus Income', amount: 250 }
-                ],
-                teamMembers: [
-                    { id: 'USER002', name: 'Rajesh Kumar', joinDate: '2023-05-01', status: 'active' },
-                    { id: 'USER003', name: 'Seema Singh', joinDate: '2023-05-05', status: 'active' },
-                    { id: 'USER004', name: 'Amit Sharma', joinDate: '2023-05-10', status: 'inactive' }
-                ]
-            };
+            // Get user-specific data from localStorage
+            const walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + user.id)) || [];
+            const incomeData = JSON.parse(localStorage.getItem('incomeData_' + user.id)) || [];
+            const activationHistory = JSON.parse(localStorage.getItem('activationHistory_' + user.id)) || [];
+            const depositHistory = JSON.parse(localStorage.getItem('depositHistory_' + user.id)) || [];
+            const withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory_' + user.id)) || [];
+            
+            // Calculate wallet balance
+            let walletBalance = 0;
+            walletTransactions.forEach(transaction => {
+                if (transaction.type === 'credit') {
+                    walletBalance += transaction.amount;
+                } else {
+                    walletBalance -= transaction.amount;
+                }
+            });
+            
+            // Calculate income stats
+            let directIncome = 0;
+            let teamIncome = 0;
+            incomeData.forEach(income => {
+                if (income.type === 'Direct') {
+                    directIncome += income.amount;
+                } else {
+                    teamIncome += income.amount;
+                }
+            });
+            
+            const totalIncome = directIncome + teamIncome;
             
             // Update dashboard stats
-            document.getElementById('totalIncome').textContent = `₹${dashboardData.totalIncome}`;
-            document.getElementById('directIncome').textContent = `₹${dashboardData.directIncome}`;
-            document.getElementById('teamIncome').textContent = `₹${dashboardData.teamIncome}`;
-            document.getElementById('walletBalance').textContent = `₹${dashboardData.walletBalance}`;
-            
-            document.getElementById('directTeam').textContent = dashboardData.directTeam;
-            document.getElementById('totalTeam').textContent = dashboardData.totalTeam;
-            document.getElementById('activeTeam').textContent = dashboardData.activeTeam;
-            document.getElementById('inactiveTeam').textContent = dashboardData.inactiveTeam;
-            
-            // Update referral stats
-            document.getElementById('totalReferrals').textContent = dashboardData.totalReferrals;
-            document.getElementById('activeReferrals').textContent = dashboardData.activeReferrals;
+            document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+            document.getElementById('directIncome').textContent = `₹${directIncome}`;
+            document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+            document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
             
             // Update recent income table
             const recentIncomeTable = document.getElementById('recentIncomeTable');
             recentIncomeTable.innerHTML = '';
             
-            if (dashboardData.recentIncome.length === 0) {
+            if (incomeData.length === 0) {
                 recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
             } else {
-                dashboardData.recentIncome.forEach(income => {
+                incomeData.slice(-3).reverse().forEach(income => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${income.date}</td>
@@ -1822,56 +1850,97 @@
                 });
             }
             
-            // Update team table
-            const teamTable = document.getElementById('teamTable');
-            teamTable.innerHTML = '';
+            // Update activation history table
+            const activationHistoryTable = document.getElementById('activationHistoryTable');
+            activationHistoryTable.innerHTML = '';
             
-            if (dashboardData.teamMembers.length === 0) {
-                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
+            if (activationHistory.length === 0) {
+                activationHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
             } else {
-                dashboardData.teamMembers.forEach(member => {
+                activationHistory.slice(-5).reverse().forEach(activation => {
                     const row = document.createElement('tr');
-                    const statusClass = member.status === 'active' ? 'status-active' : 
-                                       member.status === 'inactive' ? 'status-inactive' : 'status-blocked';
                     row.innerHTML = `
-                        <td>${member.id}</td>
-                        <td>${member.name}</td>
-                        <td>${member.joinDate}</td>
-                        <td><span class="${statusClass}">${member.status === 'active' ? 'Active' : member.status === 'inactive' ? 'Inactive' : 'Blocked'}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary">View</button>
-                        </td>
+                        <td>${activation.date}</td>
+                        <td>${activation.userId}</td>
+                        <td>₹${activation.amount}</td>
                     `;
-                    teamTable.appendChild(row);
+                    activationHistoryTable.appendChild(row);
                 });
             }
             
-            // Update team page stats
-            document.getElementById('directTeamPage').textContent = dashboardData.directTeam;
-            document.getElementById('totalTeamPage').textContent = dashboardData.totalTeam;
-            document.getElementById('activeTeamPage').textContent = dashboardData.activeTeam;
-            document.getElementById('inactiveTeamPage').textContent = dashboardData.inactiveTeam;
+            // Update deposit history table
+            const depositHistoryTable = document.getElementById('depositHistoryTable');
+            depositHistoryTable.innerHTML = '';
+            
+            if (depositHistory.length === 0) {
+                depositHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+            } else {
+                depositHistory.slice(-5).reverse().forEach(deposit => {
+                    const row = document.createElement('tr');
+                    const statusClass = deposit.status === 'approved' ? 'status-approved' : 'status-pending';
+                    const statusText = deposit.status === 'approved' ? 'Approved' : 'Pending';
+                    row.innerHTML = `
+                        <td>${deposit.date}</td>
+                        <td>₹${deposit.amount}</td>
+                        <td><span class="${statusClass}">${statusText}</span></td>
+                    `;
+                    depositHistoryTable.appendChild(row);
+                });
+            }
+            
+            // Update withdrawal history table
+            const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
+            withdrawalHistoryTable.innerHTML = '';
+            
+            if (withdrawalHistory.length === 0) {
+                withdrawalHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+            } else {
+                withdrawalHistory.slice(-5).reverse().forEach(withdrawal => {
+                    const row = document.createElement('tr');
+                    const statusClass = withdraw.status === 'approved' ? 'status-approved' : 'status-pending';
+                    const statusText = withdraw.status === 'approved' ? 'Approved' : 'Pending';
+                    row.innerHTML = `
+                        <td>${withdraw.date}</td>
+                        <td>₹${withdraw.amount}</td>
+                        <td><span class="${statusClass}">${statusText}</span></td>
+                    `;
+                    withdrawalHistoryTable.appendChild(row);
+                });
+            }
             
             // Update income page stats
-            document.getElementById('directIncomePage').textContent = `₹${dashboardData.directIncome}`;
-            document.getElementById('levelIncomePage').textContent = `₹${dashboardData.teamIncome * 0.6}`;
-            document.getElementById('royaltyIncomePage').textContent = `₹${dashboardData.teamIncome * 0.3}`;
-            document.getElementById('bonusIncomePage').textContent = `₹${dashboardData.teamIncome * 0.1}`;
+            let levelIncome = 0;
+            let royaltyIncome = 0;
+            let bonusIncome = 0;
+            
+            incomeData.forEach(income => {
+                if (income.type === 'Level') {
+                    levelIncome += income.amount;
+                } else if (income.type === 'Royalty') {
+                    royaltyIncome += income.amount;
+                } else if (income.type === 'Bonus') {
+                    bonusIncome += income.amount;
+                }
+            });
+            
+            document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+            document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
+            document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
+            document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
             
             // Update income table
             const incomeTable = document.getElementById('incomeTable');
             incomeTable.innerHTML = '';
             
-            if (dashboardData.recentIncome.length === 0) {
+            if (incomeData.length === 0) {
                 incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
             } else {
-                dashboardData.recentIncome.forEach(income => {
+                incomeData.slice(-10).reverse().forEach(income => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${income.date}</td>
                         <td>${income.description}</td>
-                        <td>${income.description.includes('Direct') ? 'Direct' : 
-                             income.description.includes('Level') ? 'Level' : 'Bonus'}</td>
+                        <td>${income.type}</td>
                         <td>₹${income.amount}</td>
                         <td><span class="status-approved">Approved</span></td>
                     `;
@@ -1996,22 +2065,41 @@
                     bankDetails: document.getElementById('bankDetails').value
                 };
                 
-                // Update user data
+                // Get current user
                 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                const updatedUser = {
-                    ...currentUser,
-                    name: formData.fullName,
-                    email: formData.email,
-                    phone: formData.phone
-                };
                 
-                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                // Update user data in demoUsers array
+                const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
+                const userIndex = demoUsers.findIndex(u => u.id === currentUser.id);
                 
-                // Update user info
-                updateUserInfo(updatedUser);
-                
-                // Show success message
-                showNotification('Profile updated successfully');
+                if (userIndex !== -1) {
+                    // Update user data
+                    demoUsers[userIndex] = {
+                        ...demoUsers[userIndex],
+                        name: formData.fullName,
+                        email: formData.email,
+                        phone: formData.phone
+                    };
+                    
+                    // Save updated users array
+                    localStorage.setItem('demoUsers', JSON.stringify(demoUsers));
+                    
+                    // Update current user in localStorage
+                    const updatedUser = {
+                        ...currentUser,
+                        name: formData.fullName,
+                        email: formData.email,
+                        phone: formData.phone
+                    };
+                    
+                    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                    
+                    // Update user info on the page
+                    updateUserInfo(updatedUser);
+                    
+                    // Show success message
+                    showNotification('Profile updated successfully');
+                }
             });
             
             // Referral link share buttons (Dashboard)
@@ -2080,25 +2168,40 @@
                     return;
                 }
                 
-                // Update activation history table
-                const activationHistoryTable = document.getElementById('activationHistoryTable');
-                const row = document.createElement('tr');
-                const today = new Date().toISOString().split('T')[0];
-                row.innerHTML = `
-                    <td>${today}</td>
-                    <td>${userId}</td>
-                    <td>₹${activationAmount}</td>
-                `;
+                // Get current user
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 
-                // If table is empty, remove empty message first
-                if (activationHistoryTable.querySelector('tr td[colspan]')) {
-                    activationHistoryTable.innerHTML = '';
-                }
+                // Get activation history or initialize if not exists
+                let activationHistory = JSON.parse(localStorage.getItem('activationHistory_' + currentUser.id)) || [];
                 
-                activationHistoryTable.appendChild(row);
+                // Add to activation history
+                activationHistory.push({
+                    date: new Date().toISOString().split('T')[0],
+                    userId: userId,
+                    amount: activationAmount
+                });
+                
+                // Save activation history
+                localStorage.setItem('activationHistory_' + currentUser.id, JSON.stringify(activationHistory));
                 
                 // Update wallet balance
                 const newWalletBalance = walletBalance - activationAmount;
+                
+                // Get wallet transactions or initialize if not exists
+                let walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + currentUser.id)) || [];
+                
+                // Add wallet transaction
+                walletTransactions.push({
+                    date: new Date().toISOString().split('T')[0],
+                    description: `ID Activation for ${userId}`,
+                    amount: activationAmount,
+                    type: 'debit'
+                });
+                
+                // Save wallet transactions
+                localStorage.setItem('walletTransactions_' + currentUser.id, JSON.stringify(walletTransactions));
+                
+                // Update wallet balance on page
                 document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
                 document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
                 document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
@@ -2109,6 +2212,9 @@
                 
                 // Show success message
                 showNotification('ID activation submitted successfully');
+                
+                // Refresh dashboard data
+                loadDashboardData(currentUser);
             });
             
             // Wallet transfer form
@@ -2136,35 +2242,37 @@
                     return;
                 }
                 
+                // Get current user
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                // Get wallet transactions or initialize if not exists
+                let walletTransactions = JSON.parse(localStorage.getItem('walletTransactions_' + currentUser.id)) || [];
+                
+                // Add wallet transaction
+                walletTransactions.push({
+                    date: new Date().toISOString().split('T')[0],
+                    description: `Transfer to ${transferTo}`,
+                    amount: transferAmount,
+                    type: 'debit'
+                });
+                
+                // Save wallet transactions
+                localStorage.setItem('walletTransactions_' + currentUser.id, JSON.stringify(walletTransactions));
+                
                 // Update wallet balance
                 const newWalletBalance = walletBalance - transferAmount;
                 document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
                 document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
                 document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
                 
-                // Update wallet transaction table
-                const walletTransactionTable = document.getElementById('walletTransactionTable');
-                const row = document.createElement('tr');
-                const today = new Date().toISOString().split('T')[0];
-                row.innerHTML = `
-                    <td>${today}</td>
-                    <td>Transfer to ${transferTo}</td>
-                    <td class="text-danger">-₹${transferAmount}</td>
-                    <td>Debit</td>
-                `;
-                
-                // If table is empty, remove empty message first
-                if (walletTransactionTable.querySelector('tr td[colspan]')) {
-                    walletTransactionTable.innerHTML = '';
-                }
-                
-                walletTransactionTable.appendChild(row);
-                
                 // Reset form
                 document.getElementById('walletTransferForm').reset();
                 
                 // Show success message
                 showNotification('Wallet transfer completed successfully');
+                
+                // Refresh dashboard data
+                loadDashboardData(currentUser);
             });
             
             // Deposit method change
@@ -2201,27 +2309,30 @@
                     return;
                 }
                 
-                // Update deposit history table
-                const depositHistoryTable = document.getElementById('depositHistoryTable');
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${depositDate}</td>
-                    <td>₹${depositAmount}</td>
-                    <td><span class="status-pending">Pending</span></td>
-                `;
+                // Get current user
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 
-                // If table is empty, remove empty message first
-                if (depositHistoryTable.querySelector('tr td[colspan]')) {
-                    depositHistoryTable.innerHTML = '';
-                }
+                // Get deposit history or initialize if not exists
+                let depositHistory = JSON.parse(localStorage.getItem('depositHistory_' + currentUser.id)) || [];
                 
-                depositHistoryTable.appendChild(row);
+                // Add to deposit history
+                depositHistory.push({
+                    date: depositDate,
+                    amount: parseInt(depositAmount),
+                    status: 'pending'
+                });
+                
+                // Save deposit history
+                localStorage.setItem('depositHistory_' + currentUser.id, JSON.stringify(depositHistory));
                 
                 // Reset form
                 document.getElementById('depositForm').reset();
                 
                 // Show success message
                 showNotification('Deposit submitted successfully');
+                
+                // Refresh dashboard data
+                loadDashboardData(currentUser);
             });
             
             // Withdrawal form
@@ -2232,6 +2343,7 @@
                 const withdrawalMethod = document.getElementById('withdrawalMethod').value;
                 const withdrawalAccount = document.getElementById('withdrawalAccount').value;
                 const withdrawalRemark = document.getElementById('withdrawalRemark').value;
+                const walletBalance = parseInt(document.getElementById('walletBalancePage').textContent.replace('₹', ''));
                 
                 // Validation
                 if (!withdrawalAmount || !withdrawalAccount) {
@@ -2244,28 +2356,35 @@
                     return;
                 }
                 
-                // Update withdrawal history table
-                const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
-                const row = document.createElement('tr');
-                const today = new Date().toISOString().split('T')[0];
-                row.innerHTML = `
-                    <td>${today}</td>
-                    <td>₹${withdrawalAmount}</td>
-                    <td><span class="status-pending">Pending</span></td>
-                `;
-                
-                // If table is empty, remove empty message first
-                if (withdrawalHistoryTable.querySelector('tr td[colspan]')) {
-                    withdrawalHistoryTable.innerHTML = '';
+                if (walletBalance < withdrawalAmount) {
+                    showNotification('Insufficient balance in your wallet', 'error');
+                    return;
                 }
                 
-                withdrawalHistoryTable.appendChild(row);
+                // Get current user
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                // Get withdrawal history or initialize if not exists
+                let withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory_' + currentUser.id)) || [];
+                
+                // Add to withdrawal history
+                withdrawalHistory.push({
+                    date: new Date().toISOString().split('T')[0],
+                    amount: parseInt(withdrawalAmount),
+                    status: 'pending'
+                });
+                
+                // Save withdrawal history
+                localStorage.setItem('withdrawalHistory_' + currentUser.id, JSON.stringify(withdrawalHistory));
                 
                 // Reset form
                 document.getElementById('withdrawalForm').reset();
                 
                 // Show success message
                 showNotification('Withdrawal submitted successfully');
+                
+                // Refresh dashboard data
+                loadDashboardData(currentUser);
             });
             
             // Other button events
