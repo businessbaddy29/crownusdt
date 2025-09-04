@@ -95,6 +95,11 @@
             background-color: #d4edda;
             border-color: #c3e6cb;
         }
+        .alert-info {
+            color: #0c5460;
+            background-color: #cff4fc;
+            border-color: #b6effb;
+        }
         .referral-code {
             background-color: #f8f9fa;
             border: 1px solid #ced4da;
@@ -107,6 +112,13 @@
         .login-link {
             text-align: center;
             margin-top: 1rem;
+        }
+        .first-user-info {
+            background-color: #e7f3ff;
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
         }
         
         /* Responsive styles */
@@ -128,6 +140,11 @@
                 </div>
                 
                 <div id="registerAlert"></div>
+                
+                <div id="firstUserSection" class="first-user-info" style="display: none;">
+                    <h5><i class="fas fa-info-circle me-2"></i>First User Registration</h5>
+                    <p>You are the first user to register. You will be created as an admin user with all privileges.</p>
+                </div>
                 
                 <form id="registerForm">
                     <div class="mb-3">
@@ -160,7 +177,7 @@
                         <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
                     </div>
                     
-                    <div class="mb-3">
+                    <div id="referralCodeSection" class="mb-3">
                         <label for="referralCode" class="form-label">Referral Code <span class="text-danger">*</span></label>
                         <input type="text" class="form-control referral-code" id="referralCode" placeholder="Enter referral code" required>
                         <div class="form-text">Registration is not possible without a referral code</div>
@@ -202,11 +219,39 @@
                 document.getElementById('referralCode').value = referralParam.trim();
             }
             
+            // Check if this is the first user registration
+            checkIfFirstUser();
+            
             // Function to generate a unique referral code
             function generateReferralCode() {
                 const prefix = 'CU';
                 const randomDigits = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
                 return prefix + randomDigits;
+            }
+            
+            // Check if this is the first user
+            function checkIfFirstUser() {
+                db.collection('users').limit(1).get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            // No users exist, this is the first user
+                            document.getElementById('firstUserSection').style.display = 'block';
+                            document.getElementById('referralCodeSection').style.display = 'none';
+                            document.getElementById('referralCode').removeAttribute('required');
+                        } else {
+                            // Users already exist, referral code is required
+                            document.getElementById('firstUserSection').style.display = 'none';
+                            document.getElementById('referralCodeSection').style.display = 'block';
+                            document.getElementById('referralCode').setAttribute('required', '');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error checking users:", error);
+                        // In case of error, assume referral code is required
+                        document.getElementById('firstUserSection').style.display = 'none';
+                        document.getElementById('referralCodeSection').style.display = 'block';
+                        document.getElementById('referralCode').setAttribute('required', '');
+                    });
             }
             
             // Handle form submission
@@ -226,8 +271,8 @@
                 alertDiv.innerHTML = '';
                 
                 // Validation
-                if (!fullName || !username || !email || !phone || !password || !confirmPassword || !referralCode) {
-                    showAlert('registerAlert', 'Please fill all fields', 'danger');
+                if (!fullName || !username || !email || !phone || !password || !confirmPassword) {
+                    showAlert('registerAlert', 'Please fill all required fields', 'danger');
                     return;
                 }
                 
@@ -236,29 +281,126 @@
                     return;
                 }
                 
-                // Validate referral code in Firestore
-                db.collection('users').where('id', '==', referralCode).get()
+                // Check if this is the first user
+                db.collection('users').limit(1).get()
                     .then((querySnapshot) => {
-                        if (querySnapshot.empty) {
-                            showAlert('registerAlert', 'Invalid referral code. Please check and try again.', 'danger');
-                            return;
-                        }
+                        const isFirstUser = querySnapshot.empty;
                         
-                        // Check if username or email already exists in Firestore
-                        return Promise.all([
-                            db.collection('users').where('username', '==', username).get(),
-                            db.collection('users').where('email', '==', email).get()
-                        ]);
+                        if (isFirstUser) {
+                            // First user registration - no referral code needed
+                            return registerFirstUser(fullName, username, email, phone, password);
+                        } else {
+                            // Not the first user - referral code is required
+                            if (!referralCode) {
+                                showAlert('registerAlert', 'Referral code is required', 'danger');
+                                return;
+                            }
+                            
+                            // Validate referral code in Firestore
+                            return db.collection('users').where('id', '==', referralCode).get()
+                                .then((refQuerySnapshot) => {
+                                    if (refQuerySnapshot.empty) {
+                                        showAlert('registerAlert', 'Invalid referral code. Please check and try again.', 'danger');
+                                        return;
+                                    }
+                                    
+                                    // Referral code is valid, proceed with registration
+                                    return registerRegularUser(fullName, username, email, phone, password, referralCode);
+                                });
+                        }
                     })
+                    .then(() => {
+                        // Registration successful
+                        showAlert('registerAlert', 'Registration successful! Please login.', 'success');
+                        
+                        // Reset form
+                        document.getElementById('registerForm').reset();
+                        
+                        // Redirect to login page after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        
+                        if (errorCode === 'auth/email-already-in-use') {
+                            showAlert('registerAlert', 'Email already in use. Please use a different email.', 'danger');
+                        } else {
+                            showAlert('registerAlert', errorMessage, 'danger');
+                        }
+                    });
+            });
+            
+            // Register first user (admin)
+            function registerFirstUser(fullName, username, email, phone, password) {
+                // Generate unique referral code
+                let newUserId;
+                let isUnique = false;
+                
+                // Function to check if ID is unique
+                function checkUniqueId(id) {
+                    return db.collection('users').where('id', '==', id).get()
+                        .then(snapshot => snapshot.empty);
+                }
+                
+                // Generate unique ID
+                function generateUniqueId() {
+                    newUserId = generateReferralCode();
+                    return checkUniqueId(newUserId)
+                        .then(isUnique => {
+                            if (isUnique) {
+                                return newUserId;
+                            } else {
+                                return generateUniqueId();
+                            }
+                        });
+                }
+                
+                return generateUniqueId()
+                    .then((uniqueId) => {
+                        // Create user with Firebase Auth
+                        return auth.createUserWithEmailAndPassword(email, password)
+                            .then((userCredential) => {
+                                // Signed in
+                                const user = userCredential.user;
+                                
+                                // Add user to Firestore as admin
+                                const userData = {
+                                    id: uniqueId,
+                                    uid: user.uid,
+                                    name: fullName,
+                                    username: username,
+                                    email: email,
+                                    phone: phone,
+                                    joinDate: new Date().toISOString().split('T')[0],
+                                    status: 'active',
+                                    role: 'admin',
+                                    referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${uniqueId}`
+                                };
+                                
+                                return db.collection('users').doc(user.uid).set(userData);
+                            });
+                    });
+            }
+            
+            // Register regular user
+            function registerRegularUser(fullName, username, email, phone, password, referralCode) {
+                // Check if username or email already exists in Firestore
+                return Promise.all([
+                    db.collection('users').where('username', '==', username).get(),
+                    db.collection('users').where('email', '==', email).get()
+                ])
                     .then(([usernameSnapshot, emailSnapshot]) => {
                         if (!usernameSnapshot.empty) {
                             showAlert('registerAlert', 'Username already exists', 'danger');
-                            return;
+                            throw new Error('Username already exists');
                         }
                         
                         if (!emailSnapshot.empty) {
                             showAlert('registerAlert', 'Email already exists', 'danger');
-                            return;
+                            throw new Error('Email already exists');
                         }
                         
                         // Generate unique referral code
@@ -303,35 +445,14 @@
                                     phone: phone,
                                     joinDate: new Date().toISOString().split('T')[0],
                                     status: 'inactive',
+                                    role: 'user',
                                     referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${newUserId}`
                                 };
                                 
                                 return db.collection('users').doc(user.uid).set(userData);
                             });
-                    })
-                    .then(() => {
-                        // Show success message
-                        showAlert('registerAlert', 'Registration successful! Please login.', 'success');
-                        
-                        // Reset form
-                        document.getElementById('registerForm').reset();
-                        
-                        // Redirect to login page after 2 seconds
-                        setTimeout(() => {
-                            window.location.href = 'login.html';
-                        }, 2000);
-                    })
-                    .catch((error) => {
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
-                        
-                        if (errorCode === 'auth/email-already-in-use') {
-                            showAlert('registerAlert', 'Email already in use. Please use a different email.', 'danger');
-                        } else {
-                            showAlert('registerAlert', errorMessage, 'danger');
-                        }
                     });
-            });
+            }
         });
         
         // Show alert function
