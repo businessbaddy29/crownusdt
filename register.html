@@ -175,7 +175,7 @@
             
             if (referralParam) {
                 // Pre-fill the referral code field
-                document.getElementById('referralCode').value = referralParam;
+                document.getElementById('referralCode').value = referralParam.trim();
             }
             
             // Initialize demo users if they don't exist
@@ -202,13 +202,13 @@
             document.getElementById('registerForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const fullName = document.getElementById('fullName').value;
-                const username = document.getElementById('username').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
+                const fullName = document.getElementById('fullName').value.trim();
+                const username = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
-                const referralCode = document.getElementById('referralCode').value;
+                const referralCode = document.getElementById('referralCode').value.trim();
                 const alertDiv = document.getElementById('registerAlert');
                 
                 // Clear alert
@@ -228,10 +228,14 @@
                 // Get users from localStorage
                 const users = JSON.parse(localStorage.getItem('demoUsers')) || [];
                 
+                // Debug: Log the referral code and available users
+                console.log('Referral Code:', referralCode);
+                console.log('Available Users:', users);
+                
                 // Validate referral code
                 const refUser = users.find(u => u.id === referralCode);
                 if (!refUser) {
-                    showAlert('registerAlert', 'Invalid referral code', 'danger');
+                    showAlert('registerAlert', 'Invalid referral code. Please check and try again.', 'danger');
                     return;
                 }
                 
