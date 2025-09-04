@@ -168,89 +168,6 @@
             background-color: var(--primary-color);
             color: var(--white);
         }
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow: auto;
-        }
-        .modal-content {
-            background-color: var(--white);
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .close {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--light-text);
-            cursor: pointer;
-        }
-        .close:hover {
-            color: var(--primary-color);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        .form-control:focus {
-            border-color: var(--accent-color);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
-        }
-        .form-check {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .form-check input {
-            margin-right: 10px;
-        }
-        .form-text {
-            font-size: 14px;
-            color: var(--light-text);
-            margin-top: 5px;
-        }
-        .error-message {
-            color: var(--error-color);
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-        .success-message {
-            background-color: var(--success-color);
-            color: var(--white);
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-        }
         /* Trading View Widget Section */
         .trading-section {
             padding: 40px 0;
@@ -472,8 +389,8 @@
                     <li><a href="index">Home</a></li>
                     <li><a href="about">About Us</a></li>
                     <li><a href="platform">Trading Platform</a></li>
-                    <li><a href="login">Login</a></li>
-                    <li><a href="#" id="registerBtn">Register</a></li>
+                    <li><a href="education">Education</a></li>
+                    <li><a href="login.html">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -485,7 +402,7 @@
             <div class="hero-content">
                 <h1>Master the Forex Market</h1>
                 <p>Trade global currencies with advanced tools, real-time data, and expert insights</p>
-                <a href="#" id="loginHeroBtn" class="btn">Get Started Today</a>
+                <a href="login.html" class="btn">Get Started Today</a>
             </div>
         </div>
     </section>
@@ -621,35 +538,6 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="success-message" id="loginSuccess">Login successful! Redirecting...</div>
-            <h2>Login to Your Account</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email Address</label>
-                    <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
-                    <div class="error-message" id="loginEmailError">Please enter a valid email address</div>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
-                    <div class="error-message" id="loginPasswordError">Password must be at least 6 characters</div>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="rememberMe">
-                    <label for="rememberMe">Remember me</label>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Login</button>
-                <div class="form-text text-center">
-                    <a href="#" id="forgotPassword">Forgot your password?</a>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <script>
         // Dynamically update the copyright year
         document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -669,90 +557,6 @@
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
-        });
-
-        // Modal functionality
-        const loginModal = document.getElementById('loginModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const loginHeroBtn = document.getElementById('loginHeroBtn');
-        const closeBtns = document.getElementsByClassName('close');
-
-        // Open login modal from navigation
-        loginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'block';
-        });
-
-        // Open login modal from hero button
-        loginHeroBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'block';
-        });
-
-        // Close modals
-        for (let i = 0; i < closeBtns.length; i++) {
-            closeBtns[i].addEventListener('click', () => {
-                loginModal.style.display = 'none';
-            });
-        }
-
-        // Close modals when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target == loginModal) {
-                loginModal.style.display = 'none';
-            }
-        });
-
-        // Form validation
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function validatePassword(password) {
-            return password.length >= 6;
-        }
-
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            let isValid = true;
-
-            // Reset error messages
-            document.getElementById('loginEmailError').style.display = 'none';
-            document.getElementById('loginPasswordError').style.display = 'none';
-
-            // Validate email
-            if (!validateEmail(email)) {
-                document.getElementById('loginEmailError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate password
-            if (!validatePassword(password)) {
-                document.getElementById('loginPasswordError').style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                // Show success message
-                document.getElementById('loginSuccess').style.display = 'block';
-                
-                // Simulate login process
-                setTimeout(() => {
-                    // Redirect to dashboard or home page
-                    window.location.href = 'dashboard.html';
-                }, 2000);
-            }
-        });
-
-        // Forgot password functionality
-        document.getElementById('forgotPassword').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Password reset link will be sent to your email address.');
         });
     </script>
 </body>
