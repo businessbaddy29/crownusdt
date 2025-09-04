@@ -578,7 +578,7 @@
 </head>
 <body>
     <!-- लॉगिन स्क्रीन -->
-    <div id="loginScreen" class="login-screen hidden">
+    <div id="loginScreen" class="login-screen">
         <div class="login-card">
             <div class="text-center mb-4">
                 <h3>CrownUsdt</h3>
@@ -610,7 +610,7 @@
         <div class="container header-container">
             <div class="logo">
                 <a href="dashboard.html">
-                    <img src="https://via.placeholder.com/50" alt="">
+                    <img src="https://via.placeholder.com/50" alt="CrownUsdt Logo">
                     <span>CrownUsdt</span>
                 </a>
             </div>
@@ -1224,4 +1224,620 @@
                         <div class="card-body">
                             <h5 class="card-title">टोटल टीम</h5>
                             <p class="card-text fs-2" id="totalTeamPage">0</p>
-                        </div
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">एक्टिव टीम</h5>
+                            <p class="card-text fs-2" id="activeTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">इनएक्टिव टीम</h5>
+                            <p class="card-text fs-2" id="inactiveTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">टीम सदस्य</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary" id="filterTeam">फिल्टर</button>
+                            <button class="btn btn-sm btn-success" id="downloadTeam">डाउनलोड</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>यूजर ID</th>
+                                    <th>नाम</th>
+                                    <th>जॉइन डेट</th>
+                                    <th>स्थिति</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teamTable">
+                                <tr>
+                                    <td colspan="5" class="text-center">कोई डेटा नहीं</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- जीनियोलॉजी पेज -->
+        <div id="genealogyPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>जीनियोलॉजी</h2>
+                <p>अपनी टीम की संरचना देखें</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="genealogy-node d-inline-block">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
+                                    <h6 id="genealogyUserName">यूजर</h6>
+                                    <p class="mb-0" id="genealogyUserId">USER001</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
+                                        <h6>राजेश</h6>
+                                        <p class="mb-0">USER002</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
+                                        <h6>सीमा</h6>
+                                        <p class="mb-0">USER003</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary" id="viewFullGenealogy">पूरी जीनियोलॉजी देखें</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- नोटिफिकेशन -->
+    <div class="notification" id="notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // पेज लोड होने पर चेक करें कि यूजर लॉगिन है या नहीं
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            initializeEventListeners();
+            loadUserData();
+        });
+        
+        // लॉगिन स्टेटस चेक करें
+        function checkLoginStatus() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                // यदि यूजर लॉगिन नहीं है, तो लॉगिन स्क्रीन दिखाएं
+                document.getElementById('loginScreen').classList.remove('hidden');
+            } else {
+                // यदि यूजर लॉगिन है, तो लॉगिन स्क्रीन छिपाएं
+                document.getElementById('loginScreen').classList.add('hidden');
+                // यूजर डेटा लोड करें
+                const user = JSON.parse(currentUser);
+                updateUserInfo(user);
+                loadDashboardData(user);
+            }
+        }
+        
+        // यूजर इनफो अपडेट करें
+        function updateUserInfo(user) {
+            document.getElementById('userName').textContent = user.name || user.username;
+            document.getElementById('welcomeUserName').textContent = user.name || user.username;
+            
+            // प्रोफाइल पेज पर यूजर इनफो अपडेट करें
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileUsername').textContent = user.username;
+            document.getElementById('profileUserId').textContent = user.id;
+            
+            // रेफरल लिंक अपडेट करें
+            const referralLink = `https://crownusdt.com/register?ref=${user.id}`;
+            document.getElementById('referralLink').textContent = referralLink;
+            
+            // जीनियोलॉजी पेज पर यूजर इनफो अपडेट करें
+            document.getElementById('genealogyUserName').textContent = user.name;
+            document.getElementById('genealogyUserId').textContent = user.id;
+        }
+        
+        // डैशबोर्ड डेटा लोड करें
+        function loadDashboardData(user) {
+            // डेमो डेटा
+            const dashboardData = {
+                totalIncome: 12500,
+                directIncome: 5000,
+                teamIncome: 7500,
+                walletBalance: 8500,
+                directTeam: 5,
+                totalTeam: 25,
+                activeTeam: 18,
+                inactiveTeam: 7,
+                totalReferrals: 5,
+                activeReferrals: 3,
+                recentIncome: [
+                    { date: '2023-06-15', description: 'डायरेक्ट इनकम', amount: 1000 },
+                    { date: '2023-06-10', description: 'लेवल इनकम', amount: 500 },
+                    { date: '2023-06-05', description: 'बोनस इनकम', amount: 250 }
+                ],
+                teamMembers: [
+                    { id: 'USER002', name: 'राजेश कुमार', joinDate: '2023-05-01', status: 'active' },
+                    { id: 'USER003', name: 'सीमा सिंह', joinDate: '2023-05-05', status: 'active' },
+                    { id: 'USER004', name: 'अमित शर्मा', joinDate: '2023-05-10', status: 'inactive' }
+                ]
+            };
+            
+            // डैशबोर्ड स्टैट्स अपडेट करें
+            document.getElementById('totalIncome').textContent = `₹${dashboardData.totalIncome}`;
+            document.getElementById('directIncome').textContent = `₹${dashboardData.directIncome}`;
+            document.getElementById('teamIncome').textContent = `₹${dashboardData.teamIncome}`;
+            document.getElementById('walletBalance').textContent = `₹${dashboardData.walletBalance}`;
+            
+            document.getElementById('directTeam').textContent = dashboardData.directTeam;
+            document.getElementById('totalTeam').textContent = dashboardData.totalTeam;
+            document.getElementById('activeTeam').textContent = dashboardData.activeTeam;
+            document.getElementById('inactiveTeam').textContent = dashboardData.inactiveTeam;
+            
+            // रेफरल स्टैट्स अपडेट करें
+            document.getElementById('totalReferrals').textContent = dashboardData.totalReferrals;
+            document.getElementById('activeReferrals').textContent = dashboardData.activeReferrals;
+            
+            // हालिया इनकम टेबल अपडेट करें
+            const recentIncomeTable = document.getElementById('recentIncomeTable');
+            recentIncomeTable.innerHTML = '';
+            
+            if (dashboardData.recentIncome.length === 0) {
+                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                dashboardData.recentIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>₹${income.amount}</td>
+                    `;
+                    recentIncomeTable.appendChild(row);
+                });
+            }
+            
+            // टीम टेबल अपडेट करें
+            const teamTable = document.getElementById('teamTable');
+            teamTable.innerHTML = '';
+            
+            if (dashboardData.teamMembers.length === 0) {
+                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                dashboardData.teamMembers.forEach(member => {
+                    const row = document.createElement('tr');
+                    const statusClass = member.status === 'active' ? 'status-active' : 
+                                       member.status === 'inactive' ? 'status-inactive' : 'status-blocked';
+                    row.innerHTML = `
+                        <td>${member.id}</td>
+                        <td>${member.name}</td>
+                        <td>${member.joinDate}</td>
+                        <td><span class="${statusClass}">${member.status === 'active' ? 'एक्टिव' : member.status === 'inactive' ? 'इनएक्टिव' : 'ब्लॉक्ड'}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">व्यू</button>
+                        </td>
+                    `;
+                    teamTable.appendChild(row);
+                });
+            }
+            
+            // टीम पेज स्टैट्स अपडेट करें
+            document.getElementById('directTeamPage').textContent = dashboardData.directTeam;
+            document.getElementById('totalTeamPage').textContent = dashboardData.totalTeam;
+            document.getElementById('activeTeamPage').textContent = dashboardData.activeTeam;
+            document.getElementById('inactiveTeamPage').textContent = dashboardData.inactiveTeam;
+            
+            // इनकम पेज स्टैट्स अपडेट करें
+            document.getElementById('directIncomePage').textContent = `₹${dashboardData.directIncome}`;
+            document.getElementById('levelIncomePage').textContent = `₹${dashboardData.teamIncome * 0.6}`;
+            document.getElementById('royaltyIncomePage').textContent = `₹${dashboardData.teamIncome * 0.3}`;
+            document.getElementById('bonusIncomePage').textContent = `₹${dashboardData.teamIncome * 0.1}`;
+            
+            // इनकम टेबल अपडेट करें
+            const incomeTable = document.getElementById('incomeTable');
+            incomeTable.innerHTML = '';
+            
+            if (dashboardData.recentIncome.length === 0) {
+                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">कोई डेटा नहीं</td></tr>';
+            } else {
+                dashboardData.recentIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>${income.description.includes('डायरेक्ट') ? 'डायरेक्ट' : 
+                             income.description.includes('लेवल') ? 'लेवल' : 'बोनस'}</td>
+                        <td>₹${income.amount}</td>
+                        <td><span class="status-approved">अप्रूव्ड</span></td>
+                    `;
+                    incomeTable.appendChild(row);
+                });
+            }
+        }
+        
+        // इवेंट लिस्टनर इनिशियलाइज करें
+        function initializeEventListeners() {
+            // हैमबर्गर मेन्यू
+            document.getElementById('hamburger').addEventListener('click', function() {
+                this.classList.toggle('active');
+                document.getElementById('sidebar').classList.toggle('show');
+            });
+            
+            // साइडबार मेन्यू आइटम्स
+            document.querySelectorAll('.sidebar-menu li a').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                    
+                    // एक्टिव क्लास अपडेट करें
+                    document.querySelectorAll('.sidebar-menu li a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // लॉगिन फॉर्म
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const isAdmin = document.getElementById('adminCheck').checked;
+                const alertDiv = document.getElementById('loginAlert');
+                
+                // अलर्ट क्लियर करें
+                alertDiv.innerHTML = '';
+                
+                if (!username || !password) {
+                    showAlert('loginAlert', 'कृपया यूजरनेम और पासवर्ड दर्ज करें', 'danger');
+                    return;
+                }
+                
+                // localStorage से यूजर्स डेटा लोड करें
+                const demoUsers = JSON.parse(localStorage.getItem('demoUsers')) || [];
+                
+                if (isAdmin) {
+                    // एडमिन लॉगिन
+                    if (username === 'admin' && password === 'admin123') {
+                        // स्टोरेज में लॉगिन जानकारी सेव करें
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            id: 'ADMIN',
+                            name: 'एडमिन',
+                            username: 'admin',
+                            email: 'admin@mlmsoftware.com',
+                            isAdmin: true
+                        }));
+                        
+                        // डैशबोर्ड पर रीडायरेक्ट करें
+                        window.location.reload();
+                    } else {
+                        showAlert('loginAlert', 'गलत एडमिन यूजरनेम या पासवर्ड', 'danger');
+                    }
+                } else {
+                    // यूजर लॉगिन
+                    const user = demoUsers.find(u => 
+                        u.username === username || 
+                        u.email === username || 
+                        u.phone === username
+                    );
+                    
+                    if (user && user.password === password) {
+                        // स्टोरेज में लॉगिन जानकारी सेव करें
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            ...user,
+                            isAdmin: false
+                        }));
+                        
+                        // डैशबोर्ड पर रीडायरेक्ट करें
+                        window.location.reload();
+                    } else {
+                        showAlert('loginAlert', 'गलत यूजरनेम या पासवर्ड', 'danger');
+                    }
+                }
+            });
+            
+            // लॉगआउट बटन
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // localStorage से यूजर डेटा हटाएं
+                localStorage.removeItem('currentUser');
+                
+                // इंडेक्स पेज पर रीडायरेक्ट करें
+                window.location.href = 'login.html';
+            });
+            
+            // प्रोफाइल फॉर्म
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // फॉर्म डेटा प्राप्त करें
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    dob: document.getElementById('dob').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    country: document.getElementById('country').value,
+                    pincode: document.getElementById('pincode').value,
+                    nominee: document.getElementById('nominee').value,
+                    bankDetails: document.getElementById('bankDetails').value
+                };
+                
+                // यूजर डेटा अपडेट करें
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const updatedUser = {
+                    ...currentUser,
+                    name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                
+                // यूजर इनफो अपडेट करें
+                updateUserInfo(updatedUser);
+                
+                // सफलता संदेश दिखाएं
+                showNotification('प्रोफाइल सफलतापूर्वक अपडेट की गई');
+            });
+            
+            // रेफरल लिंक शेयर बटन
+            document.getElementById('shareWhatsapp').addEventListener('click', function() {
+                const referralLink = document.getElementById('referralLink').textContent;
+                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            document.getElementById('shareTelegram').addEventListener('click', function() {
+                const referralLink = document.getElementById('referralLink').textContent;
+                const message = `CrownUsdt में शामिल हों और पैसे कमाएं! मेरा रेफरल लिंक: ${referralLink}`;
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+                window.open(telegramUrl, '_blank');
+            });
+            
+            document.getElementById('copyReferralBtn').addEventListener('click', function() {
+                const referralLink = document.getElementById('referralLink').textContent;
+                navigator.clipboard.writeText(referralLink).then(function() {
+                    showNotification('रेफरल लिंक कॉपी किया गया');
+                });
+            });
+            
+            // एक्टिवेट फॉर्म
+            document.getElementById('activateForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const userId = document.getElementById('userId').value;
+                const activationAmount = document.getElementById('activationAmount').value;
+                const paymentMethod = document.getElementById('paymentMethod').value;
+                const transactionId = document.getElementById('transactionId').value;
+                
+                // वैलिडेशन
+                if (!userId || !transactionId) {
+                    showNotification('कृपया सभी फील्ड भरें', 'error');
+                    return;
+                }
+                
+                // एक्टिवेशन हिस्ट्री टेबल अपडेट करें
+                const activationHistoryTable = document.getElementById('activationHistoryTable');
+                const row = document.createElement('tr');
+                const today = new Date().toISOString().split('T')[0];
+                row.innerHTML = `
+                    <td>${today}</td>
+                    <td>${userId}</td>
+                    <td>₹${activationAmount}</td>
+                `;
+                
+                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                if (activationHistoryTable.querySelector('tr td[colspan]')) {
+                    activationHistoryTable.innerHTML = '';
+                }
+                
+                activationHistoryTable.appendChild(row);
+                
+                // फॉर्म रीसेट करें
+                document.getElementById('activateForm').reset();
+                document.getElementById('activationAmount').value = '1000';
+                
+                // सफलता संदेश दिखाएं
+                showNotification('ID एक्टिवेशन सफलतापूर्वक सबमिट किया गया');
+            });
+            
+            // डिपॉजिट फॉर्म
+            document.getElementById('depositForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const depositAmount = document.getElementById('depositAmount').value;
+                const depositMethod = document.getElementById('depositMethod').value;
+                const depositTransactionId = document.getElementById('depositTransactionId').value;
+                const depositDate = document.getElementById('depositDate').value;
+                const depositRemark = document.getElementById('depositRemark').value;
+                
+                // वैलिडेशन
+                if (!depositAmount || !depositTransactionId || !depositDate) {
+                    showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                    return;
+                }
+                
+                // डिपॉजिट हिस्ट्री टेबल अपडेट करें
+                const depositHistoryTable = document.getElementById('depositHistoryTable');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${depositDate}</td>
+                    <td>₹${depositAmount}</td>
+                    <td><span class="status-pending">पेंडिंग</span></td>
+                `;
+                
+                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                if (depositHistoryTable.querySelector('tr td[colspan]')) {
+                    depositHistoryTable.innerHTML = '';
+                }
+                
+                depositHistoryTable.appendChild(row);
+                
+                // फॉर्म रीसेट करें
+                document.getElementById('depositForm').reset();
+                
+                // सफलता संदेश दिखाएं
+                showNotification('डिपॉजिट सफलतापूर्वक सबमिट किया गया');
+            });
+            
+            // विड्रॉवल फॉर्म
+            document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const withdrawalAmount = document.getElementById('withdrawalAmount').value;
+                const withdrawalMethod = document.getElementById('withdrawalMethod').value;
+                const withdrawalAccount = document.getElementById('withdrawalAccount').value;
+                const withdrawalRemark = document.getElementById('withdrawalRemark').value;
+                
+                // वैलिडेशन
+                if (!withdrawalAmount || !withdrawalAccount) {
+                    showNotification('कृपया सभी आवश्यक फील्ड भरें', 'error');
+                    return;
+                }
+                
+                if (withdrawalAmount < 500) {
+                    showNotification('न्यूनतम विड्रॉवल राशि ₹500 है', 'error');
+                    return;
+                }
+                
+                // विड्रॉवल हिस्ट्री टेबल अपडेट करें
+                const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
+                const row = document.createElement('tr');
+                const today = new Date().toISOString().split('T')[0];
+                row.innerHTML = `
+                    <td>${today}</td>
+                    <td>₹${withdrawalAmount}</td>
+                    <td><span class="status-pending">पेंडिंग</span></td>
+                `;
+                
+                // अगर टेबल खाली है, तो पहले खाली मैसेज हटाएं
+                if (withdrawalHistoryTable.querySelector('tr td[colspan]')) {
+                    withdrawalHistoryTable.innerHTML = '';
+                }
+                
+                withdrawalHistoryTable.appendChild(row);
+                
+                // फॉर्म रीसेट करें
+                document.getElementById('withdrawalForm').reset();
+                
+                // सफलता संदेश दिखाएं
+                showNotification('विड्रॉवल सफलतापूर्वक सबमिट किया गया');
+            });
+            
+            // अन्य बटन इवेंट
+            document.getElementById('filterIncome').addEventListener('click', function() {
+                showNotification('इनकम फिल्टर फंक्शन अभी उपलब्ध नहीं है');
+            });
+            
+            document.getElementById('downloadIncome').addEventListener('click', function() {
+                showNotification('इनकम डाउनलोड फंक्शन अभी उपलब्ध नहीं है');
+            });
+            
+            document.getElementById('filterTeam').addEventListener('click', function() {
+                showNotification('टीम फिल्टर फंक्शन अभी उपलब्ध नहीं है');
+            });
+            
+            document.getElementById('downloadTeam').addEventListener('click', function() {
+                showNotification('टीम डाउनलोड फंक्शन अभी उपलब्ध नहीं है');
+            });
+            
+            document.getElementById('viewFullGenealogy').addEventListener('click', function() {
+                showNotification('पूरी जीनियोलॉजी देखने का फंक्शन अभी उपलब्ध नहीं है');
+            });
+            
+            document.getElementById('changePassword').addEventListener('click', function(e) {
+                e.preventDefault();
+                showNotification('पासवर्ड बदलने का फंक्शन अभी उपलब्ध नहीं है');
+            });
+            
+            document.getElementById('changeProfileImage').addEventListener('click', function() {
+                showNotification('प्रोफाइल चित्र बदलने का फंक्शन अभी उपलब्ध नहीं है');
+            });
+        }
+        
+        // पेज दिखाएं
+        function showPage(pageId) {
+            // सभी पेज छिपाएं
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // चुना गया पेज दिखाएं
+            document.getElementById(pageId + 'Page').classList.remove('hidden');
+        }
+        
+        // अलर्ट दिखाएं
+        function showAlert(elementId, message, type) {
+            const alertDiv = document.getElementById(elementId);
+            alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
+        }
+        
+        // नोटिफिकेशन दिखाएं
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show';
+            
+            if (type === 'error') {
+                notification.style.backgroundColor = '#dc3545';
+            } else {
+                notification.style.backgroundColor = '#10b981';
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // यूजर डेटा लोड करें
+        function loadUserData() {
+            // यह फंक्शन वास्तविक एप्लिकेशन में सर्वर से डेटा लोड करेगा
+            // अभी हम डेमो डेटा का उपयोग कर रहे हैं
+        }
+    </script>
+</body>
+</html>
