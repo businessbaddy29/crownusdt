@@ -8,230 +8,334 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* बेसिक स्टाइल */
+        :root {
+            --primary-color: #8B008B;
+            --accent-color: #0066cc;
+            --text-color: #333;
+            --light-text: #555;
+            --background-light: #f0f8ff;
+            --white: #ffffff;
+            --footer-text: #ccc;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--background-light);
+            color: var(--text-color);
             line-height: 1.6;
         }
-
+        
         /* लॉगिन पेज स्टाइल */
         .login-container {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
+        
         .login-container .card {
             border: none;
             border-radius: 15px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
+        
         .login-container .card-body {
             padding: 2rem;
         }
-
-        /* यूजर पैनल स्टाइल */
+        
+        .login-container .card-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .login-container .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 12px 15px;
+            transition: border-color 0.3s;
+        }
+        
+        .login-container .form-control:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+        }
+        
+        .login-container .btn {
+            border-radius: 5px;
+            font-weight: 500;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .login-container .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .login-container .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        /* यूजर पैनेल स्टाइल */
         .user-panel {
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: var(--background-light);
         }
-
+        
         .user-panel .navbar {
+            background-color: var(--primary-color);
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
         }
-
+        
+        .user-panel .navbar-brand {
+            color: var(--white) !important;
+            font-weight: bold;
+        }
+        
+        .user-panel .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .user-panel .nav-link:hover {
+            color: var(--white) !important;
+        }
+        
+        .user-panel .nav-link.active {
+            color: var(--white) !important;
+            border-bottom: 2px solid var(--white);
+        }
+        
         .page-content {
             animation: fadeIn 0.5s;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
-        /* एडमिन पैनल स्टाइल */
+        
+        /* एडमिन पैनेल स्टाइल */
         .admin-panel {
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: var(--background-light);
         }
-
+        
         .admin-panel .navbar {
+            background-color: var(--primary-color);
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
         }
-
+        
         /* कार्ड स्टाइल */
         .card {
             border: none;
             border-radius: 10px;
             box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
             transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
-
+        
         .card:hover {
             transform: translateY(-5px);
         }
-
+        
         .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid rgba(0,0,0,.125);
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-bottom: none;
             font-weight: 600;
+            padding: 10px 15px;
         }
-
+        
         /* बटन स्टाइल */
         .btn {
             border-radius: 5px;
             font-weight: 500;
             transition: all 0.3s ease;
         }
-
+        
         .btn-primary {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
-
+        
         .btn-primary:hover {
-            background-color: #0b5ed7;
-            border-color: #0a58ca;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
         }
-
+        
         .btn-success {
-            background-color: #198754;
-            border-color: #198754;
+            background-color: var(--success-color);
+            border-color: var(--success-color);
         }
-
+        
         .btn-success:hover {
-            background-color: #157347;
-            border-color: #146c43;
+            background-color: #27ae60;
+            border-color: #27ae60;
         }
-
+        
         .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
+            background-color: var(--error-color);
+            border-color: var(--error-color);
         }
-
+        
         .btn-danger:hover {
-            background-color: #bb2d3b;
-            border-color: #b02a37;
+            background-color: #c0392b;
+            border-color: #c0392b;
         }
-
+        
         .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
+            background-color: #f39c12;
+            border-color: #f39c12;
             color: #000;
         }
-
+        
         .btn-warning:hover {
-            background-color: #ffca2c;
-            border-color: #ffc720;
+            background-color: #e67e22;
+            border-color: #e67e22;
             color: #000;
         }
-
+        
         .btn-info {
-            background-color: #0dcaf0;
-            border-color: #0dcaf0;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
         }
-
+        
         .btn-info:hover {
-            background-color: #31d2f2;
-            border-color: #25cff2;
+            background-color: #0052a3;
+            border-color: #0052a3;
         }
-
+        
         /* टेबल स्टाइल */
         .table {
             margin-bottom: 0;
         }
-
+        
         .table th {
             border-top: none;
             font-weight: 600;
-            color: #495057;
+            color: var(--text-color);
+            background-color: rgba(139, 0, 139, 0.1);
         }
-
+        
         .table-striped > tbody > tr:nth-of-type(odd) > * {
-            --bs-table-bg-type: rgba(0, 0, 0, .05);
+            --bs-table-bg-type: rgba(139, 0, 139, 0.05);
         }
-
+        
         /* फॉर्म स्टाइल */
         .form-control, .form-select {
             border-radius: 5px;
             border: 1px solid #ced4da;
         }
-
+        
         .form-control:focus, .form-select:focus {
-            border-color: #86b7fe;
+            border-color: var(--accent-color);
             outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
         }
-
+        
         /* मॉडल स्टाइल */
         .modal-content {
             border-radius: 10px;
             border: none;
         }
-
+        
         .modal-header {
             border-bottom: 1px solid #dee2e6;
-            background-color: #f8f9fa;
+            background-color: var(--primary-color);
+            color: var(--white);
         }
-
+        
         .modal-footer {
             border-top: 1px solid #dee2e6;
-            background-color: #f8f9fa;
+            background-color: rgba(139, 0, 139, 0.05);
         }
-
+        
         /* जीनियोलॉजी स्टाइल */
         .genealogy-node {
             margin: 0 15px;
             text-align: center;
         }
-
+        
         .genealogy-node .card {
             width: 150px;
             margin: 0 auto;
+            background-color: var(--white);
+            border: 1px solid var(--primary-color);
         }
-
+        
         /* नेविगेशन स्टाइल */
         .nav-link {
             font-weight: 500;
             transition: all 0.3s ease;
         }
-
+        
         .nav-link:hover {
-            color: #0d6efd !important;
+            color: var(--primary-color) !important;
         }
-
+        
         .nav-link.active {
-            color: #0d6efd !important;
-            border-bottom: 2px solid #0d6efd;
+            color: var(--primary-color) !important;
+            border-bottom: 2px solid var(--primary-color);
         }
-
+        
         /* डैशबोर्ड स्टैट्स कार्ड */
+        .card.text-white {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
         .card.text-white h5 {
             color: rgba(255, 255, 255, 0.8);
         }
-
+        
         .card.text-white .card-text {
             font-weight: 700;
         }
-
+        
+        .card.bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .card.bg-success {
+            background-color: var(--success-color) !important;
+        }
+        
+        .card.bg-info {
+            background-color: var(--accent-color) !important;
+        }
+        
+        .card.bg-warning {
+            background-color: #f39c12 !important;
+        }
+        
         /* बैज स्टाइल */
         .badge {
             font-weight: 500;
             padding: 0.5em 0.75em;
         }
-
+        
         /* लिस्ट ग्रुप स्टाइल */
         .list-group-item {
             border: 1px solid rgba(0,0,0,.125);
         }
-
+        
         /* रेस्पॉन्सिव स्टाइल */
         @media (max-width: 768px) {
             .card-body {
@@ -259,7 +363,7 @@
                 font-size: 0.875rem;
             }
         }
-
+        
         /* एनिमेशन */
         @keyframes slideIn {
             from {
@@ -271,13 +375,13 @@
                 opacity: 1;
             }
         }
-
+        
         .notification {
             position: fixed;
             bottom: 20px;
             right: 20px;
             padding: 15px 20px;
-            background-color: #10b981;
+            background-color: var(--success-color);
             color: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -285,32 +389,40 @@
             z-index: 1000;
             animation: slideIn 0.3s ease-out;
         }
-
+        
         .notification.show {
             display: block;
         }
-
+        
+        .notification.error {
+            background-color: var(--error-color);
+        }
+        
+        .notification.info {
+            background-color: var(--accent-color);
+        }
+        
         /* यूटिलिटी क्लासेस */
         .hidden {
             display: none !important;
         }
-
+        
         .text-center {
             text-align: center;
         }
-
+        
         .mb-3 {
             margin-bottom: 1rem;
         }
-
+        
         .mb-4 {
             margin-bottom: 1.5rem;
         }
-
+        
         .mt-4 {
             margin-top: 1.5rem;
         }
-
+        
         /* स्टेटस बैज */
         .status-active {
             background-color: #d1fae5;
@@ -320,7 +432,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-
+        
         .status-inactive {
             background-color: #fef3c7;
             color: #92400e;
@@ -329,7 +441,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-
+        
         .status-blocked {
             background-color: #fee2e2;
             color: #991b1b;
@@ -338,7 +450,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-
+        
         .status-pending {
             background-color: #dbeafe;
             color: #1e40af;
@@ -347,7 +459,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-
+        
         .status-approved {
             background-color: #d1fae5;
             color: #065f46;
@@ -356,7 +468,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-
+        
         .status-rejected {
             background-color: #fee2e2;
             color: #991b1b;
@@ -365,44 +477,118 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+        
+        /* रेफरल लिंक स्टाइल */
+        .referral-link {
+            background-color: rgba(139, 0, 139, 0.1);
+            border: 1px dashed var(--primary-color);
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+        
+        .referral-link label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--accent-color);
+        }
     </style>
 </head>
 <body>
     <!-- लॉगिन पेज -->
     <div id="loginPage" class="container-fluid login-container">
         <div class="row justify-content-center align-items-center min-vh-100">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="card shadow-lg">
+                    <div class="card-header">
+                        <h3 class="mb-0">CrownUsdt</h3>
+                    </div>
                     <div class="card-body p-5">
-                        <h3 class="text-center mb-4">CrownUsdt</h3>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">यूजरनेम</label>
-                            <input type="text" class="form-control" id="username" placeholder="यूजरनेम दर्ज करें">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">पासवर्ड</label>
-                            <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें">
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="adminCheck">
-                            <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
-                        </div>
-                        <button id="loginBtn" class="btn btn-primary w-100">लॉगिन</button>
-                        <div class="text-center mt-3">
-                            <a href="#" id="registerLink">रजिस्टर करें</a>
+                        <ul class="nav nav-pills mb-4 justify-content-center" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab" aria-controls="pills-login" aria-selected="true">लॉगिन</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab" aria-controls="pills-register" aria-selected="false">रजिस्टर</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <!-- लॉगिन टैब -->
+                            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">यूजरनेम / ईमेल</label>
+                                        <input type="text" class="form-control" id="username" placeholder="यूजरनेम या ईमेल दर्ज करें">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">पासवर्ड</label>
+                                        <input type="password" class="form-control" id="password" placeholder="पासवर्ड दर्ज करें">
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="adminCheck">
+                                        <label class="form-check-label" for="adminCheck">एडमिन लॉगिन</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">लॉगिन</button>
+                                </form>
+                            </div>
+                            <!-- रजिस्टर टैब -->
+                            <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
+                                <form id="registerForm">
+                                    <div class="mb-3">
+                                        <label for="fullName" class="form-label">पूरा नाम</label>
+                                        <input type="text" class="form-control" id="fullName" placeholder="अपना पूरा नाम दर्ज करें" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="regEmail" class="form-label">ईमेल</label>
+                                        <input type="email" class="form-control" id="regEmail" placeholder="ईमेल दर्ज करें" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="regPhone" class="form-label">फोन नंबर</label>
+                                        <input type="tel" class="form-control" id="regPhone" placeholder="फोन नंबर दर्ज करें" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="regPassword" class="form-label">पासवर्ड</label>
+                                        <input type="password" class="form-control" id="regPassword" placeholder="पासवर्ड दर्ज करें" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">पासवर्ड की पुष्टि करें</label>
+                                        <input type="password" class="form-control" id="confirmPassword" placeholder="पासवर्ड फिर से दर्ज करें" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="referralLink" class="form-label">रेफरल लिंक <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="referralLink" placeholder="रेफरल लिंक दर्ज करें" required>
+                                        <div class="form-text">बिना रेफरल लिंक के रजिस्ट्रेशन संभव नहीं है</div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">रजिस्टर करें</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- यूजर पैनल -->
     <div id="userPanel" class="container-fluid user-panel hidden">
         <!-- नेविगेशन बार -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">MLM यूजर पैनल</a>
+                <a class="navbar-brand" href="#">CrownUsdt यूजर पैनल</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -449,7 +635,6 @@
                 </div>
             </div>
         </nav>
-
         <!-- डैशबोर्ड -->
         <div id="userDashboard" class="container mt-4 page-content">
             <h2 class="mb-4">डैशबोर्ड</h2>
@@ -551,7 +736,6 @@
                 </div>
             </div>
         </div>
-
         <!-- प्रोफाइल पेज -->
         <div id="userProfilePage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">प्रोफाइल</h2>
@@ -563,6 +747,13 @@
                             <h4 id="profileName">यूजर नाम</h4>
                             <p class="text-muted" id="profileUsername">यूजरनेम</p>
                             <button class="btn btn-sm btn-primary" id="changeProfileImage">चित्र बदलें</button>
+                            
+                            <!-- रेफरल लिंक -->
+                            <div class="referral-link mt-3">
+                                <label>आपका रेफरल लिंक:</label>
+                                <div id="userReferralLink" class="mt-2">https://crownusdt.com/ref/USER001</div>
+                                <button class="copy-btn" id="copyReferralLink">कॉपी करें</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -632,7 +823,6 @@
                 </div>
             </div>
         </div>
-
         <!-- ID एक्टिवेट पेज -->
         <div id="userActivatePage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">ID एक्टिवेट</h2>
@@ -692,7 +882,6 @@
                 </div>
             </div>
         </div>
-
         <!-- डिपॉजिट पेज -->
         <div id="userDepositPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">डिपॉजिट</h2>
@@ -756,7 +945,6 @@
                 </div>
             </div>
         </div>
-
         <!-- विड्रॉवल पेज -->
         <div id="userWithdrawalPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">विड्रॉवल</h2>
@@ -816,7 +1004,6 @@
                 </div>
             </div>
         </div>
-
         <!-- इनकम पेज -->
         <div id="userIncomePage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">इनकम</h2>
@@ -885,7 +1072,6 @@
                 </div>
             </div>
         </div>
-
         <!-- टीम पेज -->
         <div id="userTeamPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">टीम</h2>
@@ -957,7 +1143,6 @@
                 </div>
             </div>
         </div>
-
         <!-- जीनियोलॉजी पेज -->
         <div id="userGenealogyPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">जीनियोलॉजी</h2>
@@ -995,13 +1180,12 @@
             </div>
         </div>
     </div>
-
     <!-- एडमिन पैनल -->
     <div id="adminPanel" class="container-fluid admin-panel hidden">
         <!-- नेविगेशन बार -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">MLM एडमिन पैनल</a>
+                <a class="navbar-brand" href="#">CrownUsdt एडमिन पैनल</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -1048,7 +1232,6 @@
                 </div>
             </div>
         </nav>
-
         <!-- एडमिन डैशबोर्ड -->
         <div id="adminDashboard" class="container mt-4 page-content">
             <h2 class="mb-4">एडमिन डैशबोर्ड</h2>
@@ -1133,7 +1316,6 @@
                 </div>
             </div>
         </div>
-
         <!-- यूजर्स पेज -->
         <div id="adminUsersPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">यूजर्स</h2>
@@ -1172,7 +1354,6 @@
                 </div>
             </div>
         </div>
-
         <!-- इनकम पेज -->
         <div id="adminIncomePage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">इनकम</h2>
@@ -1245,7 +1426,6 @@
                 </div>
             </div>
         </div>
-
         <!-- डिपॉजिट पेज -->
         <div id="adminDepositsPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">डिपॉजिट</h2>
@@ -1282,7 +1462,6 @@
                 </div>
             </div>
         </div>
-
         <!-- विड्रॉवल पेज -->
         <div id="adminWithdrawalsPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">विड्रॉवल</h2>
@@ -1319,7 +1498,6 @@
                 </div>
             </div>
         </div>
-
         <!-- ट्रांसफर पेज -->
         <div id="adminTransfersPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">ट्रांसफर</h2>
@@ -1356,7 +1534,6 @@
                 </div>
             </div>
         </div>
-
         <!-- रिपोर्ट्स पेज -->
         <div id="adminReportsPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">रिपोर्ट्स</h2>
@@ -1417,7 +1594,6 @@
                 </div>
             </div>
         </div>
-
         <!-- सेटिंग्स पेज -->
         <div id="adminSettingsPage" class="container mt-4 page-content hidden">
             <h2 class="mb-4">सेटिंग्स</h2>
@@ -1429,11 +1605,11 @@
                             <form id="generalSettingsForm">
                                 <div class="mb-3">
                                     <label for="siteName" class="form-label">साइट नाम</label>
-                                    <input type="text" class="form-control" id="siteName" value="MLM सॉफ्टवेयर">
+                                    <input type="text" class="form-control" id="siteName" value="CrownUsdt">
                                 </div>
                                 <div class="mb-3">
                                     <label for="siteEmail" class="form-label">साइट ईमेल</label>
-                                    <input type="email" class="form-control" id="siteEmail" value="info@mlmsoftware.com">
+                                    <input type="email" class="form-control" id="siteEmail" value="info@crownusdt.com">
                                 </div>
                                 <div class="mb-3">
                                     <label for="sitePhone" class="form-label">साइट फोन</label>
@@ -1485,7 +1661,6 @@
             </div>
         </div>
     </div>
-
     <!-- मॉडल्स -->
     <!-- इनकम जोड़ें मॉडल -->
     <div class="modal fade" id="addIncomeModal" tabindex="-1">
@@ -1527,7 +1702,6 @@
             </div>
         </div>
     </div>
-
     <!-- इनकम काटें मॉडल -->
     <div class="modal fade" id="deductIncomeModal" tabindex="-1">
         <div class="modal-dialog">
@@ -1568,7 +1742,6 @@
             </div>
         </div>
     </div>
-
     <!-- यूजर ब्लॉक मॉडल -->
     <div class="modal fade" id="blockUserModal" tabindex="-1">
         <div class="modal-dialog">
@@ -1596,7 +1769,6 @@
             </div>
         </div>
     </div>
-
     <!-- यूजर अनब्लॉक मॉडल -->
     <div class="modal fade" id="unblockUserModal" tabindex="-1">
         <div class="modal-dialog">
@@ -1624,7 +1796,6 @@
             </div>
         </div>
     </div>
-
     <!-- विड्रॉवल स्वीकृत मॉडल -->
     <div class="modal fade" id="approveWithdrawalModal" tabindex="-1">
         <div class="modal-dialog">
@@ -1656,7 +1827,6 @@
             </div>
         </div>
     </div>
-
     <!-- यूजर एडिट मॉडल -->
     <div class="modal fade" id="editUserModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -1730,7 +1900,6 @@
             </div>
         </div>
     </div>
-
     <!-- रिपोर्ट जनरेट मॉडल -->
     <div class="modal fade" id="reportGenerateModal" tabindex="-1">
         <div class="modal-dialog">
@@ -1770,18 +1939,16 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // डेमो डेटा
         const demoUsers = [
-            { id: 'USER001', name: 'राजेश कुमार', email: 'rajesh@example.com', phone: '9876543210', joinDate: '2023-01-15', status: 'active', wallet: 5000, directIncome: 2000, levelIncome: 1500, royaltyIncome: 1000, bonusIncome: 500 },
-            { id: 'USER002', name: 'सीमा सिंह', email: 'seema@example.com', phone: '9876543211', joinDate: '2023-02-20', status: 'active', wallet: 3000, directIncome: 1000, levelIncome: 800, royaltyIncome: 600, bonusIncome: 300 },
-            { id: 'USER003', name: 'अमित शर्मा', email: 'amit@example.com', phone: '9876543212', joinDate: '2023-03-10', status: 'inactive', wallet: 2000, directIncome: 500, levelIncome: 400, royaltyIncome: 300, bonusIncome: 200 },
-            { id: 'USER004', name: 'प्रिया गुप्ता', email: 'priya@example.com', phone: '9876543213', joinDate: '2023-04-05', status: 'blocked', wallet: 1000, directIncome: 300, levelIncome: 200, royaltyIncome: 100, bonusIncome: 50 },
-            { id: 'USER005', name: 'विकास पटेल', email: 'vikas@example.com', phone: '9876543214', joinDate: '2023-05-12', status: 'active', wallet: 4000, directIncome: 1500, levelIncome: 1000, royaltyIncome: 800, bonusIncome: 400 }
+            { id: 'USER001', name: 'राजेश कुमार', email: 'rajesh@example.com', phone: '9876543210', joinDate: '2023-01-15', status: 'active', wallet: 5000, directIncome: 2000, levelIncome: 1500, royaltyIncome: 1000, bonusIncome: 500, referralLink: 'https://crownusdt.com/ref/USER001' },
+            { id: 'USER002', name: 'सीमा सिंह', email: 'seema@example.com', phone: '9876543211', joinDate: '2023-02-20', status: 'active', wallet: 3000, directIncome: 1000, levelIncome: 800, royaltyIncome: 600, bonusIncome: 300, referralLink: 'https://crownusdt.com/ref/USER002' },
+            { id: 'USER003', name: 'अमित शर्मा', email: 'amit@example.com', phone: '9876543212', joinDate: '2023-03-10', status: 'inactive', wallet: 2000, directIncome: 500, levelIncome: 400, royaltyIncome: 300, bonusIncome: 200, referralLink: 'https://crownusdt.com/ref/USER003' },
+            { id: 'USER004', name: 'प्रिया गुप्ता', email: 'priya@example.com', phone: '9876543213', joinDate: '2023-04-05', status: 'blocked', wallet: 1000, directIncome: 300, levelIncome: 200, royaltyIncome: 100, bonusIncome: 50, referralLink: 'https://crownusdt.com/ref/USER004' },
+            { id: 'USER005', name: 'विकास पटेल', email: 'vikas@example.com', phone: '9876543214', joinDate: '2023-05-12', status: 'active', wallet: 4000, directIncome: 1500, levelIncome: 1000, royaltyIncome: 800, bonusIncome: 400, referralLink: 'https://crownusdt.com/ref/USER005' }
         ];
-
         const demoIncome = [
             { id: 1, userId: 'USER001', date: '2023-10-01', description: 'डायरेक्ट इनकम', type: 'direct', amount: 500, status: 'approved' },
             { id: 2, userId: 'USER001', date: '2023-10-02', description: 'लेवल इनकम', type: 'level', amount: 300, status: 'approved' },
@@ -1789,7 +1956,6 @@
             { id: 4, userId: 'USER003', date: '2023-10-04', description: 'बोनस इनकम', type: 'bonus', amount: 100, status: 'pending' },
             { id: 5, userId: 'USER004', date: '2023-10-05', description: 'डायरेक्ट इनकम', type: 'direct', amount: 400, status: 'rejected' }
         ];
-
         const demoDeposits = [
             { id: 1, userId: 'USER001', date: '2023-10-01', amount: 1000, method: 'bank', transactionId: 'TXN123456', status: 'approved' },
             { id: 2, userId: 'USER002', date: '2023-10-02', amount: 2000, method: 'upi', transactionId: 'TXN123457', status: 'approved' },
@@ -1797,7 +1963,6 @@
             { id: 4, userId: 'USER004', date: '2023-10-04', amount: 500, method: 'upi', transactionId: 'TXN123459', status: 'approved' },
             { id: 5, userId: 'USER005', date: '2023-10-05', amount: 3000, method: 'bank', transactionId: 'TXN123460', status: 'pending' }
         ];
-
         const demoWithdrawals = [
             { id: 1, userId: 'USER001', date: '2023-10-01', amount: 500, method: 'bank', account: '1234567890', status: 'approved' },
             { id: 2, userId: 'USER002', date: '2023-10-02', amount: 1000, method: 'upi', account: 'user@upi', status: 'pending' },
@@ -1805,7 +1970,6 @@
             { id: 4, userId: 'USER004', date: '2023-10-04', amount: 300, method: 'upi', account: 'user2@upi', status: 'rejected' },
             { id: 5, userId: 'USER005', date: '2023-10-05', amount: 1500, method: 'bank', account: '1122334455', status: 'pending' }
         ];
-
         const demoTransfers = [
             { id: 1, fromUserId: 'USER001', toUserId: 'USER002', date: '2023-10-01', amount: 500, description: 'ट्रांसफर', status: 'approved' },
             { id: 2, fromUserId: 'USER002', toUserId: 'USER003', date: '2023-10-02', amount: 300, description: 'ट्रांसफर', status: 'approved' },
@@ -1813,36 +1977,35 @@
             { id: 4, fromUserId: 'USER004', toUserId: 'USER005', date: '2023-10-04', amount: 100, description: 'ट्रांसफर', status: 'approved' },
             { id: 5, fromUserId: 'USER005', toUserId: 'USER001', date: '2023-10-05', amount: 400, description: 'ट्रांसफर', status: 'pending' }
         ];
-
+        
         // ग्लोबल वेरिएबल्स
         let currentUser = null;
         let isAdmin = false;
-
+        
         // DOM एलिमेंट्स
         const loginPage = document.getElementById('loginPage');
         const userPanel = document.getElementById('userPanel');
         const adminPanel = document.getElementById('adminPanel');
-
-        const loginBtn = document.getElementById('loginBtn');
-        const registerLink = document.getElementById('registerLink');
-        const adminCheck = document.getElementById('adminCheck');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
         const logoutUser = document.getElementById('logoutUser');
         const logoutAdmin = document.getElementById('logoutAdmin');
-
+        const adminCheck = document.getElementById('adminCheck');
+        
         // यूजर पैनल नेविगेशन
         const userNavLinks = document.querySelectorAll('#userPanel .nav-link');
         const userPageContents = document.querySelectorAll('#userPanel .page-content');
-
+        
         // एडमिन पैनल नेविगेशन
         const adminNavLinks = document.querySelectorAll('#adminPanel .nav-link');
         const adminPageContents = document.querySelectorAll('#adminPanel .page-content');
-
+        
         // इवेंट लिस्टनर्स
-        loginBtn.addEventListener('click', handleLogin);
-        registerLink.addEventListener('click', handleRegister);
+        loginForm.addEventListener('submit', handleLogin);
+        registerForm.addEventListener('submit', handleRegister);
         logoutUser.addEventListener('click', handleLogout);
         logoutAdmin.addEventListener('click', handleLogout);
-
+        
         // यूजर पैनल नेविगेशन
         userNavLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -1851,7 +2014,7 @@
                 showUserPage(page);
             });
         });
-
+        
         // एडमिन पैनल नेविगेशन
         adminNavLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -1860,9 +2023,10 @@
                 showAdminPage(page);
             });
         });
-
+        
         // फंक्शन्स
-        function handleLogin() {
+        function handleLogin(e) {
+            e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
@@ -1876,7 +2040,7 @@
             if (isAdmin) {
                 // एडमिन लॉगिन
                 if (username === 'admin' && password === 'admin123') {
-                    currentUser = { id: 'ADMIN', name: 'एडमिन', username: 'admin', email: 'admin@mlmsoftware.com' };
+                    currentUser = { id: 'ADMIN', name: 'एडमिन', username: 'admin', email: 'admin@crownusdt.com' };
                     showAdminPanel();
                 } else {
                     showNotification('गलत एडमिन यूजरनेम या पासवर्ड', 'error');
@@ -1892,11 +2056,66 @@
                 }
             }
         }
-
-        function handleRegister() {
-            showNotification('रजिस्ट्रेशन पेज विकासाधीन है', 'info');
+        
+        function handleRegister(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const referralLink = document.getElementById('referralLink').value;
+            
+            // वैलिडेशन चेक करें
+            if (!fullName || !email || !phone || !password || !confirmPassword || !referralLink) {
+                showNotification('कृपया सभी फील्ड भरें', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showNotification('पासवर्ड मेल नहीं खा रहे', 'error');
+                return;
+            }
+            
+            // रेफरल लिंक वैलिड करें
+            const refUser = demoUsers.find(u => referralLink.includes(u.id));
+            if (!refUser) {
+                showNotification('अमान्य रेफरल लिंक', 'error');
+                return;
+            }
+            
+            // नया यूजर ID जनरेट करें
+            const newUserId = 'USER' + String(demoUsers.length + 1).padStart(3, '0');
+            
+            // नया यूजर बनाएं
+            const newUser = {
+                id: newUserId,
+                name: fullName,
+                email: email,
+                phone: phone,
+                joinDate: new Date().toISOString().split('T')[0],
+                status: 'active',
+                wallet: 0,
+                directIncome: 0,
+                levelIncome: 0,
+                royaltyIncome: 0,
+                bonusIncome: 0,
+                referralLink: 'https://crownusdt.com/ref/' + newUserId
+            };
+            
+            // डेमो यूजर्स में जोड़ें
+            demoUsers.push(newUser);
+            
+            // सफलता संदेश दिखाएं
+            showNotification('रजिस्ट्रेशन सफल! अब लॉगिन करें', 'success');
+            
+            // फॉर्म रीसेट करें
+            registerForm.reset();
+            
+            // लॉगिन टैब पर स्विच करें
+            document.getElementById('pills-login-tab').click();
         }
-
+        
         function handleLogout() {
             currentUser = null;
             isAdmin = false;
@@ -1907,7 +2126,7 @@
             document.getElementById('password').value = '';
             document.getElementById('adminCheck').checked = false;
         }
-
+        
         function showUserPanel() {
             loginPage.classList.add('hidden');
             adminPanel.classList.add('hidden');
@@ -1915,7 +2134,7 @@
             loadUserDashboard();
             showUserPage('dashboard');
         }
-
+        
         function showAdminPanel() {
             loginPage.classList.add('hidden');
             userPanel.classList.add('hidden');
@@ -1923,7 +2142,7 @@
             loadAdminDashboard();
             showAdminPage('dashboard');
         }
-
+        
         function showUserPage(page) {
             userPageContents.forEach(content => {
                 content.classList.add('hidden');
@@ -1933,14 +2152,27 @@
                 link.classList.remove('active');
             });
             
-            document.getElementById(`user${page.charAt(0).toUpperCase() + page.slice(1)}Page`).classList.remove('hidden');
+            const pageId = 'user' + page.charAt(0).toUpperCase() + page.slice(1) + 'Page';
+            const pageElement = document.getElementById(pageId);
+            if (pageElement) {
+                pageElement.classList.remove('hidden');
+            }
             
             const activeLink = Array.from(userNavLinks).find(link => link.getAttribute('data-page') === page);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
+            
+            // पेज-स्पेसिफिक डेटा लोड करें
+            if (page === 'profile') {
+                loadUserProfile();
+            } else if (page === 'income') {
+                loadIncomeTable();
+            } else if (page === 'team') {
+                loadTeamTable();
+            }
         }
-
+        
         function showAdminPage(page) {
             adminPageContents.forEach(content => {
                 content.classList.add('hidden');
@@ -1950,14 +2182,31 @@
                 link.classList.remove('active');
             });
             
-            document.getElementById(`admin${page.charAt(0).toUpperCase() + page.slice(1)}Page`).classList.remove('hidden');
+            const pageId = 'admin' + page.charAt(0).toUpperCase() + page.slice(1) + 'Page';
+            const pageElement = document.getElementById(pageId);
+            if (pageElement) {
+                pageElement.classList.remove('hidden');
+            }
             
             const activeLink = Array.from(adminNavLinks).find(link => link.getAttribute('data-page') === page);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
+            
+            // पेज-स्पेसिफिक डेटा लोड करें
+            if (page === 'users') {
+                loadUsersTable();
+            } else if (page === 'income') {
+                loadIncomeTableAdmin();
+            } else if (page === 'deposits') {
+                loadDepositsTableAdmin();
+            } else if (page === 'withdrawals') {
+                loadWithdrawalsTableAdmin();
+            } else if (page === 'transfers') {
+                loadTransfersTableAdmin();
+            }
         }
-
+        
         function loadUserDashboard() {
             if (!currentUser) return;
             
@@ -2000,17 +2249,30 @@
             // प्रोफाइल पेज लोड करें
             loadUserProfile();
         }
-
+        
         function loadUserProfile() {
             if (!currentUser) return;
             
             document.getElementById('profileName').textContent = currentUser.name;
-            document.getElementById('profileUsername').textContent = currentUser.username;
+            document.getElementById('profileUsername').textContent = currentUser.id;
             document.getElementById('fullName').value = currentUser.name;
             document.getElementById('email').value = currentUser.email;
             document.getElementById('phone').value = currentUser.phone;
+            
+            // रेफरल लिंक सेट करें
+            document.getElementById('userReferralLink').textContent = currentUser.referralLink;
+            
+            // कॉपी बटन इवेंट लिस्टनर
+            document.getElementById('copyReferralLink').addEventListener('click', () => {
+                const referralLink = document.getElementById('userReferralLink').textContent;
+                navigator.clipboard.writeText(referralLink).then(() => {
+                    showNotification('रेफरल लिंक कॉपी हो गई!', 'success');
+                }).catch(err => {
+                    showNotification('कॉपी करने में त्रुटि', 'error');
+                });
+            });
         }
-
+        
         function loadAdminDashboard() {
             // एडमिन डैशबोर्ड स्टैट्स लोड करें
             document.getElementById('totalUsersAdmin').textContent = demoUsers.length;
@@ -2035,7 +2297,7 @@
             // यूजर्स टेबल लोड करें
             loadUsersTable();
         }
-
+        
         function loadUsersTable() {
             const usersTable = document.getElementById('usersTable');
             usersTable.innerHTML = '';
@@ -2065,7 +2327,7 @@
                 });
             });
         }
-
+        
         function editUser(userId) {
             const user = demoUsers.find(u => u.id === userId);
             if (!user) return;
@@ -2086,7 +2348,7 @@
             const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
             editUserModal.show();
         }
-
+        
         // नोटिफिकेशन फंक्शन
         function showNotification(message, type = 'success') {
             // नोटिफिकेशन एलिमेंट बनाएं
@@ -2110,37 +2372,37 @@
                 }, 300);
             }, 3000);
         }
-
+        
         // इनकम जोड़ें बटन
         document.getElementById('addIncomeBtn')?.addEventListener('click', () => {
             const addIncomeModal = new bootstrap.Modal(document.getElementById('addIncomeModal'));
             addIncomeModal.show();
         });
-
+        
         // इनकम काटें बटन
         document.getElementById('deductIncomeBtn')?.addEventListener('click', () => {
             const deductIncomeModal = new bootstrap.Modal(document.getElementById('deductIncomeModal'));
             deductIncomeModal.show();
         });
-
+        
         // यूजर ब्लॉक बटन
         document.getElementById('blockUserBtn')?.addEventListener('click', () => {
             const blockUserModal = new bootstrap.Modal(document.getElementById('blockUserModal'));
             blockUserModal.show();
         });
-
+        
         // यूजर अनब्लॉक बटन
         document.getElementById('unblockUserBtn')?.addEventListener('click', () => {
             const unblockUserModal = new bootstrap.Modal(document.getElementById('unblockUserModal'));
             unblockUserModal.show();
         });
-
+        
         // विड्रॉवल स्वीकृत बटन
         document.getElementById('approveWithdrawalBtn')?.addEventListener('click', () => {
             const approveWithdrawalModal = new bootstrap.Modal(document.getElementById('approveWithdrawalModal'));
             approveWithdrawalModal.show();
         });
-
+        
         // सेव इनकम बटन
         document.getElementById('saveIncomeBtn')?.addEventListener('click', () => {
             const userId = document.getElementById('incomeUserId').value;
@@ -2160,7 +2422,7 @@
             const addIncomeModal = bootstrap.Modal.getInstance(document.getElementById('addIncomeModal'));
             addIncomeModal.hide();
         });
-
+        
         // डेडक्ट इनकम बटन
         document.getElementById('deductIncomeBtn')?.addEventListener('click', () => {
             const userId = document.getElementById('deductIncomeUserId').value;
@@ -2180,7 +2442,7 @@
             const deductIncomeModal = bootstrap.Modal.getInstance(document.getElementById('deductIncomeModal'));
             deductIncomeModal.hide();
         });
-
+        
         // ब्लॉक यूजर बटन
         document.getElementById('blockUserBtn')?.addEventListener('click', () => {
             const userId = document.getElementById('blockUserId').value;
@@ -2198,7 +2460,7 @@
             const blockUserModal = bootstrap.Modal.getInstance(document.getElementById('blockUserModal'));
             blockUserModal.hide();
         });
-
+        
         // अनब्लॉक यूजर बटन
         document.getElementById('unblockUserBtn')?.addEventListener('click', () => {
             const userId = document.getElementById('unblockUserId').value;
@@ -2216,7 +2478,7 @@
             const unblockUserModal = bootstrap.Modal.getInstance(document.getElementById('unblockUserModal'));
             unblockUserModal.hide();
         });
-
+        
         // अप्रूव विड्रॉवल बटन
         document.getElementById('approveWithdrawalBtn')?.addEventListener('click', () => {
             const withdrawalId = document.getElementById('approveWithdrawalId').value;
@@ -2235,7 +2497,7 @@
             const approveWithdrawalModal = bootstrap.Modal.getInstance(document.getElementById('approveWithdrawalModal'));
             approveWithdrawalModal.hide();
         });
-
+        
         // सेव यूजर बटन
         document.getElementById('saveUserBtn')?.addEventListener('click', () => {
             const userId = document.getElementById('editUserId').value;
@@ -2264,7 +2526,7 @@
             // यूजर्स टेबल रीलोड करें
             loadUsersTable();
         });
-
+        
         // जनरेट रिपोर्ट बटन
         document.getElementById('generateReportBtn')?.addEventListener('click', () => {
             const reportType = document.getElementById('reportType').value;
@@ -2284,193 +2546,157 @@
             const reportGenerateModal = bootstrap.Modal.getInstance(document.getElementById('reportGenerateModal'));
             reportGenerateModal.hide();
         });
-
+        
         // रिपोर्ट बटन इवेंट लिस्टनर्स
         document.getElementById('allUsersReport')?.addEventListener('click', () => {
             openReportModal('सभी यूजर्स रिपोर्ट');
         });
-
         document.getElementById('activeUsersReport')?.addEventListener('click', () => {
             openReportModal('एक्टिव यूजर्स रिपोर्ट');
         });
-
         document.getElementById('inactiveUsersReport')?.addEventListener('click', () => {
             openReportModal('इनएक्टिव यूजर्स रिपोर्ट');
         });
-
         document.getElementById('blockedUsersReport')?.addEventListener('click', () => {
             openReportModal('ब्लॉक्ड यूजर्स रिपोर्ट');
         });
-
         document.getElementById('dailyIncomeReport')?.addEventListener('click', () => {
             openReportModal('दैनिक इनकम रिपोर्ट');
         });
-
         document.getElementById('weeklyIncomeReport')?.addEventListener('click', () => {
             openReportModal('साप्ताहिक इनकम रिपोर्ट');
         });
-
         document.getElementById('monthlyIncomeReport')?.addEventListener('click', () => {
             openReportModal('मासिक इनकम रिपोर्ट');
         });
-
         document.getElementById('yearlyIncomeReport')?.addEventListener('click', () => {
             openReportModal('वार्षिक इनकम रिपोर्ट');
         });
-
         document.getElementById('depositReport')?.addEventListener('click', () => {
             openReportModal('डिपॉजिट रिपोर्ट');
         });
-
         document.getElementById('withdrawalReport')?.addEventListener('click', () => {
             openReportModal('विड्रॉवल रिपोर्ट');
         });
-
         document.getElementById('transferReport')?.addEventListener('click', () => {
             openReportModal('ट्रांसफर रिपोर्ट');
         });
-
         document.getElementById('balanceSheetReport')?.addEventListener('click', () => {
             openReportModal('बैलेंस शीट रिपोर्ट');
         });
-
         document.getElementById('teamSizeReport')?.addEventListener('click', () => {
             openReportModal('टीम साइज रिपोर्ट');
         });
-
         document.getElementById('teamPerformanceReport')?.addEventListener('click', () => {
             openReportModal('टीम परफॉर्मेंस रिपोर्ट');
         });
-
         document.getElementById('levelWiseReport')?.addEventListener('click', () => {
             openReportModal('लेवल वाइज रिपोर्ट');
         });
-
         document.getElementById('topEarnersReport')?.addEventListener('click', () => {
             openReportModal('टॉप अर्नर्स रिपोर्ट');
         });
-
+        
         function openReportModal(reportType) {
             document.getElementById('reportType').value = reportType;
             const reportGenerateModal = new bootstrap.Modal(document.getElementById('reportGenerateModal'));
             reportGenerateModal.show();
         }
-
+        
         // फॉर्म सबमिशन इवेंट लिस्टनर्स
         document.getElementById('profileForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             showNotification('प्रोफाइल अपडेट किया गया');
         });
-
         document.getElementById('activateForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             showNotification('ID एक्टिवेट करने का अनुरोध प्राप्त हुआ');
         });
-
         document.getElementById('depositForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             showNotification('डिपॉजिट अनुरोध प्राप्त हुआ');
         });
-
         document.getElementById('withdrawalForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             showNotification('विड्रॉवल अनुरोध प्राप्त हुआ');
         });
-
         document.getElementById('generalSettingsForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             showNotification('सामान्य सेटिंग्स अपडेट की गईं');
         });
-
         document.getElementById('mlmSettingsForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             showNotification('MLM सेटिंग्स अपडेट की गईं');
         });
-
+        
         // डाउनलोड बटन इवेंट लिस्टनर्स
         document.getElementById('downloadIncome')?.addEventListener('click', () => {
             showNotification('इनकम रिपोर्ट डाउनलोड हो रही है');
         });
-
         document.getElementById('downloadTeam')?.addEventListener('click', () => {
             showNotification('टीम रिपोर्ट डाउनलोड हो रही है');
         });
-
         document.getElementById('downloadUsers')?.addEventListener('click', () => {
             showNotification('यूजर्स रिपोर्ट डाउनलोड हो रही है');
         });
-
         document.getElementById('downloadIncomeAdmin')?.addEventListener('click', () => {
             showNotification('इनकम रिपोर्ट डाउनलोड हो रही है');
         });
-
         document.getElementById('downloadDeposits')?.addEventListener('click', () => {
             showNotification('डिपॉजिट रिपोर्ट डाउनलोड हो रही है');
         });
-
         document.getElementById('downloadWithdrawals')?.addEventListener('click', () => {
             showNotification('विड्रॉवल रिपोर्ट डाउनलोड हो रही है');
         });
-
         document.getElementById('downloadTransfers')?.addEventListener('click', () => {
             showNotification('ट्रांसफर रिपोर्ट डाउनलोड हो रही है');
         });
-
+        
         // फिल्टर बटन इवेंट लिस्टनर्स
         document.getElementById('filterIncome')?.addEventListener('click', () => {
             showNotification('इनकम फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
         document.getElementById('filterTeam')?.addEventListener('click', () => {
             showNotification('टीम फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
         document.getElementById('filterUsers')?.addEventListener('click', () => {
             showNotification('यूजर्स फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
         document.getElementById('filterIncomeAdmin')?.addEventListener('click', () => {
             showNotification('इनकम फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
         document.getElementById('filterDeposits')?.addEventListener('click', () => {
             showNotification('डिपॉजिट फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
         document.getElementById('filterWithdrawals')?.addEventListener('click', () => {
             showNotification('विड्रॉवल फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
         document.getElementById('filterTransfers')?.addEventListener('click', () => {
             showNotification('ट्रांसफर फिल्टर विकल्प विकासाधीन है', 'info');
         });
-
+        
         // सर्च इनपुट इवेंट लिस्टनर्स
         document.getElementById('searchTeam')?.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             filterTable('teamTable', searchTerm);
         });
-
         document.getElementById('searchUsers')?.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             filterTable('usersTable', searchTerm);
         });
-
         document.getElementById('searchDeposits')?.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             filterTable('depositsTableAdmin', searchTerm);
         });
-
         document.getElementById('searchWithdrawals')?.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             filterTable('withdrawalsTableAdmin', searchTerm);
         });
-
         document.getElementById('searchTransfers')?.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             filterTable('transfersTableAdmin', searchTerm);
         });
-
+        
         function filterTable(tableId, searchTerm) {
             const table = document.getElementById(tableId);
             const rows = table.getElementsByTagName('tr');
@@ -2490,44 +2716,43 @@
                 row.style.display = found ? '' : 'none';
             }
         }
-
+        
         // जीनियोलॉजी लोड बटन
         document.getElementById('loadGenealogy')?.addEventListener('click', () => {
             const level = document.getElementById('genealogyLevel').value;
             showNotification(`लेवल ${level} जीनियोलॉजी लोड हो रही है`, 'info');
         });
-
+        
         // चेंज प्रोफाइल इमेज बटन
         document.getElementById('changeProfileImage')?.addEventListener('click', () => {
             showNotification('प्रोफाइल इमेज बदलने की सुविधा विकासाधीन है', 'info');
         });
-
+        
         // चेंज पासवर्ड लिंक
         document.getElementById('changePassword')?.addEventListener('click', () => {
             showNotification('पासवर्ड बदलने की सुविधा विकासाधीन है', 'info');
         });
-
         document.getElementById('adminChangePassword')?.addEventListener('click', () => {
             showNotification('पासवर्ड बदलने की सुविधा विकासाधीन है', 'info');
         });
-
+        
         // यूजर प्रोफाइल लिंक
         document.getElementById('userProfile')?.addEventListener('click', (e) => {
             e.preventDefault();
             showUserPage('profile');
         });
-
+        
         // एडमिन प्रोफाइल लिंक
         document.getElementById('adminProfile')?.addEventListener('click', (e) => {
             e.preventDefault();
             showNotification('एडमिन प्रोफाइल पेज विकासाधीन है', 'info');
         });
-
+        
         // एड यूजर बटन
         document.getElementById('addUserBtn')?.addEventListener('click', () => {
             showNotification('नया यूजर जोड़ने की सुविधा विकासाधीन है', 'info');
         });
-
+        
         // इनकम टेबल लोड करें
         function loadIncomeTable() {
             const incomeTable = document.getElementById('incomeTable');
@@ -2545,7 +2770,7 @@
                 incomeTable.appendChild(row);
             });
         }
-
+        
         // इनकम एडमिन टेबल लोड करें
         function loadIncomeTableAdmin() {
             const incomeTableAdmin = document.getElementById('incomeTableAdmin');
@@ -2567,7 +2792,7 @@
                 incomeTableAdmin.appendChild(row);
             });
         }
-
+        
         // डिपॉजिट टेबल लोड करें
         function loadDepositsTableAdmin() {
             const depositsTableAdmin = document.getElementById('depositsTableAdmin');
@@ -2589,7 +2814,7 @@
                 depositsTableAdmin.appendChild(row);
             });
         }
-
+        
         // विड्रॉवल टेबल लोड करें
         function loadWithdrawalsTableAdmin() {
             const withdrawalsTableAdmin = document.getElementById('withdrawalsTableAdmin');
@@ -2611,7 +2836,7 @@
                 withdrawalsTableAdmin.appendChild(row);
             });
         }
-
+        
         // ट्रांसफर टेबल लोड करें
         function loadTransfersTableAdmin() {
             const transfersTableAdmin = document.getElementById('transfersTableAdmin');
@@ -2633,7 +2858,7 @@
                 transfersTableAdmin.appendChild(row);
             });
         }
-
+        
         // टीम टेबल लोड करें
         function loadTeamTable() {
             const teamTable = document.getElementById('teamTable');
@@ -2657,7 +2882,7 @@
                 teamTable.appendChild(row);
             });
         }
-
+        
         // एक्टिवेशन हिस्ट्री टेबल लोड करें
         function loadActivationHistoryTable() {
             const activationHistoryTable = document.getElementById('activationHistoryTable');
@@ -2680,7 +2905,7 @@
                 activationHistoryTable.appendChild(row);
             });
         }
-
+        
         // डिपॉजिट हिस्ट्री टेबल लोड करें
         function loadDepositHistoryTable() {
             const depositHistoryTable = document.getElementById('depositHistoryTable');
@@ -2696,7 +2921,7 @@
                 depositHistoryTable.appendChild(row);
             });
         }
-
+        
         // विड्रॉवल हिस्ट्री टेबल लोड करें
         function loadWithdrawalHistoryTable() {
             const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
@@ -2712,7 +2937,7 @@
                 withdrawalHistoryTable.appendChild(row);
             });
         }
-
+        
         // पेज लोड होने पर टेबल्स लोड करें
         document.addEventListener('DOMContentLoaded', () => {
             // इनकम टेबल लोड करें
