@@ -86,13 +86,14 @@
             background-color: #d4edda;
             border-color: #c3e6cb;
         }
-        .referral-link {
+        .referral-code {
             background-color: #f8f9fa;
             border: 1px solid #ced4da;
             border-radius: 5px;
             padding: 10px;
             font-family: monospace;
-            word-break: break-all;
+            font-weight: 600;
+            text-transform: uppercase;
         }
         .login-link {
             text-align: center;
@@ -150,9 +151,9 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="referralLink" class="form-label">Referral Link <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control referral-link" id="referralLink" placeholder="Referral link is required" required>
-                        <div class="form-text">Registration is not possible without a referral link</div>
+                        <label for="referralCode" class="form-label">Referral Code <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control referral-code" id="referralCode" placeholder="Enter referral code" required>
+                        <div class="form-text">Registration is not possible without a referral code</div>
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100">Register</button>
@@ -173,8 +174,8 @@
             const referralParam = urlParams.get('ref');
             
             if (referralParam) {
-                // Pre-fill the referral link field
-                document.getElementById('referralLink').value = `https://businessbaddy29.github.io/crownusdt/register.html?ref=${referralParam}`;
+                // Pre-fill the referral code field
+                document.getElementById('referralCode').value = referralParam;
             }
             
             // Initialize demo users if they don't exist
@@ -200,14 +201,14 @@
                 const phone = document.getElementById('phone').value;
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
-                const referral = document.getElementById('referralLink').value;
+                const referralCode = document.getElementById('referralCode').value;
                 const alertDiv = document.getElementById('registerAlert');
                 
                 // Clear alert
                 alertDiv.innerHTML = '';
                 
                 // Validation
-                if (!fullName || !username || !email || !phone || !password || !confirmPassword || !referral) {
+                if (!fullName || !username || !email || !phone || !password || !confirmPassword || !referralCode) {
                     showAlert('registerAlert', 'Please fill all fields', 'danger');
                     return;
                 }
@@ -217,23 +218,13 @@
                     return;
                 }
                 
-                // Extract referral ID from the referral link
-                let referralId = '';
-                try {
-                    const referralUrl = new URL(referral);
-                    referralId = referralUrl.searchParams.get('ref');
-                } catch (e) {
-                    showAlert('registerAlert', 'Invalid referral link format', 'danger');
-                    return;
-                }
-                
                 // Get users from localStorage
                 const users = JSON.parse(localStorage.getItem('demoUsers')) || [];
                 
-                // Validate referral link
-                const refUser = users.find(u => u.id === referralId);
+                // Validate referral code
+                const refUser = users.find(u => u.id === referralCode);
                 if (!refUser) {
-                    showAlert('registerAlert', 'Invalid referral link', 'danger');
+                    showAlert('registerAlert', 'Invalid referral code', 'danger');
                     return;
                 }
                 
