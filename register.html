@@ -3,541 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrownUsdt - Register</title>
+    <title>Register - CrownUsdt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
     <style>
-        /* Basic styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            color: #333;
-        }
-        .register-container {
-            width: 100%;
-            max-width: 500px;
+            justify-content: center;
             padding: 20px;
         }
-        .card {
-            border: none;
+        .register-container {
+            background-color: white;
             border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .card-body {
-            padding: 2rem;
-        }
-        .form-control, .form-select {
-            border-radius: 5px;
-            border: 1px solid #ced4da;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #86b7fe;
-            outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
-        }
-        .btn {
-            border-radius: 5px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .btn-primary {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-        }
-        .btn-primary:hover {
-            background-color: #0b5ed7;
-            border-color: #0a58ca;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
         }
         .logo {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 25px;
         }
         .logo img {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
+            height: 70px;
         }
-        .logo h3 {
-            color: #0d6efd;
-            font-weight: bold;
+        .form-control:focus, .form-select:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
         }
-        .form-text {
-            font-size: 0.875rem;
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a0fb8 0%, #1d64e8 100%);
+        }
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             color: #6c757d;
         }
+        .form-floating {
+            position: relative;
+        }
         .alert {
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 1rem;
-            border: 1px solid transparent;
-            border-radius: 0.375rem;
+            font-size: 0.9rem;
         }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
+        .terms-text {
+            font-size: 0.85rem;
+            color: #6c757d;
         }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
+        .terms-text a {
+            color: #6a11cb;
+            text-decoration: none;
         }
-        .alert-info {
-            color: #0c5460;
-            background-color: #cff4fc;
-            border-color: #b6effb;
-        }
-        .referral-code {
-            background-color: #f8f9fa;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            padding: 10px;
-            font-family: monospace;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        .login-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .first-user-info {
-            background-color: #e7f3ff;
-            border-left: 4px solid #0d6efd;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 0 5px 5px 0;
-        }
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-        .loading-spinner.show {
-            display: block;
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .card-body {
-                padding: 1.5rem;
-            }
+        .terms-text a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="register-container">
-        <div class="card">
-            <div class="card-body">
-                <div class="logo">
-                    <img src="logo.png" alt="CrownUsdt Logo">
-                    <h3>CrownUsdt</h3>
-                    <p class="text-muted">Create your account</p>
-                </div>
-                
-                <div id="registerAlert"></div>
-                
-                <div id="firstUserSection" class="first-user-info" style="display: none;">
-                    <h5><i class="fas fa-info-circle me-2"></i>First User Registration</h5>
-                    <p>You are the first user to register. You will be created as an admin user with all privileges.</p>
-                </div>
-                
-                <form id="registerForm">
-                    <div class="mb-3">
-                        <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Create a password" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
-                    </div>
-                    
-                    <div id="referralCodeSection" class="mb-3">
-                        <label for="referralCode" class="form-label">Referral Code <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control referral-code" id="referralCode" placeholder="Enter referral code" required>
-                        <div class="form-text">Registration is not possible without a referral code</div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary w-100" id="registerBtn">
-                        <span id="btnText">Register</span>
-                        <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display: none;"></span>
-                    </button>
-                </form>
-                
-                <div class="loading-spinner" id="loadingSpinner">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <p class="mt-2">Creating your account...</p>
-                </div>
-                
-                <div class="login-link">
-                    <p>Already have an account? <a href="login.html">Login here</a></p>
-                </div>
+        <div class="logo">
+            <img src="logo.png" alt="CrownUsdt Logo">
+            <h2 class="mt-2">CrownUsdt</h2>
+            <p class="text-muted">Create your account</p>
+        </div>
+        
+        <div id="alertContainer"></div>
+        
+        <form id="registerForm">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="name" placeholder="Full Name" required>
+                <label for="name"><i class="fas fa-user me-2"></i>Full Name</label>
             </div>
+            
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                <label for="email"><i class="fas fa-envelope me-2"></i>Email Address</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
+                <label for="phone"><i class="fas fa-phone me-2"></i>Phone Number</label>
+            </div>
+            
+            <div class="form-floating mb-3 position-relative">
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                <label for="password"><i class="fas fa-lock me-2"></i>Password</label>
+                <i class="fas fa-eye-slash password-toggle" id="togglePassword"></i>
+            </div>
+            
+            <div class="form-floating mb-3 position-relative">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                <label for="confirmPassword"><i class="fas fa-lock me-2"></i>Confirm Password</label>
+                <i class="fas fa-eye-slash password-toggle" id="toggleConfirmPassword"></i>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="referralId" placeholder="Referral ID (Optional)">
+                <label for="referralId"><i class="fas fa-user-friends me-2"></i>Referral ID (Optional)</label>
+            </div>
+            
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                <label class="form-check-label terms-text" for="termsCheck">
+                    I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                </label>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary py-2">
+                    <i class="fas fa-user-plus me-2"></i>Create Account
+                </button>
+            </div>
+        </form>
+        
+        <div class="text-center mt-4">
+            <p class="mb-0">Already have an account? <a href="login.html" class="text-decoration-none">Login</a></p>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize Firebase with your config
-        const firebaseConfig = {
-            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
-            authDomain: "crownusdt-bef5f.firebaseapp.com",
-            projectId: "crownusdt-bef5f",
-            storageBucket: "crownusdt-bef5f.firebasestorage.app",
-            messagingSenderId: "16212983577",
-            appId: "1:16212983577:web:54742789e0ca51e1800f88",
-            measurementId: "G-QMTHJ00757"
-        };
-        
         // Initialize Firebase
-        try {
-            firebase.initializeApp(firebaseConfig);
-            console.log("Firebase initialized successfully");
-        } catch (error) {
-            console.error("Firebase initialization error:", error);
-        }
-        
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if there's a referral parameter in the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const referralParam = urlParams.get('ref');
+        // Password visibility toggle
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this;
             
-            if (referralParam) {
-                // Pre-fill the referral code field
-                document.getElementById('referralCode').value = referralParam.trim();
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const icon = this;
+            
+            if (confirmPasswordInput.type === 'password') {
+                confirmPasswordInput.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                confirmPasswordInput.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        });
+
+        // Generate User ID (like CU123456)
+        function generateUserId() {
+            const randomNum = Math.floor(100000 + Math.random() * 900000);
+            return 'CU' + randomNum;
+        }
+
+        // Show alert message
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                const alertElement = alertContainer.querySelector('.alert');
+                if (alertElement) {
+                    const bsAlert = new bootstrap.Alert(alertElement);
+                    bsAlert.close();
+                }
+            }, 5000);
+        }
+
+        // Register form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const referralId = document.getElementById('referralId').value.trim();
+            const termsCheck = document.getElementById('termsCheck').checked;
+            
+            // Form validation
+            if (!name || !email || !phone || !password || !confirmPassword) {
+                showAlert('Please fill in all required fields', 'danger');
+                return;
             }
             
-            // Check if this is the first user registration
-            checkIfFirstUser();
-            
-            // Function to generate a unique referral code
-            function generateReferralCode() {
-                const prefix = 'CU';
-                const randomDigits = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
-                return prefix + randomDigits;
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match', 'danger');
+                return;
             }
             
-            // Check if this is the first user
-            function checkIfFirstUser() {
-                console.log("Checking if this is the first user...");
-                db.collection('users').limit(1).get()
-                    .then((querySnapshot) => {
-                        console.log("User query completed. Empty?", querySnapshot.empty);
-                        if (querySnapshot.empty) {
-                            // No users exist, this is the first user
-                            console.log("This is the first user");
-                            document.getElementById('firstUserSection').style.display = 'block';
-                            document.getElementById('referralCodeSection').style.display = 'none';
-                            document.getElementById('referralCode').removeAttribute('required');
-                        } else {
-                            // Users already exist, referral code is required
-                            console.log("Users already exist");
-                            document.getElementById('firstUserSection').style.display = 'none';
-                            document.getElementById('referralCodeSection').style.display = 'block';
-                            document.getElementById('referralCode').setAttribute('required', '');
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters long', 'danger');
+                return;
+            }
+            
+            if (!termsCheck) {
+                showAlert('You must agree to the terms and conditions', 'danger');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Creating Account...';
+            
+            // Check if referral ID exists if provided
+            let referrerId = null;
+            if (referralId) {
+                db.collection('users').where('userId', '==', referralId).limit(1).get()
+                    .then(querySnapshot => {
+                        if (!querySnapshot.empty) {
+                            const referrerDoc = querySnapshot.docs[0];
+                            referrerId = referrerDoc.id;
                         }
-                    })
-                    .catch((error) => {
-                        console.error("Error checking users:", error);
-                        showAlert('registerAlert', 'Error checking user database. Please try again later.', 'danger');
-                        // In case of error, assume referral code is required
-                        document.getElementById('firstUserSection').style.display = 'none';
-                        document.getElementById('referralCodeSection').style.display = 'block';
-                        document.getElementById('referralCode').setAttribute('required', '');
-                    });
-            }
-            
-            // Handle form submission
-            document.getElementById('registerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const fullName = document.getElementById('fullName').value.trim();
-                const username = document.getElementById('username').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const phone = document.getElementById('phone').value.trim();
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                const referralCode = document.getElementById('referralCode').value.trim();
-                const alertDiv = document.getElementById('registerAlert');
-                
-                // Clear alert
-                alertDiv.innerHTML = '';
-                
-                // Validation
-                if (!fullName || !username || !email || !phone || !password || !confirmPassword) {
-                    showAlert('registerAlert', 'Please fill all required fields', 'danger');
-                    return;
-                }
-                
-                if (password !== confirmPassword) {
-                    showAlert('registerAlert', 'Passwords do not match', 'danger');
-                    return;
-                }
-                
-                // Show loading state
-                document.getElementById('registerBtn').disabled = true;
-                document.getElementById('btnText').textContent = 'Processing...';
-                document.getElementById('btnSpinner').style.display = 'inline-block';
-                document.getElementById('loadingSpinner').classList.add('show');
-                
-                // Check if this is the first user
-                db.collection('users').limit(1).get()
-                    .then((querySnapshot) => {
-                        const isFirstUser = querySnapshot.empty;
-                        console.log("Is first user:", isFirstUser);
                         
-                        if (isFirstUser) {
-                            // First user registration - no referral code needed
-                            console.log("Registering first user");
-                            return registerFirstUser(fullName, username, email, phone, password);
-                        } else {
-                            // Not the first user - referral code is required
-                            if (!referralCode) {
-                                showAlert('registerAlert', 'Referral code is required', 'danger');
-                                resetForm();
-                                return;
-                            }
-                            
-                            // Validate referral code in Firestore
-                            console.log("Validating referral code:", referralCode);
-                            return db.collection('users').where('id', '==', referralCode).get()
-                                .then((refQuerySnapshot) => {
-                                    console.log("Referral code query result:", refQuerySnapshot.empty);
-                                    if (refQuerySnapshot.empty) {
-                                        showAlert('registerAlert', 'Invalid referral code. Please check and try again.', 'danger');
-                                        resetForm();
-                                        return;
-                                    }
-                                    
-                                    // Referral code is valid, proceed with registration
-                                    console.log("Referral code is valid, registering regular user");
-                                    return registerRegularUser(fullName, username, email, phone, password, referralCode);
-                                });
-                        }
+                        // Create user in Firebase Authentication
+                        return auth.createUserWithEmailAndPassword(email, password);
+                    })
+                    .then((userCredential) => {
+                        // Signed up successfully
+                        const user = userCredential.user;
+                        
+                        // Create user document in Firestore
+                        const userData = {
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            userId: generateUserId(),
+                            status: 'inactive', // Inactive until activation
+                            registrationDate: new Date().toISOString().split('T')[0],
+                            referrerId: referrerId,
+                            avatar: 'https://via.placeholder.com/40'
+                        };
+                        
+                        return db.collection('users').doc(user.uid).set(userData);
                     })
                     .then(() => {
-                        // Registration successful
-                        showAlert('registerAlert', 'Registration successful! Please login.', 'success');
+                        // Show success message
+                        showAlert('Registration successful! Please login to continue.', 'success');
                         
                         // Reset form
                         document.getElementById('registerForm').reset();
                         
-                        // Redirect to login page after 2 seconds
+                        // Redirect to login page after a delay
                         setTimeout(() => {
                             window.location.href = 'login.html';
                         }, 2000);
                     })
                     .catch((error) => {
                         console.error("Registration error:", error);
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
                         
-                        if (errorCode === 'auth/email-already-in-use') {
-                            showAlert('registerAlert', 'Email already in use. Please use a different email.', 'danger');
-                        } else if (errorCode === 'auth/weak-password') {
-                            showAlert('registerAlert', 'Password is too weak. Please use a stronger password.', 'danger');
-                        } else if (errorCode === 'auth/invalid-email') {
-                            showAlert('registerAlert', 'Invalid email address. Please enter a valid email.', 'danger');
-                        } else if (errorMessage.includes('Missing or insufficient permissions')) {
-                            showAlert('registerAlert', 'Database permission error. Please contact support.', 'danger');
-                        } else {
-                            showAlert('registerAlert', errorMessage, 'danger');
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        
+                        // Show error message
+                        let errorMessage = 'Registration failed. Please try again.';
+                        
+                        if (error.code === 'auth/email-already-in-use') {
+                            errorMessage = 'Email address is already in use.';
+                        } else if (error.code === 'auth/invalid-email') {
+                            errorMessage = 'Invalid email address.';
+                        } else if (error.code === 'auth/weak-password') {
+                            errorMessage = 'Password is too weak.';
                         }
                         
-                        resetForm();
+                        showAlert(errorMessage, 'danger');
                     });
-            });
-            
-            // Reset form state
-            function resetForm() {
-                document.getElementById('registerBtn').disabled = false;
-                document.getElementById('btnText').textContent = 'Register';
-                document.getElementById('btnSpinner').style.display = 'none';
-                document.getElementById('loadingSpinner').classList.remove('show');
-            }
-            
-            // Register first user (admin)
-            function registerFirstUser(fullName, username, email, phone, password) {
-                console.log("Creating first user with email:", email);
-                
-                // Generate unique referral code
-                let newUserId;
-                let isUnique = false;
-                
-                // Function to check if ID is unique
-                function checkUniqueId(id) {
-                    return db.collection('users').where('id', '==', id).get()
-                        .then(snapshot => snapshot.empty);
-                }
-                
-                // Generate unique ID
-                function generateUniqueId() {
-                    newUserId = generateReferralCode();
-                    return checkUniqueId(newUserId)
-                        .then(isUnique => {
-                            if (isUnique) {
-                                return newUserId;
-                            } else {
-                                return generateUniqueId();
-                            }
-                        });
-                }
-                
-                return generateUniqueId()
-                    .then((uniqueId) => {
-                        console.log("Generated unique ID:", uniqueId);
+            } else {
+                // No referral ID provided
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        // Signed up successfully
+                        const user = userCredential.user;
                         
-                        // Create user with Firebase Auth
-                        return auth.createUserWithEmailAndPassword(email, password)
-                            .then((userCredential) => {
-                                console.log("User created in Firebase Auth:", userCredential.user.uid);
-                                
-                                // Signed in
-                                const user = userCredential.user;
-                                
-                                // Add user to Firestore as admin
-                                const userData = {
-                                    id: uniqueId,
-                                    uid: user.uid,
-                                    name: fullName,
-                                    username: username,
-                                    email: email,
-                                    phone: phone,
-                                    joinDate: new Date().toISOString().split('T')[0],
-                                    status: 'active',
-                                    role: 'admin',
-                                    referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${uniqueId}`
-                                };
-                                
-                                console.log("Adding user to Firestore:", userData);
-                                return db.collection('users').doc(user.uid).set(userData);
-                            });
-                    });
-            }
-            
-            // Register regular user
-            function registerRegularUser(fullName, username, email, phone, password, referralCode) {
-                console.log("Creating regular user with email:", email);
-                
-                // Check if username or email already exists in Firestore
-                return Promise.all([
-                    db.collection('users').where('username', '==', username).get(),
-                    db.collection('users').where('email', '==', email).get()
-                ])
-                    .then(([usernameSnapshot, emailSnapshot]) => {
-                        console.log("Username exists:", !usernameSnapshot.empty);
-                        console.log("Email exists:", !emailSnapshot.empty);
+                        // Create user document in Firestore
+                        const userData = {
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            userId: generateUserId(),
+                            status: 'inactive', // Inactive until activation
+                            registrationDate: new Date().toISOString().split('T')[0],
+                            referrerId: null,
+                            avatar: 'https://via.placeholder.com/40'
+                        };
                         
-                        if (!usernameSnapshot.empty) {
-                            showAlert('registerAlert', 'Username already exists', 'danger');
-                            throw new Error('Username already exists');
-                        }
-                        
-                        if (!emailSnapshot.empty) {
-                            showAlert('registerAlert', 'Email already exists', 'danger');
-                            throw new Error('Email already exists');
-                        }
-                        
-                        // Generate unique referral code
-                        let newUserId;
-                        let isUnique = false;
-                        
-                        // Function to check if ID is unique
-                        function checkUniqueId(id) {
-                            return db.collection('users').where('id', '==', id).get()
-                                .then(snapshot => snapshot.empty);
-                        }
-                        
-                        // Generate unique ID
-                        function generateUniqueId() {
-                            newUserId = generateReferralCode();
-                            return checkUniqueId(newUserId)
-                                .then(isUnique => {
-                                    if (isUnique) {
-                                        return newUserId;
-                                    } else {
-                                        return generateUniqueId();
-                                    }
-                                });
-                        }
-                        
-                        return generateUniqueId();
+                        return db.collection('users').doc(user.uid).set(userData);
                     })
-                    .then((newUserId) => {
-                        console.log("Generated unique ID:", newUserId);
+                    .then(() => {
+                        // Show success message
+                        showAlert('Registration successful! Please login to continue.', 'success');
                         
-                        // Create user with Firebase Auth
-                        return auth.createUserWithEmailAndPassword(email, password)
-                            .then((userCredential) => {
-                                console.log("User created in Firebase Auth:", userCredential.user.uid);
-                                
-                                // Signed in
-                                const user = userCredential.user;
-                                
-                                // Add user to Firestore
-                                const userData = {
-                                    id: newUserId,
-                                    uid: user.uid,
-                                    name: fullName,
-                                    username: username,
-                                    email: email,
-                                    phone: phone,
-                                    joinDate: new Date().toISOString().split('T')[0],
-                                    status: 'inactive',
-                                    role: 'user',
-                                    referralLink: `https://businessbaddy29.github.io/crownusdt/register.html?ref=${newUserId}`
-                                };
-                                
-                                console.log("Adding user to Firestore:", userData);
-                                return db.collection('users').doc(user.uid).set(userData);
-                            });
+                        // Reset form
+                        document.getElementById('registerForm').reset();
+                        
+                        // Redirect to login page after a delay
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        console.error("Registration error:", error);
+                        
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        
+                        // Show error message
+                        let errorMessage = 'Registration failed. Please try again.';
+                        
+                        if (error.code === 'auth/email-already-in-use') {
+                            errorMessage = 'Email address is already in use.';
+                        } else if (error.code === 'auth/invalid-email') {
+                            errorMessage = 'Invalid email address.';
+                        } else if (error.code === 'auth/weak-password') {
+                            errorMessage = 'Password is too weak.';
+                        }
+                        
+                        showAlert(errorMessage, 'danger');
                     });
             }
         });
-        
-        // Show alert function
-        function showAlert(elementId, message, type) {
-            const alertDiv = document.getElementById(elementId);
-            alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
-        }
+
+        // Get referral ID from URL if present
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refParam = urlParams.get('ref');
+            
+            if (refParam) {
+                document.getElementById('referralId').value = refParam;
+            }
+        });
     </script>
 </body>
 </html>
