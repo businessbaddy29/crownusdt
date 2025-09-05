@@ -1291,7 +1291,7 @@
                                     <label for="walletBalanceCheck" class="form-label">Wallet Balance</label>
                                     <input type="text" class="form-control" id="walletBalanceCheck" value="₹0" readonly>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Activate ID</button>
+                                <button type="submit" class="btn btn-primary">Activate</button>
                             </form>
                         </div>
                     </div>
@@ -1302,10 +1302,9 @@
                             Activation Info
                         </div>
                         <div class="card-body">
-                            <p>Activate new members using your wallet balance. The activation amount will be deducted from your wallet.</p>
-                            <div class="alert alert-info">
-                                <strong>Note:</strong> You can only activate members who have registered using your referral link.
-                            </div>
+                            <p>Activation fee is ₹1000 per ID.</p>
+                            <p>Once activated, the user will be able to access all features of the platform.</p>
+                            <p>Activation is non-refundable.</p>
                         </div>
                     </div>
                 </div>
@@ -1323,7 +1322,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Make a Deposit</h5>
+                            <h5 class="card-title">Deposit Funds</h5>
                             <form id="depositForm">
                                 <div class="mb-3">
                                     <label for="depositAmount" class="form-label">Deposit Amount</label>
@@ -1331,23 +1330,21 @@
                                     <div class="form-text">Minimum deposit amount is ₹100</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="depositMethod" class="form-label">Payment Method</label>
+                                    <label for="depositMethod" class="form-label">Deposit Method</label>
                                     <select class="form-select" id="depositMethod">
                                         <option value="upi">UPI</option>
                                         <option value="bank">Bank Transfer</option>
-                                        <option value="crypto">Cryptocurrency</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="depositReceipt" class="form-label">Upload Receipt</label>
-                                    <input type="file" class="form-control" id="depositReceipt">
-                                    <div class="form-text">Upload payment receipt or screenshot</div>
+                                    <label for="depositTransactionId" class="form-label">Transaction ID</label>
+                                    <input type="text" class="form-control" id="depositTransactionId" placeholder="Enter Transaction ID">
                                 </div>
                                 <div class="mb-3">
                                     <label for="depositRemark" class="form-label">Remark</label>
                                     <textarea class="form-control" id="depositRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit Deposit</button>
+                                <button type="submit" class="btn btn-primary">Submit Deposit Request</button>
                             </form>
                         </div>
                     </div>
@@ -1358,19 +1355,25 @@
                             Deposit Info
                         </div>
                         <div class="card-body">
-                            <p>Deposits will be added to your wallet after verification.</p>
-                            <div class="alert alert-info">
-                                <strong>Note:</strong> Verification may take 24-48 hours.
-                            </div>
-                            
-                            <!-- UPI Payment Section -->
+                            <p>Minimum deposit amount is ₹100.</p>
+                            <p>Deposits are usually processed within 24 hours.</p>
+                            <p>Please ensure you enter the correct transaction ID.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- UPI Payment Section -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            UPI Payment
+                        </div>
+                        <div class="card-body">
                             <div class="upi-section">
-                                <h5>UPI Payment</h5>
-                                <p>Scan the QR code to pay</p>
-                                <div class="upi-id">crownusdt@ybl</div>
+                                <h5>Scan QR Code</h5>
+                                <div class="upi-id">UPI ID: crownusdt@ybl</div>
                                 <div class="qr-code">
                                     <img src="https://via.placeholder.com/200" alt="UPI QR Code">
                                 </div>
+                                <p>After payment, please submit the deposit request with transaction ID.</p>
                             </div>
                         </div>
                     </div>
@@ -1389,7 +1392,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Make a Withdrawal</h5>
+                            <h5 class="card-title">Withdraw Funds</h5>
                             <form id="withdrawalForm">
                                 <div class="mb-3">
                                     <label for="withdrawalAmount" class="form-label">Withdrawal Amount</label>
@@ -1408,10 +1411,10 @@
                                     <textarea class="form-control" id="withdrawalDetails" rows="3" placeholder="Enter UPI ID or Bank Details"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="walletBalanceWithdrawal" class="form-label">Wallet Balance</label>
-                                    <input type="text" class="form-control" id="walletBalanceWithdrawal" value="₹0" readonly>
+                                    <label for="withdrawalRemark" class="form-label">Remark</label>
+                                    <textarea class="form-control" id="withdrawalRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit Withdrawal</button>
+                                <button type="submit" class="btn btn-primary">Submit Withdrawal Request</button>
                             </form>
                         </div>
                     </div>
@@ -1422,30 +1425,9 @@
                             Withdrawal Info
                         </div>
                         <div class="card-body">
-                            <p>Withdrawals will be processed within 24-48 hours.</p>
-                            <div class="alert alert-info">
-                                <strong>Note:</strong> A 5% processing fee will be charged on all withdrawals.
-                            </div>
-                            
-                            <div class="mb-3">
-                                <h6>Recent Withdrawals</h6>
-                                <div class="table-responsive">
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Amount</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="3" class="text-center">No data available</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            <p>Minimum withdrawal amount is ₹100.</p>
+                            <p>Withdrawal processing time is 24-48 hours.</p>
+                            <p>5% withdrawal fee will be charged.</p>
                         </div>
                     </div>
                 </div>
@@ -1501,13 +1483,14 @@
                 <div class="card-body">
                     <div class="table-actions">
                         <div class="filter-section">
-                            <select class="form-select" id="incomeTypeFilter">
-                                <option value="all">All Income Types</option>
+                            <input type="text" class="form-control" id="incomeFilter" placeholder="Filter by Description">
+                            <input type="date" class="form-control ms-2" id="incomeDateFilter" placeholder="Filter by Date">
+                            <select class="form-select ms-2" id="incomeTypeFilter">
+                                <option value="">All Types</option>
                                 <option value="direct">Direct Income</option>
                                 <option value="team">Team Income</option>
                                 <option value="reward">Reward Income</option>
                             </select>
-                            <input type="date" class="form-control ms-2" id="incomeDateFilter" placeholder="Filter by Date">
                             <button class="btn btn-primary ms-2" id="applyIncomeFilter">Apply</button>
                             <button class="btn btn-outline-secondary" id="resetIncomeFilter">Reset</button>
                         </div>
@@ -1522,7 +1505,7 @@
                     </div>
                     <div class="table-summary">
                         <div>
-                            <strong>Total Income: </strong><span id="totalIncomeSummary">₹0</span>
+                            <strong>Total Income: </strong><span id="totalIncomeAmount">₹0</span>
                         </div>
                     </div>
                     <div class="table-responsive mt-3">
@@ -1531,8 +1514,8 @@
                                 <tr>
                                     <th>S No.</th>
                                     <th>Date</th>
-                                    <th>Income Type</th>
                                     <th>Description</th>
+                                    <th>Type</th>
                                     <th>Amount</th>
                                     <th>Status</th>
                                 </tr>
@@ -1583,8 +1566,8 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">Team Business</h5>
-                            <p class="card-text fs-2" id="teamBusinessPage">₹0</p>
+                            <h5 class="card-title">Inactive Team</h5>
+                            <p class="card-text fs-2" id="inactiveTeamPage">0</p>
                         </div>
                     </div>
                 </div>
@@ -1595,115 +1578,56 @@
                     Team Details
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-tabs" id="teamTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="direct-tab" data-bs-toggle="tab" data-bs-target="#direct" type="button" role="tab" aria-controls="direct" aria-selected="true">Direct Team</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="level-tab" data-bs-toggle="tab" data-bs-target="#level" type="button" role="tab" aria-controls="level" aria-selected="false">Level Team</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content mt-3" id="teamTabsContent">
-                        <div class="tab-pane fade show active" id="direct" role="tabpanel" aria-labelledby="direct-tab">
-                            <div class="table-actions">
-                                <div class="filter-section">
-                                    <input type="text" class="form-control" id="directTeamFilterPage" placeholder="Filter by User ID or Mobile No.">
-                                    <input type="date" class="form-control ms-2" id="directTeamDateFilterPage" placeholder="Filter by Date">
-                                    <button class="btn btn-primary ms-2" id="applyDirectTeamFilterPage">Apply</button>
-                                    <button class="btn btn-outline-secondary" id="resetDirectTeamFilterPage">Reset</button>
-                                </div>
-                                <div class="export-buttons">
-                                    <button class="btn btn-success" id="exportDirectTeamExcelPage">
-                                        <i class="fas fa-file-excel me-2"></i> Export Excel
-                                    </button>
-                                    <button class="btn btn-danger" id="exportDirectTeamPDFPage">
-                                        <i class="fas fa-file-pdf me-2"></i> Export PDF
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="table-summary">
-                                <div>
-                                    <strong>Total Members: </strong><span id="directTeamTotalCountPage">0</span>
-                                </div>
-                                <div>
-                                    <strong>Total Amount: </strong><span id="directTeamTotalAmountPage">₹0</span>
-                                </div>
-                            </div>
-                            <div class="table-responsive mt-3">
-                                <table class="table table-striped" id="directTeamTablePage">
-                                    <thead>
-                                        <tr>
-                                            <th>S No.</th>
-                                            <th>User ID</th>
-                                            <th>Name</th>
-                                            <th>Mobile No.</th>
-                                            <th>Date of Registration</th>
-                                            <th>Date of Activation</th>
-                                            <th>Package Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="7" class="text-center">No data available</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="table-actions">
+                        <div class="filter-section">
+                            <input type="text" class="form-control" id="teamFilter" placeholder="Filter by User ID or Mobile No.">
+                            <input type="date" class="form-control ms-2" id="teamDateFilter" placeholder="Filter by Date">
+                            <select class="form-select ms-2" id="teamStatusFilter">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="blocked">Blocked</option>
+                            </select>
+                            <button class="btn btn-primary ms-2" id="applyTeamFilter">Apply</button>
+                            <button class="btn btn-outline-secondary" id="resetTeamFilter">Reset</button>
                         </div>
-                        <div class="tab-pane fade" id="level" role="tabpanel" aria-labelledby="level-tab">
-                            <div class="table-actions">
-                                <div class="filter-section">
-                                    <select class="form-select" id="levelFilter">
-                                        <option value="all">All Levels</option>
-                                        <option value="1">Level 1</option>
-                                        <option value="2">Level 2</option>
-                                        <option value="3">Level 3</option>
-                                        <option value="4">Level 4</option>
-                                        <option value="5">Level 5</option>
-                                    </select>
-                                    <input type="date" class="form-control ms-2" id="levelDateFilter" placeholder="Filter by Date">
-                                    <button class="btn btn-primary ms-2" id="applyLevelFilter">Apply</button>
-                                    <button class="btn btn-outline-secondary" id="resetLevelFilter">Reset</button>
-                                </div>
-                                <div class="export-buttons">
-                                    <button class="btn btn-success" id="exportLevelExcel">
-                                        <i class="fas fa-file-excel me-2"></i> Export Excel
-                                    </button>
-                                    <button class="btn btn-danger" id="exportLevelPDF">
-                                        <i class="fas fa-file-pdf me-2"></i> Export PDF
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="table-summary">
-                                <div>
-                                    <strong>Total Members: </strong><span id="levelTotalCount">0</span>
-                                </div>
-                                <div>
-                                    <strong>Total Amount: </strong><span id="levelTotalAmount">₹0</span>
-                                </div>
-                            </div>
-                            <div class="table-responsive mt-3">
-                                <table class="table table-striped" id="levelTeamTable">
-                                    <thead>
-                                        <tr>
-                                            <th>S No.</th>
-                                            <th>Level</th>
-                                            <th>User ID</th>
-                                            <th>Name</th>
-                                            <th>Mobile No.</th>
-                                            <th>Date of Registration</th>
-                                            <th>Date of Activation</th>
-                                            <th>Package Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="8" class="text-center">No data available</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="export-buttons">
+                            <button class="btn btn-success" id="exportTeamExcel">
+                                <i class="fas fa-file-excel me-2"></i> Export Excel
+                            </button>
+                            <button class="btn btn-danger" id="exportTeamPDF">
+                                <i class="fas fa-file-pdf me-2"></i> Export PDF
+                            </button>
                         </div>
+                    </div>
+                    <div class="table-summary">
+                        <div>
+                            <strong>Total Members: </strong><span id="teamTotalCount">0</span>
+                        </div>
+                        <div>
+                            <strong>Total Business: </strong><span id="teamTotalBusiness">₹0</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table table-striped" id="teamTable">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Mobile No.</th>
+                                    <th>Date of Registration</th>
+                                    <th>Date of Activation</th>
+                                    <th>Package Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="8" class="text-center">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -1713,7 +1637,7 @@
         <div id="genealogyPage" class="page-content hidden">
             <div class="welcome-banner">
                 <h2>Genealogy</h2>
-                <p>View your team structure</p>
+                <p>View your team genealogy</p>
             </div>
             
             <div class="card">
@@ -1722,75 +1646,68 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-4">
-                        <div class="genealogy-node d-inline-block">
+                        <div class="genealogy-node">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5>You</h5>
-                                    <p class="mb-0">CU123456</p>
+                                    <h5 id="genealogyUserId">CU123456</h5>
+                                    <p id="genealogyUserName">User Name</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="genealogy-node">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Member 1</h5>
-                                        <p class="mb-0">CU123457</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center mt-3">
-                                    <div class="genealogy-node">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5>Member 1.1</h5>
-                                                <p class="mb-0">CU123458</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="genealogy-node">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5>Member 1.2</h5>
-                                                <p class="mb-0">CU123459</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="genealogy-node">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CU234567</h5>
+                                    <p>User 1</p>
                                 </div>
                             </div>
-                            <div class="genealogy-node">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Member 2</h5>
-                                        <p class="mb-0">CU123460</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center mt-3">
-                                    <div class="genealogy-node">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5>Member 2.1</h5>
-                                                <p class="mb-0">CU123461</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="genealogy-node">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5>Member 2.2</h5>
-                                                <p class="mb-0">CU123462</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="genealogy-node">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CU345678</h5>
+                                    <p>User 2</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="text-center mt-4">
-                        <button class="btn btn-primary" id="viewFullGenealogy">View Full Genealogy</button>
+                    <div class="d-flex justify-content-center">
+                        <div class="genealogy-node">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CU456789</h5>
+                                    <p>User 3</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genealogy-node">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CU567890</h5>
+                                    <p>User 4</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genealogy-node">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CU678901</h5>
+                                    <p>User 5</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="genealogy-node">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>CU789012</h5>
+                                    <p>User 6</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1805,157 +1722,473 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Firebase Initialization and App Logic -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab switching functionality
-            const sidebarLinks = document.querySelectorAll('.sidebar-menu a[data-page]');
-            const pageContents = document.querySelectorAll('.page-content');
-            const dropdownLinks = document.querySelectorAll('.dropdown-menu a[data-page]');
-            
-            // Function to switch pages
-            function switchPage(pageId) {
-                // Hide all pages
-                pageContents.forEach(page => {
-                    page.classList.add('hidden');
-                });
-                
-                // Show selected page
-                const selectedPage = document.getElementById(pageId + 'Page');
-                if (selectedPage) {
-                    selectedPage.classList.remove('hidden');
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Check authentication state on page load
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // User is signed in
+                console.log("User logged in:", user.uid);
+                loadUserData(user.uid);
+            } else {
+                // User is signed out
+                console.log("No user logged in");
+                // Redirect to login page if not already there
+                if (window.location.pathname !== '/login.html') {
+                    window.location.href = 'login.html';
                 }
+            }
+        });
+
+        // Load user data from Firestore
+        function loadUserData(userId) {
+            db.collection('users').doc(userId).get().then(doc => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    
+                    // Update UI with user data
+                    document.getElementById('userName').textContent = userData.name || 'User';
+                    document.getElementById('welcomeUserName').textContent = userData.name || 'User';
+                    document.getElementById('userAvatar').src = userData.avatar || 'https://via.placeholder.com/40';
+                    
+                    // Update profile page if exists
+                    if (document.getElementById('profileName')) {
+                        document.getElementById('profileName').textContent = userData.name || 'User Name';
+                        document.getElementById('profileUsername').textContent = userData.username || 'username';
+                        document.getElementById('profileUserId').textContent = userData.userId || 'CU123456';
+                        document.getElementById('fullName').value = userData.name || '';
+                        document.getElementById('email').value = userData.email || '';
+                        document.getElementById('phone').value = userData.phone || '';
+                        // Add other profile fields as needed
+                    }
+                    
+                    // Load dashboard data
+                    loadDashboardData(userId);
+                } else {
+                    console.log("No user data found!");
+                }
+            }).catch(error => {
+                console.error("Error getting user data:", error);
+            });
+        }
+
+        // Load dashboard data
+        function loadDashboardData(userId) {
+            // Load wallet balance
+            db.collection('wallets').doc(userId).get().then(doc => {
+                if (doc.exists) {
+                    const walletData = doc.data();
+                    const balance = walletData.balance || 0;
+                    document.getElementById('walletBalance').textContent = `₹${balance}`;
+                    document.getElementById('walletBalancePage').textContent = `₹${balance}`;
+                }
+            }).catch(error => {
+                console.error("Error getting wallet data:", error);
+            });
+
+            // Load income data
+            db.collection('income').where('userId', '==', userId).get().then(snapshot => {
+                let totalIncome = 0;
+                let directIncome = 0;
+                let teamIncome = 0;
                 
-                // Update active sidebar link
-                sidebarLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('data-page') === pageId) {
-                        link.classList.add('active');
+                snapshot.forEach(doc => {
+                    const income = doc.data();
+                    totalIncome += income.amount || 0;
+                    
+                    if (income.type === 'direct') {
+                        directIncome += income.amount || 0;
+                    } else if (income.type === 'team') {
+                        teamIncome += income.amount || 0;
                     }
                 });
-            }
+                
+                document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+                document.getElementById('directIncome').textContent = `₹${directIncome}`;
+                document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+                
+                // Update income page if exists
+                if (document.getElementById('totalIncomePage')) {
+                    document.getElementById('totalIncomePage').textContent = `₹${totalIncome}`;
+                    document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+                    document.getElementById('teamIncomePage').textContent = `₹${teamIncome}`;
+                }
+            }).catch(error => {
+                console.error("Error getting income data:", error);
+            });
+
+            // Load team data
+            db.collection('users').where('referrerId', '==', userId).get().then(snapshot => {
+                const directTeamCount = snapshot.size;
+                let activeTeamCount = 0;
+                
+                snapshot.forEach(doc => {
+                    const user = doc.data();
+                    if (user.status === 'active') {
+                        activeTeamCount++;
+                    }
+                });
+                
+                document.getElementById('directTeamCount').textContent = directTeamCount;
+                document.getElementById('directTeamActive').textContent = activeTeamCount;
+                document.getElementById('totalTeam').textContent = directTeamCount;
+                document.getElementById('activeTeam').textContent = activeTeamCount;
+                document.getElementById('inactiveTeam').textContent = directTeamCount - activeTeamCount;
+                
+                // Update team page if exists
+                if (document.getElementById('totalTeamPage')) {
+                    document.getElementById('totalTeamPage').textContent = directTeamCount;
+                    document.getElementById('directTeamPage').textContent = directTeamCount;
+                    document.getElementById('activeTeamPage').textContent = activeTeamCount;
+                    document.getElementById('inactiveTeamPage').textContent = directTeamCount - activeTeamCount;
+                }
+            }).catch(error => {
+                console.error("Error getting team data:", error);
+            });
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut().then(() => {
+                console.log("User logged out successfully");
+                window.location.href = 'login.html';
+            }).catch(error => {
+                console.error("Logout error:", error);
+                alert("Error logging out. Please try again.");
+            });
+        });
+
+        // Tab navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all sidebar links
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu li a');
             
-            // Add click event to sidebar links
+            // Add click event to each link
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    switchPage(pageId);
+                    
+                    // Remove active class from all links
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Get page name from data-page attribute
+                    const pageName = this.getAttribute('data-page');
+                    
+                    // Hide all page contents
+                    document.querySelectorAll('.page-content').forEach(page => {
+                        page.classList.add('hidden');
+                    });
+                    
+                    // Show selected page
+                    const selectedPage = document.getElementById(pageName + 'Page');
+                    if (selectedPage) {
+                        selectedPage.classList.remove('hidden');
+                    }
+                    
+                    // Special handling for direct team and business modals
+                    if (pageName === 'dashboard') {
+                        // Reset dashboard page if needed
+                        if (auth.currentUser) {
+                            loadDashboardData(auth.currentUser.uid);
+                        }
+                    }
                 });
             });
-            
-            // Add click event to dropdown links
-            dropdownLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    switchPage(pageId);
-                });
-            });
-            
-            // Hamburger menu toggle
-            const hamburger = document.getElementById('hamburger');
-            const sidebar = document.getElementById('sidebar');
-            
-            hamburger.addEventListener('click', function() {
-                this.classList.toggle('active');
-                sidebar.classList.toggle('show');
-            });
-            
-            // Direct Team Box click
+
+            // Handle direct team box click
             const directTeamBox = document.getElementById('directTeamBox');
             if (directTeamBox) {
                 directTeamBox.addEventListener('click', function() {
                     const modal = new bootstrap.Modal(document.getElementById('directTeamModal'));
                     modal.show();
+                    // Load direct team data here
+                    loadDirectTeamData();
                 });
             }
-            
-            // Business Box click
+
+            // Handle business box click
             const businessBox = document.getElementById('businessBox');
             if (businessBox) {
                 businessBox.addEventListener('click', function() {
                     const modal = new bootstrap.Modal(document.getElementById('businessModal'));
                     modal.show();
+                    // Load business data here
+                    loadBusinessData();
                 });
             }
-            
+
+            // Handle profile form submission
+            const profileForm = document.getElementById('profileForm');
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('fullName').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        dob: document.getElementById('dob').value,
+                        address: document.getElementById('address').value,
+                        city: document.getElementById('city').value,
+                        state: document.getElementById('state').value,
+                        country: document.getElementById('country').value,
+                        pincode: document.getElementById('pincode').value,
+                        nominee: document.getElementById('nominee').value,
+                        bankDetails: document.getElementById('bankDetails').value
+                    };
+                    
+                    // Update user data in Firestore
+                    const userId = auth.currentUser.uid;
+                    db.collection('users').doc(userId).update(formData)
+                        .then(() => {
+                            alert('Profile updated successfully!');
+                            // Reload user data
+                            loadUserData(userId);
+                        })
+                        .catch(error => {
+                            console.error("Error updating profile:", error);
+                            alert('Error updating profile. Please try again.');
+                        });
+                });
+            }
+
+            // Handle wallet transfer form
+            const walletTransferForm = document.getElementById('walletTransferForm');
+            if (walletTransferForm) {
+                walletTransferForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const recipientId = document.getElementById('transferTo').value;
+                    const amount = parseFloat(document.getElementById('transferAmount').value);
+                    const remark = document.getElementById('transferRemark').value;
+                    
+                    // Validate inputs
+                    if (!recipientId || !amount || amount <= 0) {
+                        alert('Please enter valid recipient ID and amount');
+                        return;
+                    }
+                    
+                    // Process wallet transfer
+                    processWalletTransfer(recipientId, amount, remark);
+                });
+            }
+
             // Copy referral link functionality
-            const copyReferralBtnDashboard = document.getElementById('copyReferralBtnDashboard');
-            if (copyReferralBtnDashboard) {
-                copyReferralBtnDashboard.addEventListener('click', function() {
-                    const referralLink = document.getElementById('dashboardReferralLink').textContent;
-                    navigator.clipboard.writeText(referralLink).then(function() {
-                        showNotification('Referral link copied to clipboard!');
+            const copyReferralBtns = document.querySelectorAll('[id^="copyReferralBtn"]');
+            copyReferralBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const referralLink = this.closest('.card-body').querySelector('.referral-link').textContent;
+                    navigator.clipboard.writeText(referralLink).then(() => {
+                        alert('Referral link copied to clipboard!');
+                    }).catch(err => {
+                        console.error('Error copying referral link: ', err);
                     });
                 });
-            }
-            
-            const copyReferralBtn = document.getElementById('copyReferralBtn');
-            if (copyReferralBtn) {
-                copyReferralBtn.addEventListener('click', function() {
-                    const referralLink = document.getElementById('referralLink').textContent;
-                    navigator.clipboard.writeText(referralLink).then(function() {
-                        showNotification('Referral link copied to clipboard!');
-                    });
-                });
-            }
-            
-            // Show notification function
-            function showNotification(message) {
-                const notification = document.getElementById('notification');
-                const notificationMessage = document.getElementById('notificationMessage');
-                
-                notificationMessage.textContent = message;
-                notification.classList.add('show');
-                
-                setTimeout(function() {
-                    notification.classList.remove('show');
-                }, 3000);
-            }
-            
-            // Share on WhatsApp
-            const shareWhatsappDashboard = document.getElementById('shareWhatsappDashboard');
-            if (shareWhatsappDashboard) {
-                shareWhatsappDashboard.addEventListener('click', function() {
-                    const referralLink = document.getElementById('dashboardReferralLink').textContent;
-                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
-                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            });
+
+            // Share referral link functionality
+            const shareWhatsappBtns = document.querySelectorAll('[id^="shareWhatsapp"]');
+            shareWhatsappBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const referralLink = this.closest('.card-body').querySelector('.referral-link').textContent;
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent('Join me on CrownUsdt: ' + referralLink)}`;
                     window.open(whatsappUrl, '_blank');
                 });
-            }
-            
-            const shareWhatsapp = document.getElementById('shareWhatsapp');
-            if (shareWhatsapp) {
-                shareWhatsapp.addEventListener('click', function() {
-                    const referralLink = document.getElementById('referralLink').textContent;
-                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
-                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-                    window.open(whatsappUrl, '_blank');
-                });
-            }
-            
-            // Share on Telegram
-            const shareTelegramDashboard = document.getElementById('shareTelegramDashboard');
-            if (shareTelegramDashboard) {
-                shareTelegramDashboard.addEventListener('click', function() {
-                    const referralLink = document.getElementById('dashboardReferralLink').textContent;
-                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
-                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+            });
+
+            const shareTelegramBtns = document.querySelectorAll('[id^="shareTelegram"]');
+            shareTelegramBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const referralLink = this.closest('.card-body').querySelector('.referral-link').textContent;
+                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent('Join me on CrownUsdt')}`;
                     window.open(telegramUrl, '_blank');
                 });
-            }
+            });
+
+            // Toggle sidebar on mobile
+            const hamburger = document.getElementById('hamburger');
+            const sidebar = document.getElementById('sidebar');
             
-            const shareTelegram = document.getElementById('shareTelegram');
-            if (shareTelegram) {
-                shareTelegram.addEventListener('click', function() {
-                    const referralLink = document.getElementById('referralLink').textContent;
-                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
-                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
-                    window.open(telegramUrl, '_blank');
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    sidebar.classList.toggle('show');
                 });
             }
         });
+
+        // Function to load direct team data
+        function loadDirectTeamData() {
+            const userId = auth.currentUser.uid;
+            db.collection('users').where('referrerId', '==', userId).get().then(snapshot => {
+                const tableBody = document.querySelector('#directTeamTable tbody');
+                tableBody.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+                    return;
+                }
+                
+                let totalAmount = 0;
+                let count = 0;
+                
+                snapshot.forEach(doc => {
+                    count++;
+                    const user = doc.data();
+                    totalAmount += user.packageAmount || 0;
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${count}</td>
+                        <td>${user.userId || 'N/A'}</td>
+                        <td>${user.name || 'N/A'}</td>
+                        <td>${user.phone || 'N/A'}</td>
+                        <td>${user.registrationDate || 'N/A'}</td>
+                        <td>${user.activationDate || 'N/A'}</td>
+                        <td>₹${user.packageAmount || 0}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                
+                // Update summary
+                document.getElementById('directTeamTotalCount').textContent = count;
+                document.getElementById('directTeamTotalAmount').textContent = `₹${totalAmount}`;
+            }).catch(error => {
+                console.error("Error getting direct team data:", error);
+            });
+        }
+
+        // Function to load business data
+        function loadBusinessData() {
+            const userId = auth.currentUser.uid;
+            db.collection('users').where('referrerId', '==', userId).get().then(snapshot => {
+                const tableBody = document.querySelector('#businessTable tbody');
+                tableBody.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+                    return;
+                }
+                
+                let totalAmount = 0;
+                let count = 0;
+                
+                snapshot.forEach(doc => {
+                    count++;
+                    const user = doc.data();
+                    totalAmount += user.packageAmount || 0;
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${count}</td>
+                        <td>${user.userId || 'N/A'}</td>
+                        <td>${user.name || 'N/A'}</td>
+                        <td>${user.phone || 'N/A'}</td>
+                        <td>${user.registrationDate || 'N/A'}</td>
+                        <td>${user.activationDate || 'N/A'}</td>
+                        <td>₹${user.packageAmount || 0}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                
+                // Update summary
+                document.getElementById('businessTotalCount').textContent = count;
+                document.getElementById('businessTotalAmount').textContent = `₹${totalAmount}`;
+                
+                // Update dashboard business box
+                document.getElementById('businessCount').textContent = count;
+                document.getElementById('businessAmount').textContent = `₹${totalAmount}`;
+            }).catch(error => {
+                console.error("Error getting business data:", error);
+            });
+        }
+
+        // Function to process wallet transfer
+        function processWalletTransfer(recipientId, amount, remark) {
+            const senderId = auth.currentUser.uid;
+            
+            // Check if sender has sufficient balance
+            db.collection('wallets').doc(senderId).get().then(doc => {
+                if (doc.exists) {
+                    const senderWallet = doc.data();
+                    const senderBalance = senderWallet.balance || 0;
+                    
+                    if (senderBalance < amount) {
+                        alert('Insufficient balance in your wallet');
+                        return;
+                    }
+                    
+                    // Check if recipient exists
+                    db.collection('users').doc(recipientId).get().then(userDoc => {
+                        if (!userDoc.exists) {
+                            alert('Recipient user not found');
+                            return;
+                        }
+                        
+                        // Process transfer in a batch
+                        const batch = db.batch();
+                        
+                        // Deduct amount from sender's wallet
+                        const senderRef = db.collection('wallets').doc(senderId);
+                        batch.update(senderRef, { balance: firebase.firestore.FieldValue.increment(-amount) });
+                        
+                        // Add amount to recipient's wallet
+                        const recipientRef = db.collection('wallets').doc(recipientId);
+                        batch.update(recipientRef, { balance: firebase.firestore.FieldValue.increment(amount) });
+                        
+                        // Record transaction
+                        const transactionRef = db.collection('transactions').doc();
+                        batch.set(transactionRef, {
+                            senderId: senderId,
+                            recipientId: recipientId,
+                            amount: amount,
+                            remark: remark,
+                            type: 'transfer',
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        
+                        // Commit the batch
+                        batch.commit().then(() => {
+                            alert('Transfer successful!');
+                            document.getElementById('walletTransferForm').reset();
+                            // Reload wallet data
+                            loadUserData(senderId);
+                        }).catch(error => {
+                            console.error("Error processing transfer:", error);
+                            alert('Error processing transfer. Please try again.');
+                        });
+                    }).catch(error => {
+                        console.error("Error checking recipient:", error);
+                        alert('Error verifying recipient. Please try again.');
+                    });
+                } else {
+                    alert('Wallet not found');
+                }
+            }).catch(error => {
+                console.error("Error checking wallet balance:", error);
+                alert('Error checking wallet balance. Please try again.');
+            });
+        }
     </script>
 </body>
 </html>
