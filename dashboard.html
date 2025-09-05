@@ -1472,6 +1472,9 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        // Global variable to store current user data
+        let currentUserData = null;
+
         // Check login status on page load and redirect if not logged in
         document.addEventListener('DOMContentLoaded', function() {
             // Check if user is logged in
@@ -1511,56 +1514,75 @@
         
         // Update team data
         function updateTeamData() {
-            // Get current user
+            // Get current user from Firebase Auth
             const currentUser = auth.currentUser;
             if (!currentUser) return;
             
-            // Get all users
-            db.collection('users').get().then(snapshot => {
-                const users = [];
-                snapshot.forEach(doc => {
-                    users.push(doc.data());
-                });
-                
-                // Find direct referrals (users who have current user as their referrer)
-                const directReferrals = users.filter(user => {
-                    // Extract referral ID from the user's referral link
-                    try {
-                        const referralUrl = new URL(user.referralLink);
-                        const referralId = referralUrl.searchParams.get('ref');
-                        return referralId === currentUser.uid;
-                    } catch (e) {
-                        return false;
+            // Get current user's Firestore data
+            db.collection('users').doc(currentUser.uid).get()
+                .then(doc => {
+                    if (!doc.exists) {
+                        console.error("User data not found");
+                        return;
                     }
+                    const userData = doc.data();
+                    currentUserData = userData; // Update global variable
+                    
+                    // Get all users
+                    return db.collection('users').get();
+                })
+                .then(snapshot => {
+                    if (!snapshot) return; // In case there was an error in the previous step
+                    
+                    const users = [];
+                    snapshot.forEach(doc => {
+                        users.push(doc.data());
+                    });
+                    
+                    // Find direct referrals (users who have current user as their referrer)
+                    const directReferrals = users.filter(user => {
+                        // Extract referral ID from the user's referral link
+                        try {
+                            const referralUrl = new URL(user.referralLink);
+                            const referralId = referralUrl.searchParams.get('ref');
+                            return referralId === currentUserData.id;
+                        } catch (e) {
+                            return false;
+                        }
+                    });
+                    
+                    // Calculate team stats
+                    const directTeam = directReferrals.length;
+                    const activeTeam = directReferrals.filter(user => user.status === 'active').length;
+                    const inactiveTeam = directTeam - activeTeam;
+                    
+                    // Update team stats on dashboard
+                    document.getElementById('directTeam').textContent = directTeam;
+                    document.getElementById('activeTeam').textContent = activeTeam;
+                    document.getElementById('inactiveTeam').textContent = inactiveTeam;
+                    
+                    // Update team stats on team page
+                    document.getElementById('directTeamPage').textContent = directTeam;
+                    document.getElementById('activeTeamPage').textContent = activeTeam;
+                    document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
+                    
+                    // Update team table
+                    updateTeamTable(directReferrals);
+                    
+                    // Update referral stats
+                    document.getElementById('totalReferrals').textContent = directTeam;
+                    document.getElementById('activeReferrals').textContent = activeTeam;
+                    
+                    console.log("Team data updated:", directTeam, activeTeam, inactiveTeam);
+                })
+                .catch(error => {
+                    console.error("Error in updateTeamData:", error);
                 });
-                
-                // Calculate team stats
-                const directTeam = directReferrals.length;
-                const activeTeam = directReferrals.filter(user => user.status === 'active').length;
-                const inactiveTeam = directTeam - activeTeam;
-                
-                // Update team stats on dashboard
-                document.getElementById('directTeam').textContent = directTeam;
-                document.getElementById('activeTeam').textContent = activeTeam;
-                document.getElementById('inactiveTeam').textContent = inactiveTeam;
-                
-                // Update team stats on team page
-                document.getElementById('directTeamPage').textContent = directTeam;
-                document.getElementById('activeTeamPage').textContent = activeTeam;
-                document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
-                
-                // Update team table
-                updateTeamTable(directReferrals);
-                
-                // Update referral stats
-                document.getElementById('totalReferrals').textContent = directTeam;
-                document.getElementById('activeReferrals').textContent = activeTeam;
-            });
         }
         
         // Update wallet data
         function updateWalletData() {
-            // Get current user
+            // Get current user from Firebase Auth
             const currentUser = auth.currentUser;
             if (!currentUser) return;
             
@@ -1603,12 +1625,15 @@
                     
                     // Update wallet transaction table
                     updateWalletTransactionTable(walletTransactions);
+                })
+                .catch(error => {
+                    console.error("Error in updateWalletData:", error);
                 });
         }
         
         // Update income data
         function updateIncomeData() {
-            // Get current user
+            // Get current user from Firebase Auth
             const currentUser = auth.currentUser;
             if (!currentUser) return;
             
@@ -1657,6 +1682,9 @@
                     
                     // Update income table
                     updateIncomeTable(incomeData);
+                })
+                .catch(error => {
+                    console.error("Error in updateIncomeData:", error);
                 });
         }
         
@@ -1771,6 +1799,7 @@
                 .then((doc) => {
                     if (doc.exists) {
                         const userData = doc.data();
+                        currentUserData = userData; // Store in global variable
                         updateUserInfo(userData);
                         loadDashboardData(userData);
                     } else {
@@ -2069,6 +2098,7 @@
                         .then((doc) => {
                             if (doc.exists) {
                                 const userData = doc.data();
+                                currentUserData = userData; // Update global variable
                                 updateUserInfo(userData);
                                 
                                 // Show success message
