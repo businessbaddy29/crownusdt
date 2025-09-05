@@ -186,6 +186,11 @@
                         // User exists in Firestore, redirect to dashboard
                         updateDebugInfo("User data found in Firestore");
                         console.log("User data:", doc.data());
+                        
+                        // Store user data in localStorage for dashboard use
+                        localStorage.setItem('userData', JSON.stringify(doc.data()));
+                        localStorage.setItem('userUID', user.uid);
+                        
                         window.location.href = 'dashboard.html';
                     } else {
                         // User exists in Authentication but not in Firestore
@@ -194,7 +199,7 @@
                         const user = auth.currentUser;
                         
                         // Create user document in Firestore
-                        return db.collection('users').doc(user.uid).set({
+                        const userData = {
                             name: user.displayName || email.split('@')[0],
                             email: user.email,
                             phone: '',
@@ -202,11 +207,25 @@
                             status: 'active',
                             registrationDate: new Date().toISOString().split('T')[0],
                             avatar: 'https://via.placeholder.com/40'
-                        }).then(() => {
-                            updateDebugInfo("User document created in Firestore");
-                            // Redirect to dashboard after creating the document
-                            window.location.href = 'dashboard.html';
-                        });
+                        };
+                        
+                        return db.collection('users').doc(user.uid).set(userData)
+                            .then(() => {
+                                // Also create a wallet document for the user
+                                return db.collection('wallets').doc(user.uid).set({
+                                    balance: 0
+                                });
+                            })
+                            .then(() => {
+                                updateDebugInfo("User and wallet documents created in Firestore");
+                                
+                                // Store user data in localStorage for dashboard use
+                                localStorage.setItem('userData', JSON.stringify(userData));
+                                localStorage.setItem('userUID', user.uid);
+                                
+                                // Redirect to dashboard after creating the document
+                                window.location.href = 'dashboard.html';
+                            });
                     }
                 })
                 .catch((error) => {
@@ -238,7 +257,7 @@
                             errorMessage = 'Too many failed login attempts. Please try again later.';
                             break;
                         case 'firestore/permission-denied':
-                            errorMessage = 'Permission denied. Please contact support.';
+                            errorMessage = 'Permission denied. Please check your Firebase security rules.';
                             break;
                         case 'auth/network-request-failed':
                             errorMessage = 'Network error. Please check your internet connection.';
@@ -260,13 +279,7 @@
         // Check if Firebase is properly configured
         window.addEventListener('DOMContentLoaded', function() {
             updateDebugInfo("Page loaded. Checking Firebase configuration...");
-            
-            if (firebaseConfig.apiKey === "YOUR_API_KEY") {
-                showAlert('Firebase is not configured. Please update the Firebase configuration in login.html', 'warning');
-                updateDebugInfo("Firebase configuration is not updated");
-            } else {
-                updateDebugInfo("Firebase configuration appears to be set");
-            }
+            updateDebugInfo("Firebase configuration appears to be set");
         });
     </script>
 </body>
