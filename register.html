@@ -219,6 +219,12 @@
             return 'CU' + randomNum;
         }
 
+        // Generate referral link
+        function generateReferralLink(userId) {
+            const baseUrl = window.location.origin;
+            return `${baseUrl}/register.html?ref=${userId}`;
+        }
+
         // Show alert message
         function showAlert(message, type) {
             const alertContainer = document.getElementById('alertContainer');
@@ -291,12 +297,17 @@
                     const user = userCredential.user;
                     updateDebugInfo(`Firebase Authentication successful. User ID: ${user.uid}`);
                     
+                    // Generate user ID and referral link
+                    const newUserId = generateUserId();
+                    const referralLink = generateReferralLink(newUserId);
+                    
                     // Create user document in Firestore
                     const userData = {
                         name: name,
                         email: email,
                         phone: phone,
-                        userId: generateUserId(),
+                        userId: newUserId,
+                        referralLink: referralLink,
                         status: 'inactive', // Inactive until activation
                         registrationDate: new Date().toISOString().split('T')[0],
                         referrerId: null, // Will be updated if referral ID is valid
@@ -327,6 +338,18 @@
                 })
                 .then(() => {
                     updateDebugInfo("User document created in Firestore");
+                    
+                    // Get the current user to create wallet
+                    const user = auth.currentUser;
+                    
+                    // Create wallet document for the user
+                    return db.collection('wallets').doc(user.uid).set({
+                        balance: 0,
+                        userId: user.uid
+                    });
+                })
+                .then(() => {
+                    updateDebugInfo("Wallet document created in Firestore");
                     
                     // Show success message
                     showAlert('Registration successful! Please login to continue.', 'success');
