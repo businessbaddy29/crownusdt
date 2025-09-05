@@ -1726,12 +1726,13 @@
     <script>
         // Initialize Firebase
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
+            authDomain: "crownusdt-bef5f.firebaseapp.com",
+            projectId: "crownusdt-bef5f",
+            storageBucket: "crownusdt-bef5f.firebasestorage.app",
+            messagingSenderId: "16212983577",
+            appId: "1:16212983577:web:54742789e0ca51e1800f88",
+            measurementId: "G-QMTHJ00757"
         };
 
         // Initialize Firebase
@@ -1755,6 +1756,12 @@
             }
         });
 
+        // Generate referral link function
+        function generateReferralLink(userId) {
+            const baseUrl = window.location.origin;
+            return `${baseUrl}/register.html?ref=${userId}`;
+        }
+
         // Load user data from Firestore
         function loadUserData(userId) {
             db.collection('users').doc(userId).get().then(doc => {
@@ -1766,6 +1773,10 @@
                     document.getElementById('welcomeUserName').textContent = userData.name || 'User';
                     document.getElementById('userAvatar').src = userData.avatar || 'https://via.placeholder.com/40';
                     
+                    // Generate and update referral link
+                    const referralLink = userData.referralLink || generateReferralLink(userData.userId);
+                    document.getElementById('dashboardReferralLink').textContent = referralLink;
+                    
                     // Update profile page if exists
                     if (document.getElementById('profileName')) {
                         document.getElementById('profileName').textContent = userData.name || 'User Name';
@@ -1774,8 +1785,14 @@
                         document.getElementById('fullName').value = userData.name || '';
                         document.getElementById('email').value = userData.email || '';
                         document.getElementById('phone').value = userData.phone || '';
-                        // Add other profile fields as needed
+                        
+                        // Update referral link in profile page
+                        document.getElementById('referralLink').textContent = referralLink;
                     }
+                    
+                    // Store user data in localStorage
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    localStorage.setItem('userUID', userId);
                     
                     // Load dashboard data
                     loadDashboardData(userId);
@@ -1867,6 +1884,9 @@
             e.preventDefault();
             auth.signOut().then(() => {
                 console.log("User logged out successfully");
+                // Clear localStorage
+                localStorage.removeItem('userData');
+                localStorage.removeItem('userUID');
                 window.location.href = 'login.html';
             }).catch(error => {
                 console.error("Logout error:", error);
