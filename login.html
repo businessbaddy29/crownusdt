@@ -49,6 +49,15 @@
             background-color: #f8f9fa;
             border-radius: 5px;
             font-size: 0.8rem;
+            display: block;
+        }
+        .error-container {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            color: #721c24;
+            font-size: 0.9rem;
             display: none;
         }
     </style>
@@ -91,6 +100,11 @@
             <strong>Debug Information:</strong>
             <div id="debugContent"></div>
         </div>
+        
+        <div class="error-container" id="errorContainer">
+            <strong>Error Details:</strong>
+            <div id="errorContent"></div>
+        </div>
     </div>
 
     <script>
@@ -106,17 +120,19 @@
         };
 
         // Initialize Firebase
+        let auth, db;
+        
         try {
             firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
             console.log("Firebase initialized successfully");
+            updateDebugInfo("Firebase initialized successfully");
         } catch (error) {
             console.error("Firebase initialization error:", error);
-            document.getElementById('debugInfo').style.display = 'block';
-            document.getElementById('debugContent').innerHTML = `Firebase initialization failed: ${error.message}`;
+            updateDebugInfo("Firebase initialization failed: " + error.message);
+            showError("Firebase initialization failed: " + error.message);
         }
-        
-        const auth = firebase.auth();
-        const db = firebase.firestore();
 
         // Function to generate a user ID (like CU123456)
         function generateUserId() {
@@ -146,11 +162,17 @@
 
         // Function to update debug info
         function updateDebugInfo(message) {
-            const debugInfo = document.getElementById('debugInfo');
             const debugContent = document.getElementById('debugContent');
-            
-            debugInfo.style.display = 'block';
             debugContent.innerHTML += `<br>${new Date().toLocaleTimeString()}: ${message}`;
+        }
+
+        // Function to show error details
+        function showError(message) {
+            const errorContainer = document.getElementById('errorContainer');
+            const errorContent = document.getElementById('errorContent');
+            
+            errorContainer.style.display = 'block';
+            errorContent.innerHTML = message;
         }
 
         // Login form submission
@@ -160,8 +182,9 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Clear previous debug info
+            // Clear previous debug and error info
             document.getElementById('debugContent').innerHTML = '';
+            document.getElementById('errorContainer').style.display = 'none';
             
             // Show loading state
             const submitBtn = document.querySelector('button[type="submit"]');
@@ -170,6 +193,14 @@
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
             
             updateDebugInfo(`Attempting login with email: ${email}`);
+            
+            // Check if Firebase is initialized
+            if (!auth || !db) {
+                showError("Firebase is not initialized. Please check your configuration.");
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                return;
+            }
             
             // Sign in with Firebase Authentication
             auth.signInWithEmailAndPassword(email, password)
@@ -231,12 +262,13 @@
                 .catch((error) => {
                     console.error("Login error:", error);
                     updateDebugInfo(`Login error: ${error.code} - ${error.message}`);
+                    showError(`Error: ${error.code} - ${error.message}`);
                     
                     // Reset button state
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                     
-                    // Show error message
+                    // Show user-friendly error message
                     let errorMessage = 'Login failed. Please try again.';
                     
                     // Handle specific error codes
@@ -268,6 +300,9 @@
                         case 'auth/invalid-credential':
                             errorMessage = 'Invalid credentials. Please check your email and password.';
                             break;
+                        case 'auth/internal-error':
+                            errorMessage = 'Internal error. Please try again later.';
+                            break;
                         default:
                             errorMessage = error.message;
                     }
@@ -279,7 +314,13 @@
         // Check if Firebase is properly configured
         window.addEventListener('DOMContentLoaded', function() {
             updateDebugInfo("Page loaded. Checking Firebase configuration...");
-            updateDebugInfo("Firebase configuration appears to be set");
+            
+            if (!firebaseConfig || firebaseConfig.apiKey === "YOUR_API_KEY") {
+                showError('Firebase is not configured. Please update the Firebase configuration in login.html');
+                updateDebugInfo("Firebase configuration is not updated");
+            } else {
+                updateDebugInfo("Firebase configuration appears to be set");
+            }
         });
     </script>
 </body>
