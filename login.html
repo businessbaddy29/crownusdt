@@ -43,6 +43,14 @@
         .btn-primary:hover {
             background: linear-gradient(135deg, #5a0fb8 0%, #1d64e8 100%);
         }
+        .debug-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +86,11 @@
             <p>Don't have an account? <a href="register.html">Register</a></p>
             <p><a href="forgot-password.html">Forgot Password?</a></p>
         </div>
+        
+        <div class="debug-info" id="debugInfo">
+            <strong>Debug Information:</strong>
+            <div id="debugContent"></div>
+        </div>
     </div>
 
     <script>
@@ -91,9 +104,53 @@
             appId: "YOUR_APP_ID"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+            document.getElementById('debugInfo').style.display = 'block';
+            document.getElementById('debugContent').innerHTML = `Firebase initialization failed: ${error.message}`;
+        }
+        
         const auth = firebase.auth();
         const db = firebase.firestore();
+
+        // Function to generate a user ID (like CU123456)
+        function generateUserId() {
+            const randomNum = Math.floor(100000 + Math.random() * 900000);
+            return 'CU' + randomNum;
+        }
+
+        // Function to show alert
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                const alertElement = alertContainer.querySelector('.alert');
+                if (alertElement) {
+                    const bsAlert = new bootstrap.Alert(alertElement);
+                    bsAlert.close();
+                }
+            }, 5000);
+        }
+
+        // Function to update debug info
+        function updateDebugInfo(message) {
+            const debugInfo = document.getElementById('debugInfo');
+            const debugContent = document.getElementById('debugContent');
+            
+            debugInfo.style.display = 'block';
+            debugContent.innerHTML += `<br>${new Date().toLocaleTimeString()}: ${message}`;
+        }
 
         // Login form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -102,18 +159,23 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
+            // Clear previous debug info
+            document.getElementById('debugContent').innerHTML = '';
+            
             // Show loading state
             const submitBtn = document.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
             
+            updateDebugInfo(`Attempting login with email: ${email}`);
+            
             // Sign in with Firebase Authentication
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Signed in successfully
                     const user = userCredential.user;
-                    console.log("User logged in:", user.uid);
+                    updateDebugInfo(`Authentication successful. User ID: ${user.uid}`);
                     
                     // Check if user exists in Firestore
                     return db.collection('users').doc(user.uid).get();
@@ -121,20 +183,26 @@
                 .then((doc) => {
                     if (doc.exists) {
                         // User exists in Firestore, redirect to dashboard
+                        updateDebugInfo("User data found in Firestore");
+                        console.log("User data:", doc.data());
                         window.location.href = 'dashboard.html';
                     } else {
                         // User exists in Authentication but not in Firestore
                         // Create a new Firestore document for this user
+                        updateDebugInfo("User data not found in Firestore, creating new document");
                         const user = auth.currentUser;
+                        
+                        // Create user document in Firestore
                         return db.collection('users').doc(user.uid).set({
                             name: user.displayName || email.split('@')[0],
                             email: user.email,
                             phone: '',
-                            userId: generateUserId(), // Generate a user ID like CU123456
+                            userId: generateUserId(),
                             status: 'active',
                             registrationDate: new Date().toISOString().split('T')[0],
                             avatar: 'https://via.placeholder.com/40'
                         }).then(() => {
+                            updateDebugInfo("User document created in Firestore");
                             // Redirect to dashboard after creating the document
                             window.location.href = 'dashboard.html';
                         });
@@ -142,27 +210,63 @@
                 })
                 .catch((error) => {
                     console.error("Login error:", error);
+                    updateDebugInfo(`Login error: ${error.code} - ${error.message}`);
                     
                     // Reset button state
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                     
                     // Show error message
-                    const alertContainer = document.getElementById('alertContainer');
-                    alertContainer.innerHTML = `
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            ${error.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    `;
+                    let errorMessage = 'Login failed. Please try again.';
+                    
+                    // Handle specific error codes
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage = 'User not found. Please check your email or register.';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage = 'Incorrect password. Please try again.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Invalid email address.';
+                            break;
+                        case 'auth/user-disabled':
+                            errorMessage = 'This account has been disabled.';
+                            break;
+                        case 'auth/too-many-requests':
+                            errorMessage = 'Too many failed login attempts. Please try again later.';
+                            break;
+                        case 'firestore/permission-denied':
+                            errorMessage = 'Permission denied. Please contact support.';
+                            break;
+                        case 'auth/network-request-failed':
+                            errorMessage = 'Network error. Please check your internet connection.';
+                            break;
+                        case 'auth/invalid-api-key':
+                            errorMessage = 'Invalid API key. Please check your Firebase configuration.';
+                            break;
+                        case 'auth/invalid-credential':
+                            errorMessage = 'Invalid credentials. Please check your email and password.';
+                            break;
+                        default:
+                            errorMessage = error.message;
+                    }
+                    
+                    showAlert(errorMessage, 'danger');
                 });
         });
 
-        // Function to generate a user ID (like CU123456)
-        function generateUserId() {
-            const randomNum = Math.floor(100000 + Math.random() * 900000);
-            return 'CU' + randomNum;
-        }
+        // Check if Firebase is properly configured
+        window.addEventListener('DOMContentLoaded', function() {
+            updateDebugInfo("Page loaded. Checking Firebase configuration...");
+            
+            if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+                showAlert('Firebase is not configured. Please update the Firebase configuration in login.html', 'warning');
+                updateDebugInfo("Firebase configuration is not updated");
+            } else {
+                updateDebugInfo("Firebase configuration appears to be set");
+            }
+        });
     </script>
 </body>
 </html>
