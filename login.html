@@ -3,333 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrownUsdt - Login</title>
+    <title>Login - CrownUsdt</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
     <style>
-        /* Basic styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            color: #333;
+            justify-content: center;
         }
         .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 500px;
-            padding: 20px;
-        }
-        .card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .card-body {
-            padding: 2rem;
-        }
-        .form-control, .form-select {
-            border-radius: 5px;
-            border: 1px solid #ced4da;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #86b7fe;
-            outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
-        }
-        .btn {
-            border-radius: 5px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .btn-primary {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-        }
-        .btn-primary:hover {
-            background-color: #0b5ed7;
-            border-color: #0a58ca;
-        }
-        .btn-outline-primary {
-            color: #0d6efd;
-            border-color: #0d6efd;
-        }
-        .btn-outline-primary:hover {
-            background-color: #0d6efd;
-            color: white;
+            max-width: 400px;
+            padding: 30px;
         }
         .logo {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 30px;
         }
         .logo img {
-            width: 80px;
             height: 80px;
-            margin-bottom: 10px;
         }
-        .logo h3 {
-            color: #0d6efd;
-            font-weight: bold;
+        .form-control:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
         }
-        .form-text {
-            font-size: 0.875rem;
-            color: #6c757d;
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
         }
-        .alert {
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 1rem;
-            border: 1px solid transparent;
-            border-radius: 0.375rem;
-        }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        .form-check-input {
-            width: 1rem;
-            height: 1rem;
-        }
-        .register-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .password-toggle {
-            position: relative;
-        }
-        .password-toggle .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .card-body {
-                padding: 1.5rem;
-            }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a0fb8 0%, #1d64e8 100%);
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="card">
-            <div class="card-body">
-                <div class="logo">
-                    <img src="logo.png" alt="CrownUsdt Logo">
-                    <h3>CrownUsdt</h3>
-                    <p class="text-muted">Login to your account</p>
-                </div>
-                
-                <div id="loginAlert"></div>
-                
-                <form id="loginForm">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username / Email / Phone</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter username, email or phone" required>
-                    </div>
-                    
-                    <div class="mb-3 password-toggle">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-                    </div>
-                    
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember Me</label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                </form>
-                
-                <div class="register-link">
-                    <p>Don't have an account? <a href="register.html">Register here</a></p>
-                    <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
+        <div class="logo">
+            <img src="logo.png" alt="CrownUsdt Logo">
+            <h2 class="mt-2">CrownUsdt</h2>
+        </div>
+        
+        <div id="alertContainer"></div>
+        
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="email" required>
                 </div>
             </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+        
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a href="register.html">Register</a></p>
+            <p><a href="forgot-password.html">Forgot Password?</a></p>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize Firebase with your config
+        // Initialize Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
-            authDomain: "crownusdt-bef5f.firebaseapp.com",
-            projectId: "crownusdt-bef5f",
-            storageBucket: "crownusdt-bef5f.firebasestorage.app",
-            messagingSenderId: "16212983577",
-            appId: "1:16212983577:web:54742789e0ca51e1800f88",
-            measurementId: "G-QMTHJ00757"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
+
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is already logged in
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    // Redirect to dashboard if already logged in
-                    window.location.href = 'dashboard.html';
-                }
-            });
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Toggle password visibility
-            document.getElementById('togglePassword').addEventListener('click', function() {
-                const passwordInput = document.getElementById('password');
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                
-                // Toggle eye icon
-                this.classList.toggle('fa-eye');
-                this.classList.toggle('fa-eye-slash');
-            });
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             
-            // Handle form submission
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value;
-                const rememberMe = document.getElementById('rememberMe').checked;
-                const alertDiv = document.getElementById('loginAlert');
-                
-                // Clear alert
-                alertDiv.innerHTML = '';
-                
-                if (!username || !password) {
-                    showAlert('loginAlert', 'Please enter username and password', 'danger');
-                    return;
-                }
-                
-                // Set persistence based on remember me
-                const persistence = rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
-                
-                auth.setPersistence(persistence)
-                    .then(() => {
-                        // First check if user exists in Firestore by username, email, or phone
-                        return db.collection('users').where('username', '==', username).get();
-                    })
-                    .then((querySnapshot) => {
-                        if (!querySnapshot.empty) {
-                            // User found by username
-                            const userDoc = querySnapshot.docs[0];
-                            const userData = userDoc.data();
-                            
-                            // Check if user account is active
-                            if (userData.status === 'blocked') {
-                                showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
-                                return;
-                            }
-                            
-                            // Login with email and password
-                            return auth.signInWithEmailAndPassword(userData.email, password);
-                        } else {
-                            // Try to find by email
-                            return db.collection('users').where('email', '==', username).get();
-                        }
-                    })
-                    .then((querySnapshot) => {
-                        if (querySnapshot && !querySnapshot.empty) {
-                            // User found by email
-                            const userDoc = querySnapshot.docs[0];
-                            const userData = userDoc.data();
-                            
-                            // Check if user account is active
-                            if (userData.status === 'blocked') {
-                                showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
-                                return;
-                            }
-                            
-                            // Login with email and password
-                            return auth.signInWithEmailAndPassword(userData.email, password);
-                        } else {
-                            // Try to find by phone
-                            return db.collection('users').where('phone', '==', username).get();
-                        }
-                    })
-                    .then((querySnapshot) => {
-                        if (querySnapshot && !querySnapshot.empty) {
-                            // User found by phone
-                            const userDoc = querySnapshot.docs[0];
-                            const userData = userDoc.data();
-                            
-                            // Check if user account is active
-                            if (userData.status === 'blocked') {
-                                showAlert('loginAlert', 'Your account has been blocked. Please contact support.', 'danger');
-                                return;
-                            }
-                            
-                            // Login with email and password
-                            return auth.signInWithEmailAndPassword(userData.email, password);
-                        } else {
-                            // User not found
-                            showAlert('loginAlert', 'User not found. Please check your credentials or register first.', 'danger');
-                        }
-                    })
-                    .then((userCredential) => {
-                        if (userCredential) {
-                            // Signed in successfully
-                            // Redirect to dashboard
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
+            
+            // Sign in with Firebase Authentication
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in successfully
+                    const user = userCredential.user;
+                    console.log("User logged in:", user.uid);
+                    
+                    // Check if user exists in Firestore
+                    return db.collection('users').doc(user.uid).get();
+                })
+                .then((doc) => {
+                    if (doc.exists) {
+                        // User exists in Firestore, redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        // User exists in Authentication but not in Firestore
+                        // Create a new Firestore document for this user
+                        const user = auth.currentUser;
+                        return db.collection('users').doc(user.uid).set({
+                            name: user.displayName || email.split('@')[0],
+                            email: user.email,
+                            phone: '',
+                            userId: generateUserId(), // Generate a user ID like CU123456
+                            status: 'active',
+                            registrationDate: new Date().toISOString().split('T')[0],
+                            avatar: 'https://via.placeholder.com/40'
+                        }).then(() => {
+                            // Redirect to dashboard after creating the document
                             window.location.href = 'dashboard.html';
-                        }
-                    })
-                    .catch((error) => {
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
-                        
-                        if (errorCode === 'auth/user-not-found') {
-                            showAlert('loginAlert', 'User not found. Please check your credentials or register first.', 'danger');
-                        } else if (errorCode === 'auth/wrong-password') {
-                            showAlert('loginAlert', 'Invalid password. Please try again.', 'danger');
-                        } else {
-                            showAlert('loginAlert', errorMessage, 'danger');
-                        }
-                    });
-            });
-            
-            // Handle forgot password
-            document.getElementById('forgotPassword').addEventListener('click', function(e) {
-                e.preventDefault();
-                const email = prompt('Please enter your email address:');
-                if (email) {
-                    auth.sendPasswordResetEmail(email)
-                        .then(() => {
-                            showAlert('loginAlert', 'Password reset email sent. Please check your inbox.', 'success');
-                        })
-                        .catch((error) => {
-                            showAlert('loginAlert', error.message, 'danger');
                         });
-                }
-            });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Login error:", error);
+                    
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    
+                    // Show error message
+                    const alertContainer = document.getElementById('alertContainer');
+                    alertContainer.innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            ${error.message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `;
+                });
         });
-        
-        // Show alert function
-        function showAlert(elementId, message, type) {
-            const alertDiv = document.getElementById(elementId);
-            alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
+
+        // Function to generate a user ID (like CU123456)
+        function generateUserId() {
+            const randomNum = Math.floor(100000 + Math.random() * 900000);
+            return 'CU' + randomNum;
         }
     </script>
 </body>
