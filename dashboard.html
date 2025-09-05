@@ -1289,4 +1289,673 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="walletBalanceCheck" class="form-label">Wallet Balance</label>
-                                    <input type="text" class="form-control
+                                    <input type="text" class="form-control" id="walletBalanceCheck" value="₹0" readonly>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Activate ID</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Activation Info
+                        </div>
+                        <div class="card-body">
+                            <p>Activate new members using your wallet balance. The activation amount will be deducted from your wallet.</p>
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> You can only activate members who have registered using your referral link.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deposit Page -->
+        <div id="depositPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Deposit</h2>
+                <p>Add funds to your wallet</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Make a Deposit</h5>
+                            <form id="depositForm">
+                                <div class="mb-3">
+                                    <label for="depositAmount" class="form-label">Deposit Amount</label>
+                                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter Amount">
+                                    <div class="form-text">Minimum deposit amount is ₹100</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositMethod" class="form-label">Payment Method</label>
+                                    <select class="form-select" id="depositMethod">
+                                        <option value="upi">UPI</option>
+                                        <option value="bank">Bank Transfer</option>
+                                        <option value="crypto">Cryptocurrency</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositReceipt" class="form-label">Upload Receipt</label>
+                                    <input type="file" class="form-control" id="depositReceipt">
+                                    <div class="form-text">Upload payment receipt or screenshot</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="depositRemark" class="form-label">Remark</label>
+                                    <textarea class="form-control" id="depositRemark" rows="2" placeholder="Enter Remark"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Deposit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Deposit Info
+                        </div>
+                        <div class="card-body">
+                            <p>Deposits will be added to your wallet after verification.</p>
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> Verification may take 24-48 hours.
+                            </div>
+                            
+                            <!-- UPI Payment Section -->
+                            <div class="upi-section">
+                                <h5>UPI Payment</h5>
+                                <p>Scan the QR code to pay</p>
+                                <div class="upi-id">crownusdt@ybl</div>
+                                <div class="qr-code">
+                                    <img src="https://via.placeholder.com/200" alt="UPI QR Code">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Withdrawal Page -->
+        <div id="withdrawalPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Withdrawal</h2>
+                <p>Withdraw funds from your wallet</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Make a Withdrawal</h5>
+                            <form id="withdrawalForm">
+                                <div class="mb-3">
+                                    <label for="withdrawalAmount" class="form-label">Withdrawal Amount</label>
+                                    <input type="number" class="form-control" id="withdrawalAmount" placeholder="Enter Amount">
+                                    <div class="form-text">Minimum withdrawal amount is ₹100</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="withdrawalMethod" class="form-label">Withdrawal Method</label>
+                                    <select class="form-select" id="withdrawalMethod">
+                                        <option value="upi">UPI</option>
+                                        <option value="bank">Bank Transfer</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="withdrawalDetails" class="form-label">Withdrawal Details</label>
+                                    <textarea class="form-control" id="withdrawalDetails" rows="3" placeholder="Enter UPI ID or Bank Details"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="walletBalanceWithdrawal" class="form-label">Wallet Balance</label>
+                                    <input type="text" class="form-control" id="walletBalanceWithdrawal" value="₹0" readonly>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Withdrawal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Withdrawal Info
+                        </div>
+                        <div class="card-body">
+                            <p>Withdrawals will be processed within 24-48 hours.</p>
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> A 5% processing fee will be charged on all withdrawals.
+                            </div>
+                            
+                            <div class="mb-3">
+                                <h6>Recent Withdrawals</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3" class="text-center">No data available</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income Page -->
+        <div id="incomePage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Income</h2>
+                <p>View your income details</p>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Income</h5>
+                            <p class="card-text fs-2" id="totalIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Direct Income</h5>
+                            <p class="card-text fs-2" id="directIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Income</h5>
+                            <p class="card-text fs-2" id="teamIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Reward Income</h5>
+                            <p class="card-text fs-2" id="rewardIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Income History
+                </div>
+                <div class="card-body">
+                    <div class="table-actions">
+                        <div class="filter-section">
+                            <select class="form-select" id="incomeTypeFilter">
+                                <option value="all">All Income Types</option>
+                                <option value="direct">Direct Income</option>
+                                <option value="team">Team Income</option>
+                                <option value="reward">Reward Income</option>
+                            </select>
+                            <input type="date" class="form-control ms-2" id="incomeDateFilter" placeholder="Filter by Date">
+                            <button class="btn btn-primary ms-2" id="applyIncomeFilter">Apply</button>
+                            <button class="btn btn-outline-secondary" id="resetIncomeFilter">Reset</button>
+                        </div>
+                        <div class="export-buttons">
+                            <button class="btn btn-success" id="exportIncomeExcel">
+                                <i class="fas fa-file-excel me-2"></i> Export Excel
+                            </button>
+                            <button class="btn btn-danger" id="exportIncomePDF">
+                                <i class="fas fa-file-pdf me-2"></i> Export PDF
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-summary">
+                        <div>
+                            <strong>Total Income: </strong><span id="totalIncomeSummary">₹0</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table table-striped" id="incomeTable">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Date</th>
+                                    <th>Income Type</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-center">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Page -->
+        <div id="teamPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Team</h2>
+                <p>View your team details</p>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Team</h5>
+                            <p class="card-text fs-2" id="totalTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Direct Team</h5>
+                            <p class="card-text fs-2" id="directTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">Active Team</h5>
+                            <p class="card-text fs-2" id="activeTeamPage">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Business</h5>
+                            <p class="card-text fs-2" id="teamBusinessPage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Team Details
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="teamTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="direct-tab" data-bs-toggle="tab" data-bs-target="#direct" type="button" role="tab" aria-controls="direct" aria-selected="true">Direct Team</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="level-tab" data-bs-toggle="tab" data-bs-target="#level" type="button" role="tab" aria-controls="level" aria-selected="false">Level Team</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="teamTabsContent">
+                        <div class="tab-pane fade show active" id="direct" role="tabpanel" aria-labelledby="direct-tab">
+                            <div class="table-actions">
+                                <div class="filter-section">
+                                    <input type="text" class="form-control" id="directTeamFilterPage" placeholder="Filter by User ID or Mobile No.">
+                                    <input type="date" class="form-control ms-2" id="directTeamDateFilterPage" placeholder="Filter by Date">
+                                    <button class="btn btn-primary ms-2" id="applyDirectTeamFilterPage">Apply</button>
+                                    <button class="btn btn-outline-secondary" id="resetDirectTeamFilterPage">Reset</button>
+                                </div>
+                                <div class="export-buttons">
+                                    <button class="btn btn-success" id="exportDirectTeamExcelPage">
+                                        <i class="fas fa-file-excel me-2"></i> Export Excel
+                                    </button>
+                                    <button class="btn btn-danger" id="exportDirectTeamPDFPage">
+                                        <i class="fas fa-file-pdf me-2"></i> Export PDF
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-summary">
+                                <div>
+                                    <strong>Total Members: </strong><span id="directTeamTotalCountPage">0</span>
+                                </div>
+                                <div>
+                                    <strong>Total Amount: </strong><span id="directTeamTotalAmountPage">₹0</span>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <table class="table table-striped" id="directTeamTablePage">
+                                    <thead>
+                                        <tr>
+                                            <th>S No.</th>
+                                            <th>User ID</th>
+                                            <th>Name</th>
+                                            <th>Mobile No.</th>
+                                            <th>Date of Registration</th>
+                                            <th>Date of Activation</th>
+                                            <th>Package Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="level" role="tabpanel" aria-labelledby="level-tab">
+                            <div class="table-actions">
+                                <div class="filter-section">
+                                    <select class="form-select" id="levelFilter">
+                                        <option value="all">All Levels</option>
+                                        <option value="1">Level 1</option>
+                                        <option value="2">Level 2</option>
+                                        <option value="3">Level 3</option>
+                                        <option value="4">Level 4</option>
+                                        <option value="5">Level 5</option>
+                                    </select>
+                                    <input type="date" class="form-control ms-2" id="levelDateFilter" placeholder="Filter by Date">
+                                    <button class="btn btn-primary ms-2" id="applyLevelFilter">Apply</button>
+                                    <button class="btn btn-outline-secondary" id="resetLevelFilter">Reset</button>
+                                </div>
+                                <div class="export-buttons">
+                                    <button class="btn btn-success" id="exportLevelExcel">
+                                        <i class="fas fa-file-excel me-2"></i> Export Excel
+                                    </button>
+                                    <button class="btn btn-danger" id="exportLevelPDF">
+                                        <i class="fas fa-file-pdf me-2"></i> Export PDF
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-summary">
+                                <div>
+                                    <strong>Total Members: </strong><span id="levelTotalCount">0</span>
+                                </div>
+                                <div>
+                                    <strong>Total Amount: </strong><span id="levelTotalAmount">₹0</span>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <table class="table table-striped" id="levelTeamTable">
+                                    <thead>
+                                        <tr>
+                                            <th>S No.</th>
+                                            <th>Level</th>
+                                            <th>User ID</th>
+                                            <th>Name</th>
+                                            <th>Mobile No.</th>
+                                            <th>Date of Registration</th>
+                                            <th>Date of Activation</th>
+                                            <th>Package Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Genealogy Page -->
+        <div id="genealogyPage" class="page-content hidden">
+            <div class="welcome-banner">
+                <h2>Genealogy</h2>
+                <p>View your team structure</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    Genealogy Tree
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="genealogy-node d-inline-block">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>You</h5>
+                                    <p class="mb-0">CU123456</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Member 1</h5>
+                                        <p class="mb-0">CU123457</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <div class="genealogy-node">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5>Member 1.1</h5>
+                                                <p class="mb-0">CU123458</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="genealogy-node">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5>Member 1.2</h5>
+                                                <p class="mb-0">CU123459</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Member 2</h5>
+                                        <p class="mb-0">CU123460</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <div class="genealogy-node">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5>Member 2.1</h5>
+                                                <p class="mb-0">CU123461</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="genealogy-node">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5>Member 2.2</h5>
+                                                <p class="mb-0">CU123462</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary" id="viewFullGenealogy">View Full Genealogy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a[data-page]');
+            const pageContents = document.querySelectorAll('.page-content');
+            const dropdownLinks = document.querySelectorAll('.dropdown-menu a[data-page]');
+            
+            // Function to switch pages
+            function switchPage(pageId) {
+                // Hide all pages
+                pageContents.forEach(page => {
+                    page.classList.add('hidden');
+                });
+                
+                // Show selected page
+                const selectedPage = document.getElementById(pageId + 'Page');
+                if (selectedPage) {
+                    selectedPage.classList.remove('hidden');
+                }
+                
+                // Update active sidebar link
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Add click event to sidebar links
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    switchPage(pageId);
+                });
+            });
+            
+            // Add click event to dropdown links
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    switchPage(pageId);
+                });
+            });
+            
+            // Hamburger menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const sidebar = document.getElementById('sidebar');
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                sidebar.classList.toggle('show');
+            });
+            
+            // Direct Team Box click
+            const directTeamBox = document.getElementById('directTeamBox');
+            if (directTeamBox) {
+                directTeamBox.addEventListener('click', function() {
+                    const modal = new bootstrap.Modal(document.getElementById('directTeamModal'));
+                    modal.show();
+                });
+            }
+            
+            // Business Box click
+            const businessBox = document.getElementById('businessBox');
+            if (businessBox) {
+                businessBox.addEventListener('click', function() {
+                    const modal = new bootstrap.Modal(document.getElementById('businessModal'));
+                    modal.show();
+                });
+            }
+            
+            // Copy referral link functionality
+            const copyReferralBtnDashboard = document.getElementById('copyReferralBtnDashboard');
+            if (copyReferralBtnDashboard) {
+                copyReferralBtnDashboard.addEventListener('click', function() {
+                    const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                    navigator.clipboard.writeText(referralLink).then(function() {
+                        showNotification('Referral link copied to clipboard!');
+                    });
+                });
+            }
+            
+            const copyReferralBtn = document.getElementById('copyReferralBtn');
+            if (copyReferralBtn) {
+                copyReferralBtn.addEventListener('click', function() {
+                    const referralLink = document.getElementById('referralLink').textContent;
+                    navigator.clipboard.writeText(referralLink).then(function() {
+                        showNotification('Referral link copied to clipboard!');
+                    });
+                });
+            }
+            
+            // Show notification function
+            function showNotification(message) {
+                const notification = document.getElementById('notification');
+                const notificationMessage = document.getElementById('notificationMessage');
+                
+                notificationMessage.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Share on WhatsApp
+            const shareWhatsappDashboard = document.getElementById('shareWhatsappDashboard');
+            if (shareWhatsappDashboard) {
+                shareWhatsappDashboard.addEventListener('click', function() {
+                    const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+            
+            const shareWhatsapp = document.getElementById('shareWhatsapp');
+            if (shareWhatsapp) {
+                shareWhatsapp.addEventListener('click', function() {
+                    const referralLink = document.getElementById('referralLink').textContent;
+                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+            
+            // Share on Telegram
+            const shareTelegramDashboard = document.getElementById('shareTelegramDashboard');
+            if (shareTelegramDashboard) {
+                shareTelegramDashboard.addEventListener('click', function() {
+                    const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
+                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+                    window.open(telegramUrl, '_blank');
+                });
+            }
+            
+            const shareTelegram = document.getElementById('shareTelegram');
+            if (shareTelegram) {
+                shareTelegram.addEventListener('click', function() {
+                    const referralLink = document.getElementById('referralLink').textContent;
+                    const message = `Join me on CrownUsdt! Use my referral link: ${referralLink}`;
+                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+                    window.open(telegramUrl, '_blank');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
