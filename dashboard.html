@@ -10,8 +10,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
-    <!-- Table2Excel for export functionality -->
-    <script src="https://cdn.jsdelivr.net/npm/table2excel@1.4.2/dist/table2excel.min.js"></script>
     <style>
         /* Basic styles */
         * {
@@ -510,61 +508,6 @@
             display: block;
         }
         
-        /* Direct Team/Business Box Styles */
-        .team-box {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .team-box:hover {
-            transform: translateY(-5px);
-        }
-        .team-box .card-body {
-            padding: 1.5rem;
-        }
-        .team-box h5 {
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        .team-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-        }
-        .team-stat {
-            text-align: center;
-        }
-        .team-stat .stat-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        .team-stat .stat-label {
-            font-size: 0.875rem;
-            color: #6c757d;
-        }
-        
-        /* Team Table Styles */
-        .table-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-        .filter-section {
-            display: flex;
-            gap: 10px;
-        }
-        .export-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        .table-summary {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        
         /* Utility classes */
         .hidden {
             display: none !important;
@@ -644,14 +587,6 @@
             .qr-code img {
                 width: 150px;
                 height: 150px;
-            }
-            
-            .table-actions {
-                flex-direction: column;
-            }
-            
-            .filter-section, .export-buttons {
-                width: 100%;
             }
         }
     </style>
@@ -769,7 +704,7 @@
                 </div>
                 <div class="card-body">
                     <div class="referral-link-container">
-                        <div class="referral-link" id="dashboardReferralLink">Generating...</div>
+                        <div class="referral-link" id="dashboardReferralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456</div>
                         <div class="share-buttons">
                             <button class="share-btn whatsapp-btn" id="shareWhatsappDashboard">
                                 <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -821,51 +756,6 @@
                 </div>
             </div>
             
-            <!-- Direct Team and Business Boxes -->
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="card team-box" id="directTeamBox">
-                        <div class="card-body">
-                            <h5><i class="fas fa-users me-2"></i>Direct Team</h5>
-                            <div class="team-stats">
-                                <div class="team-stat">
-                                    <div class="stat-number" id="directTeamCount">0</div>
-                                    <div class="stat-label">Members</div>
-                                </div>
-                                <div class="team-stat">
-                                    <div class="stat-number" id="directTeamActive">0</div>
-                                    <div class="stat-label">Active</div>
-                                </div>
-                            </div>
-                            <div class="text-center mt-3">
-                                <small class="text-muted">Click to view details</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card team-box" id="businessBox">
-                        <div class="card-body">
-                            <h5><i class="fas fa-briefcase me-2"></i>Direct Team Business</h5>
-                            <div class="team-stats">
-                                <div class="team-stat">
-                                    <div class="stat-number" id="businessCount">0</div>
-                                    <div class="stat-label">Members</div>
-                                </div>
-                                <div class="team-stat">
-                                    <div class="stat-number" id="businessAmount">₹0</div>
-                                    <div class="stat-label">Amount</div>
-                                </div>
-                            </div>
-                            <div class="text-center mt-3">
-                                <small class="text-muted">Click to view details</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Recent Income and Team Stats -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -901,6 +791,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="border rounded p-3 mb-3">
+                                        <h5>Direct Team</h5>
+                                        <p class="fs-4" id="directTeam">0</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 mb-3">
                                         <h5>Total Team</h5>
                                         <p class="fs-4" id="totalTeam">0</p>
                                     </div>
@@ -917,129 +813,7 @@
                                         <p class="fs-4" id="inactiveTeam">0</p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="border rounded p-3 mb-3">
-                                        <h5>Business Volume</h5>
-                                        <p class="fs-4" id="businessVolume">₹0</p>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Direct Team Modal -->
-        <div class="modal fade" id="directTeamModal" tabindex="-1" aria-labelledby="directTeamModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="directTeamModalLabel">Direct Team Details</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="table-actions">
-                            <div class="filter-section">
-                                <input type="text" class="form-control" id="directTeamFilter" placeholder="Filter by User ID or Mobile No.">
-                                <input type="date" class="form-control ms-2" id="directTeamDateFilter" placeholder="Filter by Date">
-                                <button class="btn btn-primary ms-2" id="applyDirectTeamFilter">Apply</button>
-                                <button class="btn btn-outline-secondary" id="resetDirectTeamFilter">Reset</button>
-                            </div>
-                            <div class="export-buttons">
-                                <button class="btn btn-success" id="exportDirectTeamExcel">
-                                    <i class="fas fa-file-excel me-2"></i> Export Excel
-                                </button>
-                                <button class="btn btn-danger" id="exportDirectTeamPDF">
-                                    <i class="fas fa-file-pdf me-2"></i> Export PDF
-                                </button>
-                            </div>
-                        </div>
-                        <div class="table-summary">
-                            <div>
-                                <strong>Total Members: </strong><span id="directTeamTotalCount">0</span>
-                            </div>
-                            <div>
-                                <strong>Total Amount: </strong><span id="directTeamTotalAmount">₹0</span>
-                            </div>
-                        </div>
-                        <div class="table-responsive mt-3">
-                            <table class="table table-striped" id="directTeamTable">
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Mobile No.</th>
-                                        <th>Date of Registration</th>
-                                        <th>Date of Activation</th>
-                                        <th>Package Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="7" class="text-center">No data available</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Business Modal -->
-        <div class="modal fade" id="businessModal" tabindex="-1" aria-labelledby="businessModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="businessModalLabel">Business Details</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="table-actions">
-                            <div class="filter-section">
-                                <input type="text" class="form-control" id="businessFilter" placeholder="Filter by User ID or Mobile No.">
-                                <input type="date" class="form-control ms-2" id="businessDateFilter" placeholder="Filter by Date">
-                                <button class="btn btn-primary ms-2" id="applyBusinessFilter">Apply</button>
-                                <button class="btn btn-outline-secondary" id="resetBusinessFilter">Reset</button>
-                            </div>
-                            <div class="export-buttons">
-                                <button class="btn btn-success" id="exportBusinessExcel">
-                                    <i class="fas fa-file-excel me-2"></i> Export Excel
-                                </button>
-                                <button class="btn btn-danger" id="exportBusinessPDF">
-                                    <i class="fas fa-file-pdf me-2"></i> Export PDF
-                                </button>
-                            </div>
-                        </div>
-                        <div class="table-summary">
-                            <div>
-                                <strong>Total Members: </strong><span id="businessTotalCount">0</span>
-                            </div>
-                            <div>
-                                <strong>Total Amount: </strong><span id="businessTotalAmount">₹0</span>
-                            </div>
-                        </div>
-                        <div class="table-responsive mt-3">
-                            <table class="table table-striped" id="businessTable">
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Mobile No.</th>
-                                        <th>Date of Registration</th>
-                                        <th>Date of Activation</th>
-                                        <th>Package Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="7" class="text-center">No data available</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -1072,7 +846,7 @@
                         </div>
                         <div class="card-body">
                             <div class="referral-link-container">
-                                <div class="referral-link" id="referralLink">Generating...</div>
+                                <div class="referral-link" id="referralLink">https://businessbaddy29.github.io/crownusdt/register.html?ref=CU123456</div>
                                 <div class="share-buttons">
                                     <button class="share-btn whatsapp-btn" id="shareWhatsapp">
                                         <i class="fab fa-whatsapp me-2"></i> WhatsApp
@@ -1290,21 +1064,45 @@
                                 <div class="mb-3">
                                     <label for="walletBalanceCheck" class="form-label">Wallet Balance</label>
                                     <input type="text" class="form-control" id="walletBalanceCheck" value="₹0" readonly>
+                                    <div class="form-text">You must have sufficient balance in your wallet</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Activate</button>
+                                <div class="mb-3">
+                                    <label for="paymentMethod" class="form-label">Payment Method</label>
+                                    <select class="form-select" id="paymentMethod">
+                                        <option value="wallet">Wallet</option>
+                                        <option value="bank">Bank Transfer</option>
+                                        <option value="upi">UPI</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transactionId" class="form-label">Transaction ID</label>
+                                    <input type="text" class="form-control" id="transactionId" placeholder="Enter Transaction ID">
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="activateIdBtn">Activate ID</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">
-                            Activation Info
-                        </div>
                         <div class="card-body">
-                            <p>Activation fee is ₹1000 per ID.</p>
-                            <p>Once activated, the user will be able to access all features of the platform.</p>
-                            <p>Activation is non-refundable.</p>
+                            <h5 class="card-title">Activation History</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>User ID</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="activationHistoryTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1315,65 +1113,77 @@
         <div id="depositPage" class="page-content hidden">
             <div class="welcome-banner">
                 <h2>Deposit</h2>
-                <p>Add funds to your wallet</p>
+                <p>Add money to your account</p>
             </div>
             
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Deposit Funds</h5>
+                            <h5 class="card-title">New Deposit</h5>
                             <form id="depositForm">
                                 <div class="mb-3">
                                     <label for="depositAmount" class="form-label">Deposit Amount</label>
-                                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter Amount">
-                                    <div class="form-text">Minimum deposit amount is ₹100</div>
+                                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter Deposit Amount">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="depositMethod" class="form-label">Deposit Method</label>
+                                    <label for="depositMethod" class="form-label">Payment Method</label>
                                     <select class="form-select" id="depositMethod">
-                                        <option value="upi">UPI</option>
                                         <option value="bank">Bank Transfer</option>
+                                        <option value="upi">UPI</option>
+                                        <option value="cheque">Cheque</option>
                                     </select>
                                 </div>
+                                
+                                <!-- UPI Payment Section -->
+                                <div id="upiSection" class="upi-section hidden">
+                                    <h5>UPI Payment Details</h5>
+                                    <div class="upi-id" id="upiId">superduperbhai@ybl</div>
+                                    <div class="qr-code">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=superduperbhai@ybl&pn=CrownUsdt" alt="UPI QR Code">
+                                    </div>
+                                    <p>Scan the QR code or use the UPI ID to make the payment</p>
+                                    <button type="button" class="btn btn-outline-primary" id="copyUpiBtn">
+                                        <i class="fas fa-copy me-2"></i> Copy UPI ID
+                                    </button>
+                                </div>
+                                
                                 <div class="mb-3">
                                     <label for="depositTransactionId" class="form-label">Transaction ID</label>
                                     <input type="text" class="form-control" id="depositTransactionId" placeholder="Enter Transaction ID">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="depositDate" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="depositDate">
+                                </div>
+                                <div class="mb-3">
                                     <label for="depositRemark" class="form-label">Remark</label>
                                     <textarea class="form-control" id="depositRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit Deposit Request</button>
+                                <button type="submit" class="btn btn-primary">Deposit</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">
-                            Deposit Info
-                        </div>
                         <div class="card-body">
-                            <p>Minimum deposit amount is ₹100.</p>
-                            <p>Deposits are usually processed within 24 hours.</p>
-                            <p>Please ensure you enter the correct transaction ID.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- UPI Payment Section -->
-                    <div class="card mt-4">
-                        <div class="card-header">
-                            UPI Payment
-                        </div>
-                        <div class="card-body">
-                            <div class="upi-section">
-                                <h5>Scan QR Code</h5>
-                                <div class="upi-id">UPI ID: crownusdt@ybl</div>
-                                <div class="qr-code">
-                                    <img src="https://via.placeholder.com/200" alt="UPI QR Code">
-                                </div>
-                                <p>After payment, please submit the deposit request with transaction ID.</p>
+                            <h5 class="card-title">Deposit History</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="depositHistoryTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1385,49 +1195,60 @@
         <div id="withdrawalPage" class="page-content hidden">
             <div class="welcome-banner">
                 <h2>Withdrawal</h2>
-                <p>Withdraw funds from your wallet</p>
+                <p>Withdraw your money</p>
             </div>
             
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Withdraw Funds</h5>
+                            <h5 class="card-title">New Withdrawal</h5>
                             <form id="withdrawalForm">
                                 <div class="mb-3">
                                     <label for="withdrawalAmount" class="form-label">Withdrawal Amount</label>
-                                    <input type="number" class="form-control" id="withdrawalAmount" placeholder="Enter Amount">
-                                    <div class="form-text">Minimum withdrawal amount is ₹100</div>
+                                    <input type="number" class="form-control" id="withdrawalAmount" placeholder="Enter Withdrawal Amount">
+                                    <small class="text-muted">Minimum withdrawal: ₹500</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="withdrawalMethod" class="form-label">Withdrawal Method</label>
+                                    <label for="withdrawalMethod" class="form-label">Payment Method</label>
                                     <select class="form-select" id="withdrawalMethod">
-                                        <option value="upi">UPI</option>
                                         <option value="bank">Bank Transfer</option>
+                                        <option value="upi">UPI</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="withdrawalDetails" class="form-label">Withdrawal Details</label>
-                                    <textarea class="form-control" id="withdrawalDetails" rows="3" placeholder="Enter UPI ID or Bank Details"></textarea>
+                                    <label for="withdrawalAccount" class="form-label">Account Details</label>
+                                    <textarea class="form-control" id="withdrawalAccount" rows="2" placeholder="Enter Account Details"></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="withdrawalRemark" class="form-label">Remark</label>
                                     <textarea class="form-control" id="withdrawalRemark" rows="2" placeholder="Enter Remark"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit Withdrawal Request</button>
+                                <button type="submit" class="btn btn-primary">Withdraw</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">
-                            Withdrawal Info
-                        </div>
                         <div class="card-body">
-                            <p>Minimum withdrawal amount is ₹100.</p>
-                            <p>Withdrawal processing time is 24-48 hours.</p>
-                            <p>5% withdrawal fee will be charged.</p>
+                            <h5 class="card-title">Withdrawal History</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="withdrawalHistoryTable">
+                                        <tr>
+                                            <td colspan="3" class="text-center">No data available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1445,84 +1266,60 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">Total Income</h5>
-                            <p class="card-text fs-2" id="totalIncomePage">₹0</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-success">
-                        <div class="card-body">
                             <h5 class="card-title">Direct Income</h5>
                             <p class="card-text fs-2" id="directIncomePage">₹0</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Level Income</h5>
+                            <p class="card-text fs-2" id="levelIncomePage">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="card text-white bg-info">
                         <div class="card-body">
-                            <h5 class="card-title">Team Income</h5>
-                            <p class="card-text fs-2" id="teamIncomePage">₹0</p>
+                            <h5 class="card-title">Royalty Income</h5>
+                            <p class="card-text fs-2" id="royaltyIncomePage">₹0</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card text-white bg-warning">
                         <div class="card-body">
-                            <h5 class="card-title">Reward Income</h5>
-                            <p class="card-text fs-2" id="rewardIncomePage">₹0</p>
+                            <h5 class="card-title">Bonus Income</h5>
+                            <p class="card-text fs-2" id="bonusIncomePage">₹0</p>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="card">
-                <div class="card-header">
-                    Income History
-                </div>
                 <div class="card-body">
-                    <div class="table-actions">
-                        <div class="filter-section">
-                            <input type="text" class="form-control" id="incomeFilter" placeholder="Filter by Description">
-                            <input type="date" class="form-control ms-2" id="incomeDateFilter" placeholder="Filter by Date">
-                            <select class="form-select ms-2" id="incomeTypeFilter">
-                                <option value="">All Types</option>
-                                <option value="direct">Direct Income</option>
-                                <option value="team">Team Income</option>
-                                <option value="reward">Reward Income</option>
-                            </select>
-                            <button class="btn btn-primary ms-2" id="applyIncomeFilter">Apply</button>
-                            <button class="btn btn-outline-secondary" id="resetIncomeFilter">Reset</button>
-                        </div>
-                        <div class="export-buttons">
-                            <button class="btn btn-success" id="exportIncomeExcel">
-                                <i class="fas fa-file-excel me-2"></i> Export Excel
-                            </button>
-                            <button class="btn btn-danger" id="exportIncomePDF">
-                                <i class="fas fa-file-pdf me-2"></i> Export PDF
-                            </button>
-                        </div>
-                    </div>
-                    <div class="table-summary">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">Income Statement</h5>
                         <div>
-                            <strong>Total Income: </strong><span id="totalIncomeAmount">₹0</span>
+                            <button class="btn btn-sm btn-outline-primary" id="filterIncome">Filter</button>
+                            <button class="btn btn-sm btn-success" id="downloadIncome">Download</button>
                         </div>
                     </div>
-                    <div class="table-responsive mt-3">
-                        <table class="table table-striped" id="incomeTable">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>S No.</th>
                                     <th>Date</th>
                                     <th>Description</th>
-                                    <th>Type</th>
+                                    <th>Income Type</th>
                                     <th>Amount</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="incomeTable">
                                 <tr>
-                                    <td colspan="6" class="text-center">No data available</td>
+                                    <td colspan="5" class="text-center">No data available</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1542,16 +1339,16 @@
                 <div class="col-md-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">Total Team</h5>
-                            <p class="card-text fs-2" id="totalTeamPage">0</p>
+                            <h5 class="card-title">Direct Team</h5>
+                            <p class="card-text fs-2" id="directTeamPage">0</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card text-white bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">Direct Team</h5>
-                            <p class="card-text fs-2" id="directTeamPage">0</p>
+                            <h5 class="card-title">Total Team</h5>
+                            <p class="card-text fs-2" id="totalTeamPage">0</p>
                         </div>
                     </div>
                 </div>
@@ -1574,57 +1371,28 @@
             </div>
             
             <div class="card">
-                <div class="card-header">
-                    Team Details
-                </div>
                 <div class="card-body">
-                    <div class="table-actions">
-                        <div class="filter-section">
-                            <input type="text" class="form-control" id="teamFilter" placeholder="Filter by User ID or Mobile No.">
-                            <input type="date" class="form-control ms-2" id="teamDateFilter" placeholder="Filter by Date">
-                            <select class="form-select ms-2" id="teamStatusFilter">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="blocked">Blocked</option>
-                            </select>
-                            <button class="btn btn-primary ms-2" id="applyTeamFilter">Apply</button>
-                            <button class="btn btn-outline-secondary" id="resetTeamFilter">Reset</button>
-                        </div>
-                        <div class="export-buttons">
-                            <button class="btn btn-success" id="exportTeamExcel">
-                                <i class="fas fa-file-excel me-2"></i> Export Excel
-                            </button>
-                            <button class="btn btn-danger" id="exportTeamPDF">
-                                <i class="fas fa-file-pdf me-2"></i> Export PDF
-                            </button>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">Team Members</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary" id="filterTeam">Filter</button>
+                            <button class="btn btn-sm btn-success" id="downloadTeam">Download</button>
                         </div>
                     </div>
-                    <div class="table-summary">
-                        <div>
-                            <strong>Total Members: </strong><span id="teamTotalCount">0</span>
-                        </div>
-                        <div>
-                            <strong>Total Business: </strong><span id="teamTotalBusiness">₹0</span>
-                        </div>
-                    </div>
-                    <div class="table-responsive mt-3">
-                        <table class="table table-striped" id="teamTable">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>S No.</th>
                                     <th>User ID</th>
                                     <th>Name</th>
-                                    <th>Mobile No.</th>
-                                    <th>Date of Registration</th>
-                                    <th>Date of Activation</th>
-                                    <th>Package Amount</th>
+                                    <th>Join Date</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="teamTable">
                                 <tr>
-                                    <td colspan="8" class="text-center">No data available</td>
+                                    <td colspan="5" class="text-center">No data available</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1637,77 +1405,48 @@
         <div id="genealogyPage" class="page-content hidden">
             <div class="welcome-banner">
                 <h2>Genealogy</h2>
-                <p>View your team genealogy</p>
+                <p>View your team structure</p>
             </div>
             
             <div class="card">
-                <div class="card-header">
-                    Genealogy Tree
-                </div>
                 <div class="card-body">
                     <div class="text-center mb-4">
-                        <div class="genealogy-node">
+                        <div class="genealogy-node d-inline-block">
                             <div class="card">
-                                <div class="card-body">
-                                    <h5 id="genealogyUserId">CU123456</h5>
-                                    <p id="genealogyUserName">User Name</p>
+                                <div class="card-body text-center">
+                                    <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
+                                    <h6 id="genealogyUserName">User</h6>
+                                    <p class="mb-0" id="genealogyUserId">CU123456</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="genealogy-node">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>CU234567</h5>
-                                    <p>User 1</p>
+                    <div class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
+                                        <h6>Rajesh</h6>
+                                        <p class="mb-0">CU789012</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="genealogy-node">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>CU345678</h5>
-                                    <p>User 2</p>
+                            <div class="genealogy-node">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <img src="https://via.placeholder.com/50" class="rounded-circle mb-2" alt="User">
+                                        <h6>Seema</h6>
+                                        <p class="mb-0">CU345678</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="d-flex justify-content-center">
-                        <div class="genealogy-node">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>CU456789</h5>
-                                    <p>User 3</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="genealogy-node">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>CU567890</h5>
-                                    <p>User 4</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="genealogy-node">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>CU678901</h5>
-                                    <p>User 5</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="genealogy-node">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5>CU789012</h5>
-                                    <p>User 6</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary" id="viewFullGenealogy">View Full Genealogy</button>
                     </div>
                 </div>
             </div>
@@ -1715,16 +1454,11 @@
     </div>
 
     <!-- Notification -->
-    <div class="notification" id="notification">
-        <span id="notificationMessage"></span>
-    </div>
+    <div class="notification" id="notification"></div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Firebase Initialization and App Logic -->
     <script>
-        // Initialize Firebase
+        // Initialize Firebase with your config
         const firebaseConfig = {
             apiKey: "AIzaSyAxGlPmJBEoaA1OhhWAJs6VRzKDCNSxodo",
             authDomain: "crownusdt-bef5f.firebaseapp.com",
@@ -1734,480 +1468,990 @@
             appId: "1:16212983577:web:54742789e0ca51e1800f88",
             measurementId: "G-QMTHJ00757"
         };
-
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Check authentication state on page load
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                // User is signed in
-                console.log("User logged in:", user.uid);
-                loadUserData(user.uid);
-            } else {
-                // User is signed out
-                console.log("No user logged in");
-                // Redirect to login page if not already there
-                if (window.location.pathname !== '/login.html') {
+        // Check login status on page load and redirect if not logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            auth.onAuthStateChanged(user => {
+                if (!user) {
+                    // Redirect to login page if not logged in
                     window.location.href = 'login.html';
+                    return;
                 }
-            }
-        });
-
-        // Generate referral link function
-        function generateReferralLink(userId) {
-            const baseUrl = window.location.origin;
-            return `${baseUrl}/register.html?ref=${userId}`;
-        }
-
-        // Load user data from Firestore
-        function loadUserData(userId) {
-            db.collection('users').doc(userId).get().then(doc => {
-                if (doc.exists) {
-                    const userData = doc.data();
-                    
-                    // Update UI with user data
-                    document.getElementById('userName').textContent = userData.name || 'User';
-                    document.getElementById('welcomeUserName').textContent = userData.name || 'User';
-                    document.getElementById('userAvatar').src = userData.avatar || 'https://via.placeholder.com/40';
-                    
-                    // Generate and update referral link
-                    const referralLink = userData.referralLink || generateReferralLink(userData.userId);
-                    document.getElementById('dashboardReferralLink').textContent = referralLink;
-                    
-                    // Update profile page if exists
-                    if (document.getElementById('profileName')) {
-                        document.getElementById('profileName').textContent = userData.name || 'User Name';
-                        document.getElementById('profileUsername').textContent = userData.username || 'username';
-                        document.getElementById('profileUserId').textContent = userData.userId || 'CU123456';
-                        document.getElementById('fullName').value = userData.name || '';
-                        document.getElementById('email').value = userData.email || '';
-                        document.getElementById('phone').value = userData.phone || '';
-                        
-                        // Update referral link in profile page
-                        document.getElementById('referralLink').textContent = referralLink;
-                    }
-                    
-                    // Store user data in localStorage
-                    localStorage.setItem('userData', JSON.stringify(userData));
-                    localStorage.setItem('userUID', userId);
-                    
-                    // Load dashboard data
-                    loadDashboardData(userId);
-                } else {
-                    console.log("No user data found!");
-                }
-            }).catch(error => {
-                console.error("Error getting user data:", error);
-            });
-        }
-
-        // Load dashboard data
-        function loadDashboardData(userId) {
-            // Load wallet balance
-            db.collection('wallets').doc(userId).get().then(doc => {
-                if (doc.exists) {
-                    const walletData = doc.data();
-                    const balance = walletData.balance || 0;
-                    document.getElementById('walletBalance').textContent = `₹${balance}`;
-                    document.getElementById('walletBalancePage').textContent = `₹${balance}`;
-                }
-            }).catch(error => {
-                console.error("Error getting wallet data:", error);
-            });
-
-            // Load income data
-            db.collection('income').where('userId', '==', userId).get().then(snapshot => {
-                let totalIncome = 0;
-                let directIncome = 0;
-                let teamIncome = 0;
                 
+                // User is logged in, initialize the dashboard
+                checkLoginStatus();
+                initializeEventListeners();
+                loadUserData();
+                startRealTimeUpdates();
+            });
+        });
+        
+        // Start real-time updates
+        function startRealTimeUpdates() {
+            // Update data every 5 seconds
+            setInterval(updateRealTimeData, 5000);
+        }
+        
+        // Update real-time data
+        function updateRealTimeData() {
+            const currentUser = auth.currentUser;
+            if (currentUser) {
+                // Update team data
+                updateTeamData();
+                // Update wallet data
+                updateWalletData();
+                // Update income data
+                updateIncomeData();
+            }
+        }
+        
+        // Update team data
+        function updateTeamData() {
+            // Get current user
+            const currentUser = auth.currentUser;
+            if (!currentUser) return;
+            
+            // Get all users
+            db.collection('users').get().then(snapshot => {
+                const users = [];
                 snapshot.forEach(doc => {
-                    const income = doc.data();
-                    totalIncome += income.amount || 0;
-                    
-                    if (income.type === 'direct') {
-                        directIncome += income.amount || 0;
-                    } else if (income.type === 'team') {
-                        teamIncome += income.amount || 0;
+                    users.push(doc.data());
+                });
+                
+                // Find direct referrals (users who have current user as their referrer)
+                const directReferrals = users.filter(user => {
+                    // Extract referral ID from the user's referral link
+                    try {
+                        const referralUrl = new URL(user.referralLink);
+                        const referralId = referralUrl.searchParams.get('ref');
+                        return referralId === currentUser.uid;
+                    } catch (e) {
+                        return false;
                     }
                 });
                 
+                // Calculate team stats
+                const directTeam = directReferrals.length;
+                const activeTeam = directReferrals.filter(user => user.status === 'active').length;
+                const inactiveTeam = directTeam - activeTeam;
+                
+                // Update team stats on dashboard
+                document.getElementById('directTeam').textContent = directTeam;
+                document.getElementById('activeTeam').textContent = activeTeam;
+                document.getElementById('inactiveTeam').textContent = inactiveTeam;
+                
+                // Update team stats on team page
+                document.getElementById('directTeamPage').textContent = directTeam;
+                document.getElementById('activeTeamPage').textContent = activeTeam;
+                document.getElementById('inactiveTeamPage').textContent = inactiveTeam;
+                
+                // Update team table
+                updateTeamTable(directReferrals);
+                
+                // Update referral stats
+                document.getElementById('totalReferrals').textContent = directTeam;
+                document.getElementById('activeReferrals').textContent = activeTeam;
+            });
+        }
+        
+        // Update wallet data
+        function updateWalletData() {
+            // Get current user
+            const currentUser = auth.currentUser;
+            if (!currentUser) return;
+            
+            // Get user transactions from Firestore
+            db.collection('walletTransactions').where('userId', '==', currentUser.uid).get()
+                .then(snapshot => {
+                    const walletTransactions = [];
+                    snapshot.forEach(doc => {
+                        walletTransactions.push(doc.data());
+                    });
+                    
+                    // Calculate wallet balance
+                    let walletBalance = 0;
+                    let depositBalance = 0;
+                    let incomeBalance = 0;
+                    
+                    walletTransactions.forEach(transaction => {
+                        if (transaction.type === 'credit') {
+                            walletBalance += transaction.amount;
+                            if (transaction.description.includes('Deposit')) {
+                                depositBalance += transaction.amount;
+                            } else {
+                                incomeBalance += transaction.amount;
+                            }
+                        } else {
+                            walletBalance -= transaction.amount;
+                        }
+                    });
+                    
+                    // Update wallet balance on dashboard
+                    document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
+                    
+                    // Update wallet balance on wallet page
+                    document.getElementById('walletBalancePage').textContent = `₹${walletBalance}`;
+                    document.getElementById('depositBalancePage').textContent = `₹${depositBalance}`;
+                    document.getElementById('incomeBalancePage').textContent = `₹${incomeBalance}`;
+                    
+                    // Update wallet balance on activate page
+                    document.getElementById('walletBalanceCheck').value = `₹${walletBalance}`;
+                    
+                    // Update wallet transaction table
+                    updateWalletTransactionTable(walletTransactions);
+                });
+        }
+        
+        // Update income data
+        function updateIncomeData() {
+            // Get current user
+            const currentUser = auth.currentUser;
+            if (!currentUser) return;
+            
+            // Get user income from Firestore
+            db.collection('income').where('userId', '==', currentUser.uid).get()
+                .then(snapshot => {
+                    const incomeData = [];
+                    snapshot.forEach(doc => {
+                        incomeData.push(doc.data());
+                    });
+                    
+                    // Calculate income stats
+                    let directIncome = 0;
+                    let levelIncome = 0;
+                    let royaltyIncome = 0;
+                    let bonusIncome = 0;
+                    
+                    incomeData.forEach(income => {
+                        if (income.type === 'Direct') {
+                            directIncome += income.amount;
+                        } else if (income.type === 'Level') {
+                            levelIncome += income.amount;
+                        } else if (income.type === 'Royalty') {
+                            royaltyIncome += income.amount;
+                        } else if (income.type === 'Bonus') {
+                            bonusIncome += income.amount;
+                        }
+                    });
+                    
+                    const totalIncome = directIncome + levelIncome + royaltyIncome + bonusIncome;
+                    const teamIncome = levelIncome + royaltyIncome + bonusIncome;
+                    
+                    // Update income on dashboard
+                    document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
+                    document.getElementById('directIncome').textContent = `₹${directIncome}`;
+                    document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+                    
+                    // Update income on income page
+                    document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+                    document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
+                    document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
+                    document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
+                    
+                    // Update recent income table
+                    updateRecentIncomeTable(incomeData.slice(0, 3));
+                    
+                    // Update income table
+                    updateIncomeTable(incomeData);
+                });
+        }
+        
+        // Update team table
+        function updateTeamTable(teamMembers) {
+            const teamTable = document.getElementById('teamTable');
+            teamTable.innerHTML = '';
+            
+            if (teamMembers.length === 0) {
+                teamTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
+            } else {
+                teamMembers.forEach(member => {
+                    const row = document.createElement('tr');
+                    const statusClass = member.status === 'active' ? 'status-active' : 
+                                       member.status === 'inactive' ? 'status-inactive' : 'status-blocked';
+                    row.innerHTML = `
+                        <td>${member.id}</td>
+                        <td>${member.name}</td>
+                        <td>${member.joinDate}</td>
+                        <td><span class="${statusClass}">${member.status === 'active' ? 'Active' : member.status === 'inactive' ? 'Inactive' : 'Blocked'}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
+                        </td>
+                    `;
+                    teamTable.appendChild(row);
+                });
+            }
+        }
+        
+        // Update wallet transaction table
+        function updateWalletTransactionTable(walletTransactions) {
+            const walletTransactionTable = document.getElementById('walletTransactionTable');
+            walletTransactionTable.innerHTML = '';
+            
+            if (walletTransactions.length === 0) {
+                walletTransactionTable.innerHTML = '<tr><td colspan="4" class="text-center">No data available</td></tr>';
+            } else {
+                // Show only the last 10 transactions, most recent first
+                const recentTransactions = walletTransactions.slice(-10).reverse();
+                
+                recentTransactions.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    const typeClass = transaction.type === 'credit' ? 'text-success' : 'text-danger';
+                    const typeText = transaction.type === 'credit' ? 'Credit' : 'Debit';
+                    row.innerHTML = `
+                        <td>${transaction.date}</td>
+                        <td>${transaction.description}</td>
+                        <td class="${typeClass}">${transaction.type === 'credit' ? '+' : '-'}₹${transaction.amount}</td>
+                        <td>${typeText}</td>
+                    `;
+                    walletTransactionTable.appendChild(row);
+                });
+            }
+        }
+        
+        // Update recent income table
+        function updateRecentIncomeTable(recentIncome) {
+            const recentIncomeTable = document.getElementById('recentIncomeTable');
+            recentIncomeTable.innerHTML = '';
+            
+            if (recentIncome.length === 0) {
+                recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+            } else {
+                recentIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>₹${income.amount}</td>
+                    `;
+                    recentIncomeTable.appendChild(row);
+                });
+            }
+        }
+        
+        // Update income table
+        function updateIncomeTable(incomeData) {
+            const incomeTable = document.getElementById('incomeTable');
+            incomeTable.innerHTML = '';
+            
+            if (incomeData.length === 0) {
+                incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
+            } else {
+                // Show only the last 10 transactions, most recent first
+                const recentIncome = incomeData.slice(-10).reverse();
+                
+                recentIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${income.date}</td>
+                        <td>${income.description}</td>
+                        <td>${income.type}</td>
+                        <td>₹${income.amount}</td>
+                        <td><span class="status-approved">Approved</span></td>
+                    `;
+                    incomeTable.appendChild(row);
+                });
+            }
+        }
+        
+        // Check login status
+        function checkLoginStatus() {
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                // If user is not logged in, redirect to login page
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get user data from Firestore
+            db.collection('users').doc(currentUser.uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        updateUserInfo(userData);
+                        loadDashboardData(userData);
+                    } else {
+                        // User data not found, redirect to login
+                        window.location.href = 'login.html';
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error getting user data:", error);
+                    window.location.href = 'login.html';
+                });
+        }
+        
+        // Update user info
+        function updateUserInfo(user) {
+            document.getElementById('userName').textContent = user.name || user.username;
+            document.getElementById('welcomeUserName').textContent = user.name || user.username;
+            
+            // Update user info on profile page
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileUsername').textContent = user.username;
+            document.getElementById('profileUserId').textContent = user.id;
+            
+            // Update referral link
+            const referralLink = `https://businessbaddy29.github.io/crownusdt/register.html?ref=${user.id}`;
+            document.getElementById('referralLink').textContent = referralLink;
+            document.getElementById('dashboardReferralLink').textContent = referralLink;
+            
+            // Update user info on genealogy page
+            document.getElementById('genealogyUserName').textContent = user.name;
+            document.getElementById('genealogyUserId').textContent = user.id;
+        }
+        
+        // Load dashboard data
+        function loadDashboardData(user) {
+            // Get user-specific data from Firestore
+            Promise.all([
+                db.collection('walletTransactions').where('userId', '==', user.uid).get(),
+                db.collection('income').where('userId', '==', user.uid).get(),
+                db.collection('activationHistory').where('userId', '==', user.uid).get(),
+                db.collection('depositHistory').where('userId', '==', user.uid).get(),
+                db.collection('withdrawalHistory').where('userId', '==', user.uid).get()
+            ]).then(([walletSnapshot, incomeSnapshot, activationSnapshot, depositSnapshot, withdrawalSnapshot]) => {
+                // Process wallet transactions
+                const walletTransactions = [];
+                walletSnapshot.forEach(doc => {
+                    walletTransactions.push(doc.data());
+                });
+                
+                // Calculate wallet balance
+                let walletBalance = 0;
+                walletTransactions.forEach(transaction => {
+                    if (transaction.type === 'credit') {
+                        walletBalance += transaction.amount;
+                    } else {
+                        walletBalance -= transaction.amount;
+                    }
+                });
+                
+                // Process income data
+                const incomeData = [];
+                incomeSnapshot.forEach(doc => {
+                    incomeData.push(doc.data());
+                });
+                
+                // Calculate income stats
+                let directIncome = 0;
+                let teamIncome = 0;
+                incomeData.forEach(income => {
+                    if (income.type === 'Direct') {
+                        directIncome += income.amount;
+                    } else {
+                        teamIncome += income.amount;
+                    }
+                });
+                
+                const totalIncome = directIncome + teamIncome;
+                
+                // Update dashboard stats
                 document.getElementById('totalIncome').textContent = `₹${totalIncome}`;
                 document.getElementById('directIncome').textContent = `₹${directIncome}`;
                 document.getElementById('teamIncome').textContent = `₹${teamIncome}`;
+                document.getElementById('walletBalance').textContent = `₹${walletBalance}`;
                 
-                // Update income page if exists
-                if (document.getElementById('totalIncomePage')) {
-                    document.getElementById('totalIncomePage').textContent = `₹${totalIncome}`;
-                    document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
-                    document.getElementById('teamIncomePage').textContent = `₹${teamIncome}`;
+                // Update recent income table
+                const recentIncomeTable = document.getElementById('recentIncomeTable');
+                recentIncomeTable.innerHTML = '';
+                
+                if (incomeData.length === 0) {
+                    recentIncomeTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+                } else {
+                    incomeData.slice(-3).reverse().forEach(income => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${income.date}</td>
+                            <td>${income.description}</td>
+                            <td>₹${income.amount}</td>
+                        `;
+                        recentIncomeTable.appendChild(row);
+                    });
                 }
-            }).catch(error => {
-                console.error("Error getting income data:", error);
-            });
-
-            // Load team data
-            db.collection('users').where('referrerId', '==', userId).get().then(snapshot => {
-                const directTeamCount = snapshot.size;
-                let activeTeamCount = 0;
                 
-                snapshot.forEach(doc => {
-                    const user = doc.data();
-                    if (user.status === 'active') {
-                        activeTeamCount++;
+                // Process activation history
+                const activationHistory = [];
+                activationSnapshot.forEach(doc => {
+                    activationHistory.push(doc.data());
+                });
+                
+                // Update activation history table
+                const activationHistoryTable = document.getElementById('activationHistoryTable');
+                activationHistoryTable.innerHTML = '';
+                
+                if (activationHistory.length === 0) {
+                    activationHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+                } else {
+                    activationHistory.slice(-5).reverse().forEach(activation => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${activation.date}</td>
+                            <td>${activation.userId}</td>
+                            <td>₹${activation.amount}</td>
+                        `;
+                        activationHistoryTable.appendChild(row);
+                    });
+                }
+                
+                // Process deposit history
+                const depositHistory = [];
+                depositSnapshot.forEach(doc => {
+                    depositHistory.push(doc.data());
+                });
+                
+                // Update deposit history table
+                const depositHistoryTable = document.getElementById('depositHistoryTable');
+                depositHistoryTable.innerHTML = '';
+                
+                if (depositHistory.length === 0) {
+                    depositHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+                } else {
+                    depositHistory.slice(-5).reverse().forEach(deposit => {
+                        const row = document.createElement('tr');
+                        const statusClass = deposit.status === 'approved' ? 'status-approved' : 'status-pending';
+                        const statusText = deposit.status === 'approved' ? 'Approved' : 'Pending';
+                        row.innerHTML = `
+                            <td>${deposit.date}</td>
+                            <td>₹${deposit.amount}</td>
+                            <td><span class="${statusClass}">${statusText}</span></td>
+                        `;
+                        depositHistoryTable.appendChild(row);
+                    });
+                }
+                
+                // Process withdrawal history
+                const withdrawalHistory = [];
+                withdrawalSnapshot.forEach(doc => {
+                    withdrawalHistory.push(doc.data());
+                });
+                
+                // Update withdrawal history table
+                const withdrawalHistoryTable = document.getElementById('withdrawalHistoryTable');
+                withdrawalHistoryTable.innerHTML = '';
+                
+                if (withdrawalHistory.length === 0) {
+                    withdrawalHistoryTable.innerHTML = '<tr><td colspan="3" class="text-center">No data available</td></tr>';
+                } else {
+                    withdrawalHistory.slice(-5).reverse().forEach(withdrawal => {
+                        const row = document.createElement('tr');
+                        const statusClass = withdraw.status === 'approved' ? 'status-approved' : 'status-pending';
+                        const statusText = withdraw.status === 'approved' ? 'Approved' : 'Pending';
+                        row.innerHTML = `
+                            <td>${withdraw.date}</td>
+                            <td>₹${withdraw.amount}</td>
+                            <td><span class="${statusClass}">${statusText}</span></td>
+                        `;
+                        withdrawalHistoryTable.appendChild(row);
+                    });
+                }
+                
+                // Update income page stats
+                let levelIncome = 0;
+                let royaltyIncome = 0;
+                let bonusIncome = 0;
+                
+                incomeData.forEach(income => {
+                    if (income.type === 'Level') {
+                        levelIncome += income.amount;
+                    } else if (income.type === 'Royalty') {
+                        royaltyIncome += income.amount;
+                    } else if (income.type === 'Bonus') {
+                        bonusIncome += income.amount;
                     }
                 });
                 
-                document.getElementById('directTeamCount').textContent = directTeamCount;
-                document.getElementById('directTeamActive').textContent = activeTeamCount;
-                document.getElementById('totalTeam').textContent = directTeamCount;
-                document.getElementById('activeTeam').textContent = activeTeamCount;
-                document.getElementById('inactiveTeam').textContent = directTeamCount - activeTeamCount;
+                document.getElementById('directIncomePage').textContent = `₹${directIncome}`;
+                document.getElementById('levelIncomePage').textContent = `₹${levelIncome}`;
+                document.getElementById('royaltyIncomePage').textContent = `₹${royaltyIncome}`;
+                document.getElementById('bonusIncomePage').textContent = `₹${bonusIncome}`;
                 
-                // Update team page if exists
-                if (document.getElementById('totalTeamPage')) {
-                    document.getElementById('totalTeamPage').textContent = directTeamCount;
-                    document.getElementById('directTeamPage').textContent = directTeamCount;
-                    document.getElementById('activeTeamPage').textContent = activeTeamCount;
-                    document.getElementById('inactiveTeamPage').textContent = directTeamCount - activeTeamCount;
+                // Update income table
+                const incomeTable = document.getElementById('incomeTable');
+                incomeTable.innerHTML = '';
+                
+                if (incomeData.length === 0) {
+                    incomeTable.innerHTML = '<tr><td colspan="5" class="text-center">No data available</td></tr>';
+                } else {
+                    incomeData.slice(-10).reverse().forEach(income => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${income.date}</td>
+                            <td>${income.description}</td>
+                            <td>${income.type}</td>
+                            <td>₹${income.amount}</td>
+                            <td><span class="status-approved">Approved</span></td>
+                        `;
+                        incomeTable.appendChild(row);
+                    });
                 }
-            }).catch(error => {
-                console.error("Error getting team data:", error);
+                
+                // Update wallet data
+                updateWalletData();
+                
+                // Update team data
+                updateTeamData();
             });
         }
-
-        // Logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            auth.signOut().then(() => {
-                console.log("User logged out successfully");
-                // Clear localStorage
-                localStorage.removeItem('userData');
-                localStorage.removeItem('userUID');
-                window.location.href = 'login.html';
-            }).catch(error => {
-                console.error("Logout error:", error);
-                alert("Error logging out. Please try again.");
+        
+        // Initialize event listeners
+        function initializeEventListeners() {
+            // Hamburger menu
+            document.getElementById('hamburger').addEventListener('click', function() {
+                this.classList.toggle('active');
+                document.getElementById('sidebar').classList.toggle('show');
             });
-        });
-
-        // Tab navigation functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all sidebar links
-            const sidebarLinks = document.querySelectorAll('.sidebar-menu li a');
             
-            // Add click event to each link
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+            // Sidebar menu items
+            document.querySelectorAll('.sidebar-menu li a').forEach(item => {
+                item.addEventListener('click', function(e) {
                     e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
                     
-                    // Remove active class from all links
-                    sidebarLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Add active class to clicked link
+                    // Update active class
+                    document.querySelectorAll('.sidebar-menu li a').forEach(link => {
+                        link.classList.remove('active');
+                    });
                     this.classList.add('active');
-                    
-                    // Get page name from data-page attribute
-                    const pageName = this.getAttribute('data-page');
-                    
-                    // Hide all page contents
-                    document.querySelectorAll('.page-content').forEach(page => {
-                        page.classList.add('hidden');
-                    });
-                    
-                    // Show selected page
-                    const selectedPage = document.getElementById(pageName + 'Page');
-                    if (selectedPage) {
-                        selectedPage.classList.remove('hidden');
-                    }
-                    
-                    // Special handling for direct team and business modals
-                    if (pageName === 'dashboard') {
-                        // Reset dashboard page if needed
-                        if (auth.currentUser) {
-                            loadDashboardData(auth.currentUser.uid);
-                        }
-                    }
                 });
             });
-
-            // Handle direct team box click
-            const directTeamBox = document.getElementById('directTeamBox');
-            if (directTeamBox) {
-                directTeamBox.addEventListener('click', function() {
-                    const modal = new bootstrap.Modal(document.getElementById('directTeamModal'));
-                    modal.show();
-                    // Load direct team data here
-                    loadDirectTeamData();
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Sign out from Firebase
+                auth.signOut().then(() => {
+                    // Redirect to login page
+                    window.location.href = 'login.html';
+                }).catch((error) => {
+                    console.error("Sign out error", error);
                 });
-            }
-
-            // Handle business box click
-            const businessBox = document.getElementById('businessBox');
-            if (businessBox) {
-                businessBox.addEventListener('click', function() {
-                    const modal = new bootstrap.Modal(document.getElementById('businessModal'));
-                    modal.show();
-                    // Load business data here
-                    loadBusinessData();
-                });
-            }
-
-            // Handle profile form submission
-            const profileForm = document.getElementById('profileForm');
-            if (profileForm) {
-                profileForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
+            });
+            
+            // Profile form
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    dob: document.getElementById('dob').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    country: document.getElementById('country').value,
+                    pincode: document.getElementById('pincode').value,
+                    nominee: document.getElementById('nominee').value,
+                    bankDetails: document.getElementById('bankDetails').value
+                };
+                
+                // Get current user
+                const currentUser = auth.currentUser;
+                
+                // Update user data in Firestore
+                db.collection('users').doc(currentUser.uid).update({
+                    name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone
+                }).then(() => {
+                    // Update current user in Firebase Auth
+                    currentUser.updateEmail(formData.email);
                     
-                    // Get form data
-                    const formData = {
-                        name: document.getElementById('fullName').value,
-                        email: document.getElementById('email').value,
-                        phone: document.getElementById('phone').value,
-                        dob: document.getElementById('dob').value,
-                        address: document.getElementById('address').value,
-                        city: document.getElementById('city').value,
-                        state: document.getElementById('state').value,
-                        country: document.getElementById('country').value,
-                        pincode: document.getElementById('pincode').value,
-                        nominee: document.getElementById('nominee').value,
-                        bankDetails: document.getElementById('bankDetails').value
-                    };
-                    
-                    // Update user data in Firestore
-                    const userId = auth.currentUser.uid;
-                    db.collection('users').doc(userId).update(formData)
-                        .then(() => {
-                            alert('Profile updated successfully!');
-                            // Reload user data
-                            loadUserData(userId);
-                        })
-                        .catch(error => {
-                            console.error("Error updating profile:", error);
-                            alert('Error updating profile. Please try again.');
+                    // Get updated user data
+                    db.collection('users').doc(currentUser.uid).get()
+                        .then((doc) => {
+                            if (doc.exists) {
+                                const userData = doc.data();
+                                updateUserInfo(userData);
+                                
+                                // Show success message
+                                showNotification('Profile updated successfully');
+                            }
                         });
+                }).catch((error) => {
+                    console.error("Error updating profile:", error);
+                    showNotification('Error updating profile. Please try again.', 'error');
                 });
-            }
-
-            // Handle wallet transfer form
-            const walletTransferForm = document.getElementById('walletTransferForm');
-            if (walletTransferForm) {
-                walletTransferForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const recipientId = document.getElementById('transferTo').value;
-                    const amount = parseFloat(document.getElementById('transferAmount').value);
-                    const remark = document.getElementById('transferRemark').value;
-                    
-                    // Validate inputs
-                    if (!recipientId || !amount || amount <= 0) {
-                        alert('Please enter valid recipient ID and amount');
-                        return;
-                    }
-                    
-                    // Process wallet transfer
-                    processWalletTransfer(recipientId, amount, remark);
+            });
+            
+            // Referral link share buttons (Dashboard)
+            document.getElementById('shareWhatsappDashboard').addEventListener('click', function() {
+                const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            document.getElementById('shareTelegramDashboard').addEventListener('click', function() {
+                const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+                window.open(telegramUrl, '_blank');
+            });
+            
+            document.getElementById('copyReferralBtnDashboard').addEventListener('click', function() {
+                const referralLink = document.getElementById('dashboardReferralLink').textContent;
+                navigator.clipboard.writeText(referralLink).then(function() {
+                    showNotification('Referral link copied');
                 });
-            }
-
-            // Copy referral link functionality
-            const copyReferralBtns = document.querySelectorAll('[id^="copyReferralBtn"]');
-            copyReferralBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const referralLink = this.closest('.card-body').querySelector('.referral-link').textContent;
-                    navigator.clipboard.writeText(referralLink).then(() => {
-                        alert('Referral link copied to clipboard!');
-                    }).catch(err => {
-                        console.error('Error copying referral link: ', err);
+            });
+            
+            // Referral link share buttons (Profile)
+            document.getElementById('shareWhatsapp').addEventListener('click', function() {
+                const referralLink = document.getElementById('referralLink').textContent;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            document.getElementById('shareTelegram').addEventListener('click', function() {
+                const referralLink = document.getElementById('referralLink').textContent;
+                const message = `Join CrownUsdt and earn money! My referral link: ${referralLink}`;
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+                window.open(telegramUrl, '_blank');
+            });
+            
+            document.getElementById('copyReferralBtn').addEventListener('click', function() {
+                const referralLink = document.getElementById('referralLink').textContent;
+                navigator.clipboard.writeText(referralLink).then(function() {
+                    showNotification('Referral link copied');
+                });
+            });
+            
+            // Activate form
+            document.getElementById('activateForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const userId = document.getElementById('userId').value;
+                const activationAmount = parseInt(document.getElementById('activationAmount').value);
+                const walletBalance = parseInt(document.getElementById('walletBalanceCheck').value.replace('₹', ''));
+                const paymentMethod = document.getElementById('paymentMethod').value;
+                const transactionId = document.getElementById('transactionId').value;
+                
+                // Validation
+                if (!userId || !transactionId) {
+                    showNotification('Please fill all fields', 'error');
+                    return;
+                }
+                
+                // Check wallet balance
+                if (walletBalance < activationAmount) {
+                    showNotification('Insufficient balance in your wallet', 'error');
+                    return;
+                }
+                
+                // Get current user
+                const currentUser = auth.currentUser;
+                
+                // Add to activation history in Firestore
+                db.collection('activationHistory').add({
+                    userId: currentUser.uid,
+                    activatedUserId: userId,
+                    amount: activationAmount,
+                    date: new Date().toISOString().split('T')[0],
+                    paymentMethod: paymentMethod,
+                    transactionId: transactionId
+                }).then(() => {
+                    // Update wallet balance
+                    const newWalletBalance = walletBalance - activationAmount;
+                    
+                    // Add wallet transaction
+                    db.collection('walletTransactions').add({
+                        userId: currentUser.uid,
+                        description: `ID Activation for ${userId}`,
+                        amount: activationAmount,
+                        type: 'debit',
+                        date: new Date().toISOString().split('T')[0]
+                    }).then(() => {
+                        // Update wallet balance on page
+                        document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
+                        
+                        // Reset form
+                        document.getElementById('activateForm').reset();
+                        document.getElementById('activationAmount').value = '1000';
+                        
+                        // Show success message
+                        showNotification('ID activation submitted successfully');
+                        
+                        // Refresh dashboard data
+                        checkLoginStatus();
                     });
+                }).catch((error) => {
+                    console.error("Error activating ID:", error);
+                    showNotification('Error activating ID. Please try again.', 'error');
                 });
             });
-
-            // Share referral link functionality
-            const shareWhatsappBtns = document.querySelectorAll('[id^="shareWhatsapp"]');
-            shareWhatsappBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const referralLink = this.closest('.card-body').querySelector('.referral-link').textContent;
-                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent('Join me on CrownUsdt: ' + referralLink)}`;
-                    window.open(whatsappUrl, '_blank');
-                });
-            });
-
-            const shareTelegramBtns = document.querySelectorAll('[id^="shareTelegram"]');
-            shareTelegramBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const referralLink = this.closest('.card-body').querySelector('.referral-link').textContent;
-                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent('Join me on CrownUsdt')}`;
-                    window.open(telegramUrl, '_blank');
-                });
-            });
-
-            // Toggle sidebar on mobile
-            const hamburger = document.getElementById('hamburger');
-            const sidebar = document.getElementById('sidebar');
             
-            if (hamburger) {
-                hamburger.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    sidebar.classList.toggle('show');
-                });
-            }
-        });
-
-        // Function to load direct team data
-        function loadDirectTeamData() {
-            const userId = auth.currentUser.uid;
-            db.collection('users').where('referrerId', '==', userId).get().then(snapshot => {
-                const tableBody = document.querySelector('#directTeamTable tbody');
-                tableBody.innerHTML = '';
+            // Wallet transfer form
+            document.getElementById('walletTransferForm').addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                if (snapshot.empty) {
-                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+                const transferTo = document.getElementById('transferTo').value;
+                const transferAmount = parseInt(document.getElementById('transferAmount').value);
+                const transferRemark = document.getElementById('transferRemark').value;
+                const walletBalance = parseInt(document.getElementById('walletBalancePage').textContent.replace('₹', ''));
+                
+                // Validation
+                if (!transferTo || !transferAmount) {
+                    showNotification('Please fill all required fields', 'error');
                     return;
                 }
                 
-                let totalAmount = 0;
-                let count = 0;
-                
-                snapshot.forEach(doc => {
-                    count++;
-                    const user = doc.data();
-                    totalAmount += user.packageAmount || 0;
-                    
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${count}</td>
-                        <td>${user.userId || 'N/A'}</td>
-                        <td>${user.name || 'N/A'}</td>
-                        <td>${user.phone || 'N/A'}</td>
-                        <td>${user.registrationDate || 'N/A'}</td>
-                        <td>${user.activationDate || 'N/A'}</td>
-                        <td>₹${user.packageAmount || 0}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-                
-                // Update summary
-                document.getElementById('directTeamTotalCount').textContent = count;
-                document.getElementById('directTeamTotalAmount').textContent = `₹${totalAmount}`;
-            }).catch(error => {
-                console.error("Error getting direct team data:", error);
-            });
-        }
-
-        // Function to load business data
-        function loadBusinessData() {
-            const userId = auth.currentUser.uid;
-            db.collection('users').where('referrerId', '==', userId).get().then(snapshot => {
-                const tableBody = document.querySelector('#businessTable tbody');
-                tableBody.innerHTML = '';
-                
-                if (snapshot.empty) {
-                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+                if (transferAmount <= 0) {
+                    showNotification('Amount must be greater than 0', 'error');
                     return;
                 }
                 
-                let totalAmount = 0;
-                let count = 0;
+                if (walletBalance < transferAmount) {
+                    showNotification('Insufficient balance in your wallet', 'error');
+                    return;
+                }
                 
-                snapshot.forEach(doc => {
-                    count++;
-                    const user = doc.data();
-                    totalAmount += user.packageAmount || 0;
-                    
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${count}</td>
-                        <td>${user.userId || 'N/A'}</td>
-                        <td>${user.name || 'N/A'}</td>
-                        <td>${user.phone || 'N/A'}</td>
-                        <td>${user.registrationDate || 'N/A'}</td>
-                        <td>${user.activationDate || 'N/A'}</td>
-                        <td>₹${user.packageAmount || 0}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
+                // Get current user
+                const currentUser = auth.currentUser;
                 
-                // Update summary
-                document.getElementById('businessTotalCount').textContent = count;
-                document.getElementById('businessTotalAmount').textContent = `₹${totalAmount}`;
-                
-                // Update dashboard business box
-                document.getElementById('businessCount').textContent = count;
-                document.getElementById('businessAmount').textContent = `₹${totalAmount}`;
-            }).catch(error => {
-                console.error("Error getting business data:", error);
-            });
-        }
-
-        // Function to process wallet transfer
-        function processWalletTransfer(recipientId, amount, remark) {
-            const senderId = auth.currentUser.uid;
-            
-            // Check if sender has sufficient balance
-            db.collection('wallets').doc(senderId).get().then(doc => {
-                if (doc.exists) {
-                    const senderWallet = doc.data();
-                    const senderBalance = senderWallet.balance || 0;
-                    
-                    if (senderBalance < amount) {
-                        alert('Insufficient balance in your wallet');
-                        return;
-                    }
-                    
-                    // Check if recipient exists
-                    db.collection('users').doc(recipientId).get().then(userDoc => {
-                        if (!userDoc.exists) {
-                            alert('Recipient user not found');
+                // Find user to transfer to
+                db.collection('users').where('id', '==', transferTo).get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            showNotification('User not found', 'error');
                             return;
                         }
                         
-                        // Process transfer in a batch
-                        const batch = db.batch();
+                        const toUser = querySnapshot.docs[0].data();
                         
-                        // Deduct amount from sender's wallet
-                        const senderRef = db.collection('wallets').doc(senderId);
-                        batch.update(senderRef, { balance: firebase.firestore.FieldValue.increment(-amount) });
-                        
-                        // Add amount to recipient's wallet
-                        const recipientRef = db.collection('wallets').doc(recipientId);
-                        batch.update(recipientRef, { balance: firebase.firestore.FieldValue.increment(amount) });
-                        
-                        // Record transaction
-                        const transactionRef = db.collection('transactions').doc();
-                        batch.set(transactionRef, {
-                            senderId: senderId,
-                            recipientId: recipientId,
-                            amount: amount,
-                            remark: remark,
-                            type: 'transfer',
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        // Add wallet transaction for current user
+                        return db.collection('walletTransactions').add({
+                            userId: currentUser.uid,
+                            description: `Transfer to ${transferTo}`,
+                            amount: transferAmount,
+                            type: 'debit',
+                            date: new Date().toISOString().split('T')[0]
+                        }).then(() => {
+                            // Add wallet transaction for recipient
+                            return db.collection('walletTransactions').add({
+                                userId: toUser.uid,
+                                description: `Transfer from ${currentUser.uid}`,
+                                amount: transferAmount,
+                                type: 'credit',
+                                date: new Date().toISOString().split('T')[0]
+                            });
                         });
+                    })
+                    .then(() => {
+                        // Update wallet balance
+                        const newWalletBalance = walletBalance - transferAmount;
+                        document.getElementById('walletBalancePage').textContent = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalance').textContent = `₹${newWalletBalance}`;
+                        document.getElementById('walletBalanceCheck').value = `₹${newWalletBalance}`;
                         
-                        // Commit the batch
-                        batch.commit().then(() => {
-                            alert('Transfer successful!');
-                            document.getElementById('walletTransferForm').reset();
-                            // Reload wallet data
-                            loadUserData(senderId);
-                        }).catch(error => {
-                            console.error("Error processing transfer:", error);
-                            alert('Error processing transfer. Please try again.');
-                        });
-                    }).catch(error => {
-                        console.error("Error checking recipient:", error);
-                        alert('Error verifying recipient. Please try again.');
+                        // Reset form
+                        document.getElementById('walletTransferForm').reset();
+                        
+                        // Show success message
+                        showNotification('Wallet transfer completed successfully');
+                        
+                        // Refresh dashboard data
+                        checkLoginStatus();
+                    })
+                    .catch((error) => {
+                        console.error("Error transferring wallet:", error);
+                        showNotification('Error transferring wallet. Please try again.', 'error');
                     });
-                } else {
-                    alert('Wallet not found');
-                }
-            }).catch(error => {
-                console.error("Error checking wallet balance:", error);
-                alert('Error checking wallet balance. Please try again.');
             });
+            
+            // Deposit method change
+            document.getElementById('depositMethod').addEventListener('change', function() {
+                const upiSection = document.getElementById('upiSection');
+                if (this.value === 'upi') {
+                    upiSection.classList.remove('hidden');
+                } else {
+                    upiSection.classList.add('hidden');
+                }
+            });
+            
+            // Copy UPI ID button
+            document.getElementById('copyUpiBtn').addEventListener('click', function() {
+                const upiId = document.getElementById('upiId').textContent;
+                navigator.clipboard.writeText(upiId).then(function() {
+                    showNotification('UPI ID copied');
+                });
+            });
+            
+            // Deposit form
+            document.getElementById('depositForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const depositAmount = document.getElementById('depositAmount').value;
+                const depositMethod = document.getElementById('depositMethod').value;
+                const depositTransactionId = document.getElementById('depositTransactionId').value;
+                const depositDate = document.getElementById('depositDate').value;
+                const depositRemark = document.getElementById('depositRemark').value;
+                
+                // Validation
+                if (!depositAmount || !depositTransactionId || !depositDate) {
+                    showNotification('Please fill all required fields', 'error');
+                    return;
+                }
+                
+                // Get current user
+                const currentUser = auth.currentUser;
+                
+                // Add to deposit history
+                db.collection('depositHistory').add({
+                    userId: currentUser.uid,
+                    amount: parseInt(depositAmount),
+                    method: depositMethod,
+                    transactionId: depositTransactionId,
+                    date: depositDate,
+                    remark: depositRemark,
+                    status: 'pending'
+                }).then(() => {
+                    // Reset form
+                    document.getElementById('depositForm').reset();
+                    
+                    // Show success message
+                    showNotification('Deposit submitted successfully');
+                    
+                    // Refresh dashboard data
+                    checkLoginStatus();
+                }).catch((error) => {
+                    console.error("Error submitting deposit:", error);
+                    showNotification('Error submitting deposit. Please try again.', 'error');
+                });
+            });
+            
+            // Withdrawal form
+            document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const withdrawalAmount = document.getElementById('withdrawalAmount').value;
+                const withdrawalMethod = document.getElementById('withdrawalMethod').value;
+                const withdrawalAccount = document.getElementById('withdrawalAccount').value;
+                const withdrawalRemark = document.getElementById('withdrawalRemark').value;
+                const walletBalance = parseInt(document.getElementById('walletBalancePage').textContent.replace('₹', ''));
+                
+                // Validation
+                if (!withdrawalAmount || !withdrawalAccount) {
+                    showNotification('Please fill all required fields', 'error');
+                    return;
+                }
+                
+                if (withdrawalAmount < 500) {
+                    showNotification('Minimum withdrawal amount is ₹500', 'error');
+                    return;
+                }
+                
+                if (walletBalance < withdrawalAmount) {
+                    showNotification('Insufficient balance in your wallet', 'error');
+                    return;
+                }
+                
+                // Get current user
+                const currentUser = auth.currentUser;
+                
+                // Add to withdrawal history
+                db.collection('withdrawalHistory').add({
+                    userId: currentUser.uid,
+                    amount: parseInt(withdrawalAmount),
+                    method: withdrawalMethod,
+                    accountDetails: withdrawalAccount,
+                    remark: withdrawalRemark,
+                    date: new Date().toISOString().split('T')[0],
+                    status: 'pending'
+                }).then(() => {
+                    // Reset form
+                    document.getElementById('withdrawalForm').reset();
+                    
+                    // Show success message
+                    showNotification('Withdrawal submitted successfully');
+                    
+                    // Refresh dashboard data
+                    checkLoginStatus();
+                }).catch((error) => {
+                    console.error("Error submitting withdrawal:", error);
+                    showNotification('Error submitting withdrawal. Please try again.', 'error');
+                });
+            });
+            
+            // Other button events
+            document.getElementById('filterIncome').addEventListener('click', function() {
+                showNotification('Income filter function is not available yet');
+            });
+            
+            document.getElementById('downloadIncome').addEventListener('click', function() {
+                showNotification('Income download function is not available yet');
+            });
+            
+            document.getElementById('filterTeam').addEventListener('click', function() {
+                showNotification('Team filter function is not available yet');
+            });
+            
+            document.getElementById('downloadTeam').addEventListener('click', function() {
+                showNotification('Team download function is not available yet');
+            });
+            
+            document.getElementById('viewFullGenealogy').addEventListener('click', function() {
+                showNotification('Full genealogy view function is not available yet');
+            });
+            
+            document.getElementById('changePassword').addEventListener('click', function(e) {
+                e.preventDefault();
+                showNotification('Change password function is not available yet');
+            });
+            
+            document.getElementById('changeProfileImage').addEventListener('click', function() {
+                showNotification('Change profile picture function is not available yet');
+            });
+        }
+        
+        // Show page
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + 'Page').classList.remove('hidden');
+        }
+        
+        // Show alert
+        function showAlert(elementId, message, type) {
+            const alertDiv = document.getElementById(elementId);
+            alertDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show';
+            
+            if (type === 'error') {
+                notification.style.backgroundColor = '#dc3545';
+            } else {
+                notification.style.backgroundColor = '#10b981';
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Load user data
+        function loadUserData() {
+            // This function will load data from server in a real application
+            // For now, we are using demo data
         }
     </script>
 </body>
